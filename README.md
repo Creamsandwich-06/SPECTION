@@ -1,10 +1,10 @@
 # Perspective Inspection Eye Care (SPECTION) - Clinical Health Care Website with Health Care Analytics and Clinical Reservation Appointment System
 ## Background
-Spection is an application that stores patient data and provides users accommodation and appointments in clinical operations. It is designed to collect data from individuals who provide patient care and have experience in managing clinical healthcare services. It's simply built on Model-View-Controller (MVC) architectural pattern. It also has a feature to analyze patients overview with the use of Healthcare Analytics that create graphical trend of data. It is simply a conversion storing hard copies of data into softcopy with a secure database. 
+Spection is an application that stores patient data and provides users accommodation and appointments in clinical operations. It is designed to collect data from individuals who provide patient care and have experience in managing clinical healthcare services. It's simply built on Model-View-Controller (MVC) architectural pattern and has a feature to analyze patients overview with the use of Healthcare Analytics that create graphical trend of data. It is simply a conversion storing hard copies of data into softcopy with a secure database. 
 
  Spection is a web based application. It carries out the function of maintaining patients’ medical details. The users can add patients, enter medical history about them, schedule appointment for medical checkups, enter diagnosis for all appointments, and generate reports. As it is a web based application it can be accessed from anywhere at any time from desktops and mobiles. So doctors need not waste their time by writing the details on papers and storing papers by maintaining proper order which may increase the probability of losing data and also it saves time on booking appointments for patients since we can book appointments online even during our free time instead of going to a particular place to book appointments for our loved ones in person. We have provided login facility to users and admin panel to maintain different user accounts like doctor, receptionist etc. The privacy of data is considered as utmost priority so that no one can misuse the data stored in our database.
  
-The graphical trend will serve as an overview of the diagnosis and diseases experienced by the patients. Gives the doctor’s knowledge and awareness. 
+The graphical trend will serve as an overview of the diagnosis and diseases experienced by the patients. Gives the doctor’s knowledge and awareness. With Spection, medical health practitioners can provide quick response to various health concerns as it provides efficient ways of accommodating patients alike.
 
 ## Features
 
@@ -24,3 +24,6 @@ The graphical trend will serve as an overview of the diagnosis and diseases expe
 + Raw data Export enables the management to share specific aspects of the studies with particular individuals or departments. The department can use relevant data to work on improving its processes and operations.
 + SMS Reminder enables the magament to remind a message that will be sent to the person’s phone. This is ideal for people who may not have easy access to an email address or better at reading short text messages. This will be also apply when booking and get a queue on the line in ongoing clinical operations.
  
+ ## Tools and Software Used
+ 
+ ## Purpose of use of Different Tools / Softwares
