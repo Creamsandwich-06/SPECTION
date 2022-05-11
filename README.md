@@ -8,22 +8,26 @@ The graphical trend will serve as an overview of the diagnosis and diseases expe
 
 ## Features
 
+#### Data Distribution
 + Admin Panel which includes dashboard, patient inquiries, payments, receipts, list of patients, notifications and/or announcements, dispense, patient’s Information, blogs and access reports.
 + Patient registration, admission/referrals, package deal, payment track record, due calculation, patient medication etc. of the facilities that are available.
 + Print patient, package, invoice etc. details on the go.
 + Automated invoice, dues calculation based on advance paid and amount paid at the time of billing.
-+ Appointment Booking for patients can connect with doctors based on their illness and ask for a consultation, schedule a call, or book an appointment for a home visit/referral.
-+ Graphical Chart for showing patient visiting pattern, patient engagement, healthcare utility cost, dues, etc. of the overall performance of the facility using Healthcare Analytics.
++ Covid – 19 Inspection Checklist Form for ensuring the safety and health at work by preventing the spread of the Covid-19.
 + Pre-Assessment for physician to gather key information upon referring/admitting.
 + Delete a patient (for admin).
 + Update patient Information (for admin).
 + Check memory allocation (for admin).
-+ Covid – 19 Inspection Checklist Form for ensuring the safety and health at work by preventing the spread of the Covid-19.
-+ Voice integration on AI allows for immediate data encoding.
-+ The timetable allows the user to keep track of which days they want to be scheduled and to limit the workflow of ready queue.
-+ Raw data Export enables the management to share specific aspects of the studies with particular individuals or departments. The department can use relevant data to work on improving its processes and operations.
+
+#### Integration and Analysis
 + SMS Reminder enables the management to remind a message that will be sent to the person’s phone. This is ideal for people who may not have easy access to an email address or better at reading short text messages. This will be also apply when booking and get a queue on the line in ongoing clinical operations.
 + Chatbot with Mic Input and Speaker Output Feature  
++ Graphical Chart for showing patient visiting pattern, patient engagement, healthcare utility cost, dues, etc. of the overall performance of the facility using Healthcare Analytics.
++ Intelligent Voice Assistant allows for immediate data encoding.
++ The timetable allows the user to keep track of which days they want to be scheduled and to limit the workflow of ready queue.
++ Appointment Booking for patients can connect with doctors based on their illness and ask for a consultation, schedule a call, or book an appointment for a home visit/referral.
++ Raw data Export enables the management to share specific aspects of the studies with particular individuals or departments. The department can use relevant data to work on improving its processes and operations.
+
  ## Tools and Software Used
 <table>
   <tr>
@@ -51,23 +55,13 @@ The graphical trend will serve as an overview of the diagnosis and diseases expe
     <td>MySQL</td>
  </tr>
   <tr>
-    <td>Analytics Tools</td>
+    <td>Analytics</td>
     <td>Google Healthcare API</td>
  </tr>
-
  <tr>
-    <td>Scripting Library</td>
-    <td>Francisco Chang</td>
+    <td>Machine Learning<br>Framework</td>
+    <td>PyTorch</td>
  </tr>
- <tr>
-    <td>Node Server Engine</td>
-    <td>Francisco Chang</td>
- </tr>
- <tr>
-    <td>Templating Engine</td>
-    <td>Francisco Chang</td>
- </tr>
-
 </table>
  
  ## Purpose of use of Different Tools / Softwares
