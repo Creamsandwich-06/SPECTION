@@ -21,7 +21,7 @@ The graphical trend will serve as an overview of the diagnosis and diseases expe
 
 #### Integration and Analysis
 + SMS Reminder enables the management to remind a message that will be sent to the person’s phone. This is ideal for people who may not have easy access to an email address or better at reading short text messages. This will be also apply when booking and get a queue on the line in ongoing clinical operations.
-+ Chatbot with Mic Input and Speaker Output Feature  
++ Chatbot with Mic Input and Speaker Output to help users by providing answers to their questions.
 + Graphical Chart for showing patient visiting pattern, patient engagement, healthcare utility cost, dues, etc. of the overall performance of the facility using Healthcare Analytics.
 + Intelligent Voice Assistant allows for immediate data encoding.
 + The timetable allows the user to keep track of which days they want to be scheduled and to limit the workflow of ready queue.
@@ -79,4 +79,4 @@ The graphical trend will serve as an overview of the diagnosis and diseases expe
       offers a centralized solution to manage privacy and consent that is adaptable to new regulations and consent models. The Healthcare API scales to manage data across the enterprise and supports HIPAA and 21 CFR part 11 compliance.
 + PyTorch
       is an optimized tensor library primarily used for Deep Learning applications using GPUs and CPUs. It is an open-source machine learning library for Python, mainly developed by the Facebook AI Research team. It is one of the widely used Machine learning libraries, others being TensorFlow and Keras.
-      is a framework that we use to perform our data anyltics from google health care api.
+      is a framework that we use to perform our data anayltics from google health care api.
