@@ -66,17 +66,17 @@ The graphical trend will serve as an overview of the diagnosis and diseases expe
  
  ## Purpose of use of Different Tools / Softwares
 + Python 
-   Python is a general-purpose language, meaning it can be used to create a variety of different programs and isn't specialized for any specific problems.
+    is a general-purpose language, meaning it can be used to create a variety of different programs and isn't specialized for any specific problems.
 + Django
-   Django is a high-level Python web framework that enables rapid development of secure and maintainable websites. Built by experienced developers, Django takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel.
+    is a high-level Python web framework that enables rapid development of secure and maintainable websites. Built by experienced developers, Django takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel.
 + Bootstrap 
-   Bootstrap is a potent front-end framework used to create modern websites and web apps. It's open-source and free to use, yet features numerous HTML and CSS templates for UI interface elements such as buttons and forms. Bootstrap also supports JavaScript extensions.
+    is a potent front-end framework used to create modern websites and web apps. It's open-source and free to use, yet features numerous HTML and CSS templates for UI interface elements such as buttons and forms. Bootstrap also supports JavaScript extensions.
 + Twilio
-    Twilio Frontline is a programmable mobile application that enables digital relationships over messaging and voice to improve sales efficiency and outcomes. Integrate the app with any CRM or customer database and start building meaningful relationships with customers.
+     Frontline is a programmable mobile application that enables digital relationships over messaging and voice to improve sales efficiency and outcomes. Integrate the app with any CRM or customer database and start building meaningful relationships with customers.
 + MySQL
-    SQL is used to communicate with a database. It is the standard language for relational database management systems. SQL statements are used to perform tasks such    as update data on a database, or retrieve data from a database.
+     is used to communicate with a database. It is the standard language for relational database management systems. SQL statements are used to perform tasks such    as update data on a database, or retrieve data from a database.
 + Google Healthcare API
-     The Healthcare API offers a centralized solution to manage privacy and consent that is adaptable to new regulations and consent models. The Healthcare API scales to manage data across the enterprise and supports HIPAA and 21 CFR part 11 compliance.
+      offers a centralized solution to manage privacy and consent that is adaptable to new regulations and consent models. The Healthcare API scales to manage data across the enterprise and supports HIPAA and 21 CFR part 11 compliance.
 + PyTorch
-     PyTorch is an optimized tensor library primarily used for Deep Learning applications using GPUs and CPUs. It is an open-source machine learning library for Python, mainly developed by the Facebook AI Research team. It is one of the widely used Machine learning libraries, others being TensorFlow and Keras.
-     PyTorch is a framework that we use to perform our data anyltics from google health care api.
+      is an optimized tensor library primarily used for Deep Learning applications using GPUs and CPUs. It is an open-source machine learning library for Python, mainly developed by the Facebook AI Research team. It is one of the widely used Machine learning libraries, others being TensorFlow and Keras.
+      is a framework that we use to perform our data anyltics from google health care api.
