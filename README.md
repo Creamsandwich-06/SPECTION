@@ -22,8 +22,52 @@ The graphical trend will serve as an overview of the diagnosis and diseases expe
 + Voice integration on AI allows for immediate data encoding.
 + The timetable allows the user to keep track of which days they want to be scheduled and to limit the workflow of ready queue.
 + Raw data Export enables the management to share specific aspects of the studies with particular individuals or departments. The department can use relevant data to work on improving its processes and operations.
-+ SMS Reminder enables the magament to remind a message that will be sent to the person’s phone. This is ideal for people who may not have easy access to an email address or better at reading short text messages. This will be also apply when booking and get a queue on the line in ongoing clinical operations.
- 
++ SMS Reminder enables the management to remind a message that will be sent to the person’s phone. This is ideal for people who may not have easy access to an email address or better at reading short text messages. This will be also apply when booking and get a queue on the line in ongoing clinical operations.
++ Chatbot with Mic Input and Speaker Output Feature  
  ## Tools and Software Used
+<table>
+  <tr>
+    <th>Type</th>
+    <th>Tools</th>
+  </tr>
+  <tr>
+    <td>Programming Language</td>
+    <td>Python</td>
+ </tr>
+  <tr>
+    <td>Web Framework</td>
+    <td>Django</td>
+  </tr>
+  <tr>
+    <td>Styling Web Framework</td>
+    <td>Bootstrap</td>
+ </tr>
+  <tr>
+    <td>SMS Gateway Provider</td>
+    <td>Twilio</td>
+ </tr>
+  <tr>
+    <td>Database</td>
+    <td>MySQL</td>
+ </tr>
+  <tr>
+    <td>Analytics Tools</td>
+    <td>Google Healthcare API</td>
+ </tr>
+
+ <tr>
+    <td>Scripting Library</td>
+    <td>Francisco Chang</td>
+ </tr>
+ <tr>
+    <td>Node Server Engine</td>
+    <td>Francisco Chang</td>
+ </tr>
+ <tr>
+    <td>Templating Engine</td>
+    <td>Francisco Chang</td>
+ </tr>
+
+</table>
  
  ## Purpose of use of Different Tools / Softwares
