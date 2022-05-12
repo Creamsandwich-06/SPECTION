@@ -21,12 +21,12 @@ The graphical trend will serve as an overview of the diagnosis and diseases expe
 
 #### Integration and Analysis
 + SMS Reminder enables the management to remind a message that will be sent to the person’s phone. This is ideal for people who may not have easy access to an email address or better at reading short text messages. This will be also apply when booking and get a queue on the line in ongoing clinical operations.
-+ Chatbot with Mic Input and Speaker Output to help users by providing answers to their questions.
 + Graphical Chart for showing patient visiting pattern, patient engagement, healthcare utility cost, dues, etc. of the overall performance of the facility using Healthcare Analytics.
 + Intelligent Voice Assistant allows for immediate data encoding.
 + The timetable allows the user to keep track of which days they want to be scheduled and to limit the workflow of ready queue.
 + Appointment Booking for patients can connect with doctors based on their illness and ask for a consultation, schedule a call, or book an appointment for a home visit/referral.
 + Raw data Export enables the management to share specific aspects of the studies with particular individuals or departments. The department can use relevant data to work on improving its processes and operations.
++ Chat support uses a real-time chat window and chat with either a chatbot or a live person to answer patient queries.
 
  ## Tools and Software Used
 <table>
