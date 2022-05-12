@@ -66,7 +66,7 @@ The graphical trend will serve as an overview of the diagnosis and diseases expe
  
  ## Purpose of use of Different Tools / Softwares
 + Python 
-    is a general-purpose language, meaning it can be used to create a variety of different programs and isn't specialized for any specific problems.
+    is a flexible programming language that is used for teaching machines to learn and for analyzing extensive amounts of data.
 + Django
     is a high-level Python web framework that enables rapid development of secure and maintainable websites. Built by experienced developers, Django takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel.
 + Bootstrap 
