@@ -1,0 +1,84 @@
+{% load static %}
+
+<nav class="topbar justify-content-between navbar navbar-expand-xl navbar-light p-1 pb-0" id="topbar">
+    <ul class="nav topbar-list">
+        <li class="nav-item">
+            <a class="nav-link disabled " href="#home"><i class="fa fa-phone"></i>
+                1-677-124-44227</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#"><i class="fa fa-map-marker"></i>
+                CIT-U, Cebu City, Cebu</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#"><i class="fa fa-clock-o"></i>
+                Sun to Fri 9:00am to 5:00pm</a>
+        </li>
+        <div class="follow">
+            <a href="" class="fa fa-facebook "></a>
+            <a href="" class="fa fa-twitter "></a>
+            <a href="" class="fa fa-instagram "></a>
+        </div>
+    </ul>
+</nav>
+
+<nav class="navbar navbar-expand-lg  navbar-light bg-light pt-2 text-white">
+    <img id="logonav" src="{% static 'images/logo.png' %}" width="200" height="120" class="d-inline-block align-top"
+        alt="">
+    <a class="navbar-brand brand-name" href="{% url 'home' %}">Company
+        <hr>
+        <p>Family Eye Care</p>
+    </a>
+    <button class="navbar-toggler menubtn" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+        <ul class="nav nav-pills mb-3">
+            <li class="nav-item ">
+                <a class="nav-link " role="button" aria-expanded="true" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" role="button" aria-expanded="true" href="#menu1">Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'calendar' %}">Calendar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#menu1">News</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'contact' %}">Contact</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Pages</a>
+                <div class="dropdown-menu" id="becth" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Services</a>
+                    <a class="dropdown-item" href="#">Doctors</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="Contact.html">Blog</a>
+                    <a class="dropdown-item" href="{% url 'about' %}">About</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="d-flex justify-content-start appointmentbtn">
+        <a class="btn btn-outline-danger " href="{% url 'login' %}"><i class="fa fa-user"></i></a>
+        <a class="btn btn-outline-danger  " href="#consult">Appointment</a>
+    </div>
+</nav>
+<nav class="collapse navbar-collapse botnav text-white" aria-expanded="false" id="navbarSupportedContent">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link disabled nav-link-1" href="#"><i class="fa fa-phone"></i> 1-677-124-44227</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled nav-link-2" href="#"><i class="fa fa-map-marker"></i> CIT-U, Cebu City, Cebu</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled nav-link-3" href="#"><i class="fa fa-clock-o"></i> Sun to Fri 9:00am to
+                5:00pm</a>
+        </li>
+    </ul>
+</nav>

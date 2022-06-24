@@ -1,0 +1,163 @@
+{% extends 'accounts/base.html' %} {% block title %}Home{% endblock %}
+{% block content %}
+
+<section class="home-wind">
+    <div class="jumbotron  home-wind-background">
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <p>Your Family Eye Care <br>Clinic <br> <small>Since </small> 1978</p>
+        <h6>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+            et dolore
+            magna aliqua.
+        </h6>
+        <a type="button" class="btn btn-danger button" href="#about-welcome">Get Started</a>
+    </div>
+
+</section>
+
+<section class="consultationRequest" id="consult">
+    <p class="p1">Request for your</p>
+    <p class="p2">Consultation</p>
+    <form>
+        <input type="text" id="fname" name="fname" placeholder="Name"><br><br>
+        <input type="emails" id="lname" name="lname" placeholder="Contact"><br><br>
+        <input type="emails" id="lname" name="lname" placeholder="Email"><br><br>
+        <input type="date" id="lname" name="lname" onchange="this.className=(this.value!=''?'has-value':'')"
+            class="date"><br><br>
+        <select name="service" class="dropdown-toggle">
+            <option>Type of Service</option>
+            <option>Emergency Care</option>
+            <option>Pediatrics</option>
+            <option>Ocular Inspection</option>
+        </select><br><br>
+        <button type="submit">Book an Appointment</button>
+    </form>
+</section>
+
+<section class="container-flow welcome col-md-3">
+    <p>Welcome to Company</p>
+    <p>Find Best Doctors With <br><span>Company Family Eye Care</span></p>
+    <p>30 Years of experience in Vision Care. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet commodo nulla facilisi nullam. Phasellus
+        egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Ac odio tempor orci dapibus ultrices. Consectetur
+        libero id faucibus nisl tincidunt eget.
+    </p>
+    <div class="topvid embed-responsive embed-responsive-16by9">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/r0iLfAV0pIg" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    </div>
+</section>
+
+<section class="container flex-wrap justify-content-center offer-a">
+    <center>
+        <p>WHY CHOOSE US?</p>
+        <p>Offer for you</p>
+        <div class="d-flex container justify-content-around offer-abox ">
+            <div class=" reveal fade-bottom ">
+                <i class="fa flaticon-microscope"></i>
+                <br>
+                <p class="offer-title">Diagnosis</p>
+                <p class="offer-desc">Lorem ipsum amet, consectetur adipiscing elit, sed do eiusmod tempor cididunt
+                    facilisis.</p>
+            </div>
+            <div class=" reveal fade-bottom ">
+                <i class="fa flaticon-first-aid-kit"></i>
+                <br>
+                <p class="offer-title">Consultation</p>
+                <p class="offer-desc">Lorem ipsum amet, consectetur adipiscing elit, sed do eiusmod tempor cididunt
+                    facilisis.</p>
+            </div>
+            <div class="reveal fade-bottom ">
+                <i class="fa flaticon-investigate"></i>
+                <br>
+                <p class="offer-title">Treatment</p>
+                <p class="offer-desc">Lorem ipsum amet, consectetur adipiscing elit, sed do eiusmod tempor cididunt
+                    facilisis.</p>
+            </div>
+            <div class="reveal fade-bottom ">
+                <i class="fa flaticon-medical-report"></i>
+                <br>
+                <p class=" offer-title">Online Help</p>
+                <p class="offer-desc">Lorem ipsum amet, consectetur adipiscing elit, sed do eiusmod tempor cididunt
+                    facilisis.</p>
+            </div>
+        </div>
+    </center>
+</section>
+
+<section class="jumbotron offer-b">
+    <span class="title">
+        <p class="title-1">Our Services</p>
+        <p class="title-2">Offer for you</p>
+    </span>
+    <a class="btn btn-outline-danger b-btn" href="#consult">Contact Us</a>
+    <section class="d-flex flex-wrap offer-b-group container justify-content-around">
+        <article class="reveal fade-left">
+            <i class="fa flaticon-medical-report"></i>
+            <p class="offer-b-group-title ">Emergency Care</p>
+            <p class="offer-b-group-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor aliqua.</p>
+        </article>
+        <article class="reveal fade-right">
+            <i class="fa flaticon-investigate"></i>
+            <p class="offer-b-group-title">Ocular Inspection</p>
+            <p class="offer-b-group-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor aliqua.</p>
+        </article>
+        <article class="reveal fade-left">
+            <i class="fa flaticon-microscope"></i>
+            <p class="offer-b-group-title">Ocular Inspection</p>
+            <p class="offer-b-group-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor aliqua.</p>
+        </article>
+        <article class="reveal fade-right">
+            <i class="fa flaticon-first-aid-kit"></i>
+            <p class="offer-b-group-title">Ocular Inspection</p>
+            <p class="offer-b-group-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor aliqua.</p>
+        </article>
+    </section>
+</section>
+
+<section class="doctors-sec">
+    <center>
+        <p>Our Team</p>
+        <p>Our Skilled Medical <br> Practicioners</p>
+
+        <section class="doctors-sec-group d-flex flex-wrap container justify-content-around">
+            <article>
+                <img src="https://images.pexels.com/photos/5319357/pexels-photo-5319357.jpeg" class="rounded-circle">
+                <br>
+                <p class="doctor-name">John<br>Doe</p>
+                <p class="doctor-title">Physician</p>
+                <a href="#" class=" fa fa-facebook "></a>
+                <a href="#" class=" fa fa-twitter "></a>
+                <a href="#" class=" fa fa-instagram "></a>
+            </article>
+            <article>
+                <img src="https://images.pexels.com/photos/1998865/pexels-photo-1998865.jpeg" class="rounded-circle">
+                <br>
+                <p class="doctor-name">Jane<br>Doe</p>
+                <p class="doctor-title">Physician</p>
+                <a href="#" class=" fa fa-facebook "></a>
+                <a href="#" class="fa fa-twitter "></a>
+                <a href="#" class="fa fa-instagram "></a>
+            </article>
+            <article>
+                <img src="https://images.pexels.com/photos/1239288/pexels-photo-1239288.jpeg" class="rounded-circle">
+                <br>
+                <p class="doctor-name">Firstname<br>Middlename Lastname</p>
+                <p class="doctor-title">Physician</p>
+                <a href="#" class=" fa fa-facebook "></a>
+                <a href="#" class="fa fa-twitter "></a>
+                <a href="#" class="fa fa-instagram "></a>
+            </article>
+        </section>
+    </center>
+</section>
+{% endblock %}
