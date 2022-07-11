@@ -1,0 +1,56 @@
+{% extends 'admin/admin.html' %} {% block title %}Billing{% endblock %}
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Billing</h1>
+    <a class="btn btn-primary" href="{% url 'create_billing' %}" type="button">Add Order</a>
+</div>
+<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+    For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+        DataTables documentation</a>.</p>
+
+<div class="col-xl-12 mt-4">
+    <div class=" card rounded-0  mb-4">
+        <div class=" card card-body border-0   ">
+            <table class="table  mt-2 text-center">
+                <tr class="p-0 mb-2 h6 text-dark-100 bolder">
+                    <th scope="col">Title</th>
+                    <th scope="col ">Description</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">is Every Year</th>
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
+                <tbody class="p-5 ">
+
+                    <tr class="p-0 ">
+                        <td></td>
+                        <td>
+                            <div class="d-inline-block text-truncate" style="max-width: 150px;">{{schedule.description}}
+                            </div>
+                        </td>
+                        <td> </td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-h fa-lg fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-header">Action Dropdown: </div>
+                                    <a href="" class="dropdown-item">Edit</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="" class="dropdown-item">Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

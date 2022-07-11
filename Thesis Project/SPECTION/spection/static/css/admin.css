@@ -16,3 +16,25 @@
 .btn-link {
     color: #b12828;
 }
+
+
+.scroll-bar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scroll-bar-hide {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: transparent;
+}
+
+.avatar {
+    vertical-align: middle;
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-position: center;
+  }

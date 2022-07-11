@@ -1,0 +1,14 @@
+{% extends "admin/admin.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{form}}
+    <br>
+    <input type="submit" value="Submit" name="Submit">
+</form>
+
+
+{% endblock %}

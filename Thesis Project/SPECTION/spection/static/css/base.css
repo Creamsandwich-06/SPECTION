@@ -35,6 +35,13 @@ html {
    .topbar-list{
        margin-left: 150px;
    }
+   .news-theme{
+    background: rgb(245,200,190);
+    background: linear-gradient(40deg, rgba(245,200,190,1) 0%, rgba(255,255,255,1) 48%, rgba(249,225,179,1) 100%);
+    background-size: cover;
+    background-position: 50% 90%;
+    height: 800px;
+   }
    
    #logonav{
        margin-left: 50px;
@@ -59,7 +66,6 @@ html {
    }
 
    .avatar {
-    background-image: url("https://images.pexels.com/photos/1707828/pexels-photo-1707828.jpeg");
     vertical-align: middle;
     background-size: cover;
     width: 80px;
@@ -225,7 +231,6 @@ html {
        margin-left:8%;
        font-size: 5vw;
        font-weight: bolder;
-       font-family: 'Crimson Text', serif;
        color: white;
        padding-left: 20px;
        line-height: 1;
@@ -956,15 +961,27 @@ html {
         color: #fff;
         transition: all 0.3s;
     }
+    
 
+       
     @media only screen and (max-width: 600px) {
         .dis-lg-block{
             height: 120vh;
         }
-        .dis-ls-block{
+        .dis-ls-block,.content-fit{
             height: fit-content;
           }
         
+        .text-sm-white{
+            color: white;
+        }  
+        .news-theme{   
+          
+            background: linear-gradient(1deg, rgb(237 191 181) 0%, rgba(255,255,255,1) 48%, rgb(154 21 4) 100%);
+            background-size: cover;
+            background-position: 50% 90%;
+        }
+          
         .d-flex{
             flex-direction: column;
             align-content: center;
@@ -1025,12 +1042,15 @@ html {
             padding: 10px;
             font-size: 5vh;
         }
+        .home-wind .home-wind-background  p  span {
+            font-size: 12vh;
+            color: #B83A1A;
+        }
         .home-wind .home-wind-background > p > span:nth-child(2){
             font-size: 12px;
         }
-        .home-wind .home-wind-background > p > span:nth-child(1){
-            font-size: 12vh;
-        }
+  
+      
             
 
         .home-wind .home-wind-background > h6 {
@@ -1040,7 +1060,7 @@ html {
         text-align: center;
         padding: 10px;
         color: #ffffff;
-        font-family: 'Merriweather Sans', sans-serif;
+       
         font-weight: normal;
         font-size: medium;
     }
@@ -1058,6 +1078,11 @@ html {
         height: fit-content;
         
     }
+    .consult-change{
+        width: 100%;
+        transform: translateX(0%);
+    }
+    
     .consultationRequest > form > input {
        padding: 10px 20px;
        width: 248px;
@@ -1124,6 +1149,8 @@ html {
             transform: translate(-50%, -50%);
             display: block;
             padding: 5px 20px;
+            font-family: 'Poppins';
+            font-weight: 500;
         }
    
         .offer-b a{

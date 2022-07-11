@@ -1,4 +1,3 @@
-from attr import field
 import django_filters
 from django_filters import DateFilter, CharFilter
 from django import forms

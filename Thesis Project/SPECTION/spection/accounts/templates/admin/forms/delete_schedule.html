@@ -1,0 +1,13 @@
+{% extends "admin/admin.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<p>Are you sure you want to delete the Event "{{item}}"</p>
+
+<form action="{% url 'delete_schedule' item.id  %}" method="POST">
+    {% csrf_token %}
+    <a href="{% url 'schedule'  %}">Cancel</a>
+    <input type="submit" name="Confirm">
+</form>
+
+{% endblock %}

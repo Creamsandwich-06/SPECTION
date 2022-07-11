@@ -1,0 +1,703 @@
+{% extends 'admin/components/person.html' %} {% block title %}Patients{% endblock %}
+{% block patient %}
+<nav>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4" id="Signs">
+        <div class=" d-flex ">
+            <h1 class=" h3 mb-0 text-gray-800 pr-5">Update Case</h1>
+            <a class="btn btn-primary btn-sm text-white btn-circle btn-md" type="button"><i class="fas fa-user"></i></a>
+        </div>
+    </div>
+</nav>
+
+
+<div class=" mb-4 sticky-top navbar-light bg-light p-3 ">
+    <a type="button" href="#Signs" class="btn btn-outline-secondary ">Signs And Symptoms</a>
+    <a type="button" href="#Ref" class="btn btn-outline-secondary">Refraction</a>
+    <a type="button" href="#Cover" class="btn btn-outline-secondary">Cover Test</a>
+    <a type="button" href="#Reflex" class="btn btn-outline-secondary">Pupil Reflex</a>
+    <a type="button" href="#Measure" class="btn btn-outline-secondary">Pupil Measurement</a>
+</div>
+<hr class="mb-4">
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="row" style="scroll-behavior: smooth;">
+        <div class="col-9">
+            <div class="card card-body border-0 shadow mb-4">
+                <h2 class="h5 mb-4">Update Case History</h2>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div>
+                            <label>Patient Statement of Complaint/s:</label>
+                            <textarea class="form-control" type="text" name="statement"
+                                value=" ">{{history.statement}}</textarea>
+                        </div>
+                    </div>
+                    <label for="last_name">Medical History:</label>
+                    <div class="row mx-2">
+                        <div class="col-md-2 mb-3">
+                            <div class="form-check">
+                                {% if history.dm %}
+                                <input class="form-check-input" checked type="checkbox" name="dm" value="Yes"
+                                    id="defaultCheck1">
+                                {% else %}
+                                <input class="form-check-input" type="checkbox" name="dm" value="Yes"
+                                    id="defaultCheck1">
+                                {% endif %}
+                                <label class="form-check-label" for="defaultCheck1">
+                                    DM
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <div class="form-check">
+                                {% if history.hpn %}
+                                <input class="form-check-input" checked type="checkbox" name="hpn" value="Yes"
+                                    id="defaultCheck1">
+                                {% else %}
+                                <input class="form-check-input" type="checkbox" name="hpn" value="Yes"
+                                    id="defaultCheck1">
+                                {% endif %}
+                                <label class="form-check-label" for="defaultCheck1">
+                                    HPN
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="form-check">
+                                {% if history.allergies %}
+                                <input class="form-check-input" checked type="checkbox" name="allergies" value="Yes"
+                                    id="defaultCheck1">
+                                {% else %}
+                                <input class="form-check-input" type="checkbox" name="allergies" value="Yes"
+                                    id="defaultCheck1">
+                                {% endif %}
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Allergies
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 mb-3">
+                        <div>
+                            <textarea class="form-control" name="medical_history"
+                                type="text">{{history.medical_history}} </textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <div>
+                            <label for="first_name">Ocular History:</label>
+                            <textarea class="form-control" name="ocular_history"
+                                type="text"> {{history.ocular_history}} </textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div>
+                            <label for="first_name">Physical Conditions:</label>
+                            <textarea class="form-control" name="physical_condition"
+                                type="text"> {{history.physical_condition}}</textarea>
+                        </div>
+                    </div>
+
+                    <label for="last_name">Are you taking any kind of treatment/s?</label>
+
+                    <div class="col-sm-12 mb-3">
+                        <div>
+                            <textarea class="form-control" id="first_name" name="treatments"
+                                type="text"> {{history.treatments}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body border-0 shadow mb-4">
+                <h2 class="h5 mb-4">Other Information</h2>
+                <div class="row ">
+                    <div class="col-sm-6 mb-3  ">
+                        <div class="form-group ">
+                            <label for="address">Dominant Hand:</label>
+                            {% if history.dominant_hand == 'Left' %}
+                            <div class="row mx-2 border pt-3 justify-content-center">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dominant_hand"
+                                            id="exampleRadios1" value="Left" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Left
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dominant_hand"
+                                            id="exampleRadios2" value="Right">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Right
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="row mx-2 border pt-3 justify-content-center">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dominant_hand"
+                                            id="exampleRadios1" value="Left">
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Left
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dominant_hand"
+                                            id="exampleRadios2" checked value="Right">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Right
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-sm-6 ">
+                        <div class="form-group">
+                            <label for="number">Dominant Eye:</label>
+                            {% if history.dominant_eye == 'Left' %}
+                            <div class="row mx-2 border pt-3 justify-content-center">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dominant_eye"
+                                            id="exampleRadios1" value="Left" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Left
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dominant_eye"
+                                            id="exampleRadios2" value="Right">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Right
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="row mx-2 border pt-3 justify-content-center">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dominant_eye"
+                                            id="exampleRadios1" value="Left">
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Left
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dominant_eye"
+                                            id="exampleRadios2" checked value="Right">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Right
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="email">IPD:</label>
+                                <input class="form-control" id="email" type="text" name="ipd" value="{{history.ipd}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3 ">
+                            <div class="form-group">
+                                <label for="email">Blood Pressure:</label>
+                                <input class="form-control" id="email" type="text" name="bp" value="{{history.bp}}">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row mx-2">
+
+                        <div class="col-md-3 mb-3">
+                            <div class="form-check">
+                                {% if history.anatomical %}
+                                <input class="form-check-input" checked type="checkbox" name="anatomical" value="Yes"
+                                    id="defaultCheck1">
+                                {% else %}
+                                <input class="form-check-input" type="checkbox" name="anatomical" value="Yes"
+                                    id="defaultCheck1">
+                                {% endif %}
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Anatomical
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="form-check">
+                                {% if history.catopric %}
+                                <input class="form-check-input" checked type="checkbox" name="catopric" value="Yes"
+                                    id="defaultCheck1">
+                                {% else %}
+                                <input class="form-check-input" type="checkbox" name="catopric" value="Yes"
+                                    id="defaultCheck1">
+                                {% endif %}
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Catopric
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group">
+                            <label for="email">Tentative Diagnosis:</label>
+                            <input class="form-control" value="{{history.tentative_diag}}" type="text"
+                                name="tentative_diag">
+                        </div>
+                    </div>
+                    <div class="row"> <label for="phone">Mono PD</label>
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text rounded-0 col-2">
+                                    OD
+                                </span>
+                                <input class="form-control rounded-0" name="od" value="{{history.od}}" type="text">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text rounded-0 col-2">
+                                    OS
+                                </span>
+                                <input class="form-control rounded-0" value="{{history.os}}" name="os" type="text">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card card-body border-0 shadow mb-4 ">
+                <h2 class="h5 mb-4">Refraction</h2>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="phone">Auto Refraction</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" value="{{refract.od_auto_refraction}}" id="birthday"
+                                type="text" name="od_auto_refraction">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" value="{{refract.os_auto_refraction}}" id="birthday"
+                                type="text" name="os_auto_refraction">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="phone">Retinoscopy</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" value="{{refract.od_retinoscopy}}" id="birthday"
+                                type="text" name="od_retinoscopy">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" value="{{refract.os_retinoscopy}}" id="birthday"
+                                type="text" name="os_retinoscopy">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="phone">Cycloplastic Refraction</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" value="{{refract.od_cycoplastic}}" id="birthday"
+                                type="text" name="od_cycoplastic">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" value="{{refract.os_cycoplastic}}" id="birthday"
+                                type="text" name="os_cycoplastic">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="phone">Subjective Refraction</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" value="{{refract.od_subjective}}" id="birthday"
+                                type="text" name="od_subjective">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" value="{{refract.os_subjective}}" id="birthday"
+                                type="text" name="os_subjective">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card card-body border-0 shadow mb-4 ">
+                <h2 class="h5 mb-4">Cover Test</h2>
+                <div class="row">
+                    <div class="col-md-2 mb-3 ">
+
+                        <div class="input-group">
+                            <span class="input-group-text bg-light rounded-0 col-12">
+                                .
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-12">
+                                Unilateral
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-12">
+                                Alternating
+                            </span>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 mb-3 ">
+
+                        <div class="input-group ">
+                            <span class="input-group-text rounded-0 col-12 text-center">
+                                Far
+                            </span>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-12">
+                                Far
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" name="od_far_unilateral"
+                                value="{{cover_test.od_far_unilateral}}" disable id="birthday" type="text">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" name="os_far_unilateral"
+                                value="{{cover_test.os_far_unilateral}}" disable id="birthday" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" name="od_far_alternating"
+                                value="{{cover_test.od_far_alternating}}" disable id="birthday" type="text">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" name="os_far_alternating"
+                                value="{{cover_test.os_far_alternating}}" disable id="birthday" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-12">
+                                Near
+                            </span>
+
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-12">
+                                Near
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" name="od_near_unilateral"
+                                value="{{cover_test.od_near_unilateral}}" disable id="birthday" type="text">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" name="os_near_unilateral"
+                                value="{{cover_test.os_near_unilateral}}" disable id="birthday" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" name="od_near_alternating"
+                                value="{{cover_test.od_near_alternating}}" disable id="birthday" type="text">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" name="os_near_alternating"
+                                value="{{cover_test.os_near_alternating}}" disable id="birthday" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body border-0 shadow mb-4 ">
+                <h2 class="h5 mb-4">Pupil Reflexes</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="phone">Direct</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-3">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" name="od_direct" value="{{pupil_reflex.od_direct}}"
+                                disable id="birthday" type="text">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-3">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" name="os_direct" value="{{pupil_reflex.os_direct}}"
+                                disable id="birthday" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="phone">Consensual</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-3">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" name="od_consensual"
+                                value="{{pupil_reflex.od_consensual}}" disable id="birthday" type="text">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-3">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" name="os_consensual"
+                                value="{{pupil_reflex.os_consensual}}" disable id="birthday" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="phone">Swing</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-3">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" name="od_swing" value="{{pupil_reflex.od_swing}}"
+                                disable id="birthday" type="text">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-3">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" name="os_swing" value="{{pupil_reflex.os_swing}}"
+                                id="birthday" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body border-0 shadow mb-4 ">
+                <h2 class="h5 mb-4">Pupil Measurement</h2>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="phone">Horizontal</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" name="od_horizontal"
+                                value="{{pupil_measure.od_horizontal}}" id="birthday" type="text">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" name="os_horizontal"
+                                value="{{pupil_measure.os_horizontal}}" id="birthday" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="phone">Vertical</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OD
+                            </span>
+                            <input class="form-control rounded-0" name="od_vertical"
+                                value="{{pupil_measure.od_vertical}}" id="birthday" type="text">
+
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0 col-2">
+                                OS
+                            </span>
+                            <input class="form-control rounded-0" name="os_vertical"
+                                value="{{pupil_measure.os_vertical}}" id="birthday" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="phone">Maddox Rod</label>
+                            <input class="form-control rounded-0" name="maddox_rod" value="{{pupil_measure.maddox_rod}}"
+                                id="birthday" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="phone">Madox Wing</label>
+                            <input class="form-control rounded-0" name="maddox_wing"
+                                value="{{pupil_measure.maddox_wing}}" id="birthday" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group">
+                            <label for="phone">Vergence</label>
+                            <input class="form-control rounded-0" name="vergence" value="{{pupil_measure.vergence}}"
+                                id="birthday" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body border-0 shadow mt-4 p-4 ">
+                <div class="col-md-12 mb-3">
+                    <div class="input-group">
+                        <button type="submit" class="btn btn-primary col-12"> Case Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card card-body border-0 shadow mb-4" style="scroll-behavior: smooth;">
+                <h3 class="h5 mb-4">Signs And Symptoms</h3>
+                {% for x in symptoms_list %}
+                {% if x in signs_list %}
+                <div class="form-check">
+                    <input class="form-check-input" checked type="checkbox" name="symptoms" value="{{x}}"
+                        id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        {{x}}
+                    </label>
+                </div>
+                {% else %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="symptoms" value="{{x}}" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        {{x}} </label>
+                </div>
+                {% endif %}
+
+                {% endfor %}
+
+
+            </div>
+            <div class="card card-body border-0 shadow mb-4" style="scroll-behavior: smooth;">
+                <h3 class="h5 mb-4">Visual Task</h3>
+
+                {% for x in visual_task_list %}
+                {% if x in visual_task %}
+                <div class="form-check">
+                    <input class="form-check-input" checked type="checkbox" name="visual_task" value="{{x}}"
+                        id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        {{x}}
+                    </label>
+                </div>
+                {% elif x == 'Others' %}
+                <hr>
+                <div class="form-group">
+                    <label for="others">Others</label>
+                    <input class="form-control rounded-0" name="visual_task" value="{{others}}" type="text" id="others">
+                </div>
+                {% else %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="visual_task" value="{{x}}" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        {{x}} </label>
+                </div>
+                {% endif %}
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</form>
+{% endblock %}

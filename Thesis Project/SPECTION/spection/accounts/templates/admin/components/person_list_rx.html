@@ -1,0 +1,111 @@
+{% extends 'admin/components/person.html' %} {% block title %}Patients{% endblock %}
+{% block patient %}
+{% load svg %}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">List of Prescription</h1>
+    <a class="btn btn-primary" href="{% url 'create_rx' patient.id %}" type="button">Add Prescription</a>
+</div>
+<p class="">DataTables is a third party plugin that is used to generate the demo table below.
+    For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+        DataTables documentation</a>.</p>
+{% if total_prescriptions == 0 %}
+<div class="col-12 p-0  text-center d-flex  justify-content-center">
+
+    <div class="col-9 p-0 mt-0">
+        <div class="signin-inner  ">
+            <h1 class="">No Prescriptions</h1>
+            <p class="lead ">Create a prescription on the button above!</p>
+        </div>{% svg 'prescription' %}
+    </div>
+
+</div>
+{% else %}
+
+{% for rx in prescriptions %}
+<div class="col-xl-12 mt-4">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <span class="d-flex flex-row col-4 justify-content-between">
+                <h6 class="font-weight-bold text-primary">RX Created:</h6>
+                <h6>{{rx.date_created}}</h6>
+            </span>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                    aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-header">Dropdown Header:</div>
+                    <a class="dropdown-item" href="{% url 'update_rx' patient.id rx.id %}">Update</a>
+                    <a class="dropdown-item" href="{% url 'delete_rx' patient.id rx.id %}">Delete</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Print</a>
+                </div>
+            </div>
+        </div>
+        <div class="card card-body border-0 shadow  ">
+            <table class="table table-bordered text-center" id="dataTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">OLD RX</th>
+                        <th scope="col">Distance VASC</th>
+                        <th scope="col">Distance VACC</th>
+                        <th scope="col">Near VASC</th>
+                        <th scope="col">Near VACC</th>
+                        <th scope="col">PHV</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">OD</th>
+                        <td id="td">{{rx.od_old_rx}}</td>
+                        <td>{{rx.od_dist_vasc}}</td>
+                        <td>{{rx.od_dist_vacc}}</td>
+                        <td>{{rx.od_near_vasc}}</td>
+                        <td>{{rx.od_near_vacc}}</td>
+                        <td>{{rx.od_phv}}</td>
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">OS</th>
+                        <td>{{rx.os_old_rx}}</td>
+                        <td>{{rx.os_dist_vasc}}</td>
+                        <td>{{rx.os_dist_vacc}}</td>
+                        <td>{{rx.os_near_vasc}}</td>
+                        <td>{{rx.os_near_vacc}}</td>
+                        <td>{{rx.os_phv}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">OU</th>
+                        <td>{{rx.ou_old_rx}}</td>
+                        <td>{{rx.ou_dist_vasc}}</td>
+                        <td>{{rx.ou_dist_vacc}}</td>
+                        <td>{{rx.ou_near_vasc}}</td>
+                        <td>{{rx.ou_near_vacc}}</td>
+                        <td>{{rx.ou_phv}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+<script>
+    const tds = table.querySelectorAll('td')
+    function changeHtml() {
+        if (tds.innerHTML == 'None') {
+            tds.innerHTML = ' ';
+        }
+    }
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+    changeHtml() 
+</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+.bg-gradient-primary {
+    background-color: #d24a4a;
+    background-image: linear-gradient(180deg,#b12828 10%,#b12828 100%);
+    background-size: cover;
+}
+.btn-primary {
+    color: #fff;
+    background-color:#b12828;
+    border-color: #b12828;
+}
+.topbar .dropdown-list .dropdown-header {
+    background-color:#b20000;
+    border-color: #b20000;
+}
+
+.btn-link {
+    color: #b12828;
+}
+
+
+.scroll-bar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scroll-bar-hide {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: transparent;
+}
+
+.avatar {
+    vertical-align: middle;
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-position: center;
+    
+  }

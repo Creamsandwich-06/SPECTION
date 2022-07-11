@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'b30f-110-54-231-158.ngrok.io']
 
+DATE_INPUT_FORMATS = ('%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d')
 
 # Application definition
 
@@ -42,9 +43,11 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'crispy_forms',
     'widget_tweaks',
-    'accounts',
+    'accounts.apps.AccountsConfig',
     'svg',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,3 +147,14 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+# SMTP_Configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ghifere6@gmail.com'
+EMAIL_HOST_PASSWORD = 'mvqpofdgapctdhot'

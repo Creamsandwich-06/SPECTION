@@ -1,0 +1,70 @@
+{% extends 'admin/admin.html' %} {% block title %}Schedule{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<h1>Hello</h1>
+<form action="" method="post">
+        {% csrf_token %}
+        <div class="col-6">
+                <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Name</label>
+                        <input type="text" required class="form-control" value="{{schedule.name}}" name="name"
+                                id="exampleFormControlInput1" placeholder="New Year">
+                </div>
+                <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Badge</label>
+                        <input type="text" class="form-control" value="{{schedule.badge}}" name="badge"
+                                id="exampleFormControlInput1" placeholder="Optional">
+                </div>
+                <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Type</label>
+                        <select class="form-select" required name="type" aria-label="Default select example">
+                                <option selected>{{schedule.type}}</option>
+                                <option value="Holiday">Holiday</option>
+                                <option value="Event">Event</option>
+                                <option value="Vacation">Vacation</option>
+                        </select>
+                </div>
+
+                <div class="form-check mb-3">
+                        {% if schedule.everyYear %}
+                        <input class="form-check-input" type="checkbox" checked name="everyYear" id="flexCheckDefault">
+                        {% else %}
+                        <input class="form-check-input" type="checkbox" name="everyYear" id="flexCheckDefault">
+                        {% endif %}
+                        <label class="form-check-label" for="flexCheckDefault">
+                                Every Year
+                        </label>
+                </div>
+                <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Date</label>
+                        <div class="row">
+                                <div class="col">
+                                        <input type="date" class="form-control" name="date" value="{{from_date}}"
+                                                id="exampleFormControlInput1" placeholder="name@example.com">
+                                </div>
+                                <div class="col">
+                                        <input type="date" class="form-control" name="to_date" value="{{to_date}}"
+                                                id="exampleFormControlInput1" placeholder="name@example.com">
+                                </div>
+                        </div>
+                </div>
+                <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Description</label>
+                        <input type="text" value="{{schedule.description}}" name="description" class="form-control"
+                                id="exampleFormControlInput1" placeholder="Optional">
+                </div>
+
+                <div class="card card-body border-0 shadow mt-4 p-4 ">
+                        <div class="col-md-12 ">
+                                <div class="input-group">
+                                        <button type="submit" class="btn btn-primary col-12"> Add
+                                                Event</button>
+                                </div>
+                        </div>
+                </div>
+
+        </div>
+
+</form>
+{% endblock %}

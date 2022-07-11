@@ -1,0 +1,15 @@
+{% extends 'admin/admin.html' %}
+{% block content %}
+
+
+<div id="wrapper">
+    {% include 'admin/components/patient_sidebar.html' %}
+    <div id="content-wrapper" class="d-flex flex-column overflow-auto">
+        <div id="content overflow-auto">
+            <div class="container-fluid mb-5 overflow-auto scroll-bar-hide" style="height: 80vh;">
+                {% block patient %} {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

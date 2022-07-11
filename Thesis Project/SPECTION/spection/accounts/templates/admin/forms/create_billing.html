@@ -1,0 +1,49 @@
+{% extends "admin/admin.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<p>Create Post</p>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="col-md-6 mb-3">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="phone">Maddox Rod</label>
+                    <input class="form-control rounded-0" value="{{pupil_measure.maddox_rod}}" disable id="birthday"
+                        readonly type="text">
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="phone">Madox Wing</label>
+                    <input class="form-control rounded-0" value="{{pupil_measure.maddox_wing}}" disable readonly
+                        id="birthday" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div>
+            <label>Description:</label>
+            <textarea class="form-control" type="text" name="desc"></textarea>
+        </div>
+    </div>
+    <div class="col-md-2 mb-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="headline" id="defaultCheck1">
+            <label class="form-check-label" for="defaultCheck1">
+                Add to Feature
+            </label>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+
+    </div>
+
+    <a href="">Cancel</a>
+    <input type="submit" name="Confirm">
+</form>
+
+{% endblock %}

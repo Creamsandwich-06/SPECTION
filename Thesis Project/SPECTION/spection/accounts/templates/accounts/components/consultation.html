@@ -2,14 +2,18 @@
 
 <section class="container ">
     <div class=" d-flex justify-content-around mb-5">
-        <section class="consultationRequest" style="position: relative; margin:0;">
+        <section class="consultationRequest consult-change" style="position: relative; margin:0;">
             <p class="p1">Request for your</p>
             <p class="p2">Consultation</p>
-            <form>
-                <input type="text" id="fname" name="fname" placeholder="Name"><br><br>
-                <input type="emails" id="lname" name="lname" placeholder="Contact"><br><br>
-                <input type="emails" id="lname" name="lname" placeholder="Email"><br><br>
-                <input type="date" id="lname" name="lname" onchange="this.className=(this.value!=''?'has-value':'')"
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" id="fname" name="first_name" placeholder="Firstname"><br><br>
+                <input type="text" id="fname" name="last_name" placeholder="Lastname"><br><br>
+                <input type="text" id="lname" name="phone" placeholder="Contact"><br><br>
+                <input type="emails" id="lname" name="email" placeholder="Email"><br><br>
+                <input type="date" id="lname" name="date" onchange="this.className=(this.value!=''?'has-value':'')"
+                    class="date"><br><br>
+                <input type="time" id="lname" name="time" onchange="this.className=(this.value!=''?'has-value':'')"
                     class="date"><br><br>
                 <select name="service" class="dropdown-toggle">
                     <option>Type of Service</option>
