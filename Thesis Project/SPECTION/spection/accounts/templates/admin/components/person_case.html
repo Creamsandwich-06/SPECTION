@@ -1,0 +1,625 @@
+{% extends 'admin/components/person.html' %} {% block title %}Patients{% endblock %}
+{% block patient %}
+<nav>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4" id="Signs">
+        <div class=" d-flex ">
+            <h1 class=" h3 mb-0 text-gray-800 pr-5">Case #</h1>
+            <a class="btn btn-primary btn-sm text-white btn-circle btn-md" type="button"><i class="fas fa-user"></i></a>
+        </div>
+
+        <div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-{{order.id}}" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-gear fa-lg fa-fw text-gray-400"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                aria-labelledby="dropdownMenuLink-{{order.id}}" style="z-index: 9999;">
+                <div class=" dropdown-header">Action Dropdown: </div>
+                <a href="{% url 'update_case' patient.id case.id %}" class="dropdown-item">Update</a>
+                <div class="dropdown-divider"></div>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div class=" mb-4 sticky-top navbar-light bg-light p-3 ">
+    <a type="button" href="#Signs" class="btn btn-outline-secondary ">Case History</a>
+    <a type="button" href="#Ref" class="btn btn-outline-secondary">Refraction</a>
+    <a type="button" href="#Cover" class="btn btn-outline-secondary">Cover Test</a>
+    <a type="button" href="#Reflex" class="btn btn-outline-secondary">Pupil Reflex</a>
+    <a type="button" href="#Measure" class="btn btn-outline-secondary">Pupil Measurement</a>
+
+</div>
+<hr class="mb-4">
+<div class="row" style="scroll-behavior: smooth;">
+    <div class="col-8 ">
+        <div class="row mb-4 scrollspy-example" id="scrollspyHeading1" data-bs-spy="scroll"
+            data-bs-target="#navbar-example2" data-bs-offset="0" tabindex="0">
+            <div>
+                <div class="card card-body border-0 shadow mb-4">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Case History</h1>
+
+                    </div>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div>
+                                    <label for="first_name">Patient Statement of Complaint/s:</label>
+                                    <textarea class="form-control" id="first_name" type="text"
+                                        placeholder="Hi! I have a concern about ..."
+                                        readonly>{{history.statement}} </textarea>
+                                </div>
+                            </div>
+                            <label for="last_name">Medical History:</label>
+                            <div class="row mx-2">
+
+                                <div class="col-md-2 mb-3">
+                                    <div class="form-check">
+                                        {% if history.dm %}
+                                        <input class="form-check-input" disabled checked type="checkbox" name="dm"
+                                            value="Yes" id="defaultCheck1">
+                                        {% else %}
+                                        <input class="form-check-input" disabled type="checkbox" name="dm" value="Yes"
+                                            id="defaultCheck1">
+                                        {% endif %}
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            DM
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <div class="form-check">
+                                        {% if history.hpn %}
+                                        <input class="form-check-input" disabled checked type="checkbox" name="hpn"
+                                            value="Yes" id="defaultCheck1">
+                                        {% else %}
+                                        <input class="form-check-input" disabled type="checkbox" name="hpn" value="Yes"
+                                            id="defaultCheck1">
+                                        {% endif %}
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            HPN
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        {% if history.allergies %}
+                                        <input class="form-check-input" checked disabled type="checkbox"
+                                            name="allergies" value="Yes" id="defaultCheck1">
+                                        {% else %}
+                                        <input class="form-check-input" disabled type="checkbox" name="allergies"
+                                            value="Yes" id="defaultCheck1">
+                                        {% endif %}
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Allergies
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 mb-3">
+                                <div>
+                                    <textarea class="form-control" id="first_name" type="text"
+                                        readonly>{{history.medical_history}} </textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <div>
+                                    <label for="first_name">Ocular History:</label>
+                                    <textarea class="form-control" id="first_name" type="text"
+                                        readonly> {{history.ocular_history}} </textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div>
+                                    <label for="first_name">Physical Conditions:</label>
+                                    <textarea class="form-control" id="first_name" readonly
+                                        type="text"> {{history.physical_condition}}</textarea>
+                                </div>
+                            </div>
+
+                            <label for="last_name">Are you taking any kind of treatment/s?</label>
+
+                            <div class="col-sm-12 mb-3">
+                                <div>
+                                    <textarea class="form-control" id="first_name" type="text"
+                                        readonly> {{history.treatments}}</textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="card card-body border-0 shadow mb-4 mb-xl-0">
+                    <h2 class="h5 mb-4">Other Information</h2>
+
+                    <div class="row ">
+                        <div class="col-sm-6 mb-3  ">
+                            <div class="form-group ">
+                                <label for="address">Dominant Hand:</label>
+                                <input class="form-control" id="last_name" type="text" value="{{history.dominant_hand}}"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="form-group">
+                                <label for="number">Dominant Eye:</label>
+                                <input class="form-control" id="last_name" type="text" value="{{history.dominant_eye}}"
+                                    readonly>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="email">IPD:</label>
+                                    <input class="form-control" id="email" type="email" value="{{history.ipd}}"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <div class="form-group">
+                                    <label for="email">Blood Pressure:</label>
+                                    <input class="form-control" id="email" type="email" value="{{history.bp}}" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row mx-2">
+
+                            <div class="col-md-3 mb-3">
+                                <div class="form-check">
+                                    {% if history.anatomical %}
+                                    <input class="form-check-input" checked disabled type="checkbox" name="anatomical"
+                                        value="Yes" id="defaultCheck1">
+                                    {% else %}
+                                    <input class="form-check-input" type="checkbox" disabled name="anatomical"
+                                        value="Yes" id="defaultCheck1">
+                                    {% endif %}
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Anatomical
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="form-check">
+                                    {% if history.catopric %}
+                                    <input class="form-check-input" checked type="checkbox" disabled name="catopric"
+                                        value="Yes" id="defaultCheck1">
+                                    {% else %}
+                                    <input class="form-check-input" type="checkbox" disabled name="catopric" value="Yes"
+                                        id="defaultCheck1">
+                                    {% endif %}
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Catopric
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <label for="email">Tentative Diagnosis:</label>
+                                <input class="form-control" id="text" type="email" value="{{history.tentative_diag}}"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="row"> <label for="phone">Mono PD</label>
+                            <div class="col-md-6 mb-3">
+                                <div class="input-group">
+                                    <span class="input-group-text rounded-0 col-2">
+                                        OD
+                                    </span>
+                                    <input class="form-control rounded-0" disable id="birthday" value="{{history.od}}"
+                                        type="text" readonly>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="input-group">
+                                    <span class="input-group-text rounded-0 col-2">
+                                        OS
+                                    </span>
+                                    <input class="form-control rounded-0" disable id="birthday" value="{{history.os}}"
+                                        type="text" readonly>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-body border-0 shadow mb-4 " id="scrollspyHeading2">
+            <h2 class="h5 mb-4">Refraction</h2>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="phone">Auto Refraction</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" value="{{refract.od_auto_refraction}}" readonly
+                            id="birthday" type="text" readonly>
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" value="{{refract.os_auto_refraction}}" readonly
+                            id="birthday" type="text">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="phone">Retinoscopy</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" value="{{refract.od_retinoscopy}}" readonly disable
+                            id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" value="{{refract.os_retinoscopy}}" readonly disable
+                            id="birthday" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="phone">Cycloplastic Refraction</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" value="{{refract.od_cycoplastic}}" readonly disable
+                            id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" value="{{refract.os_cycoplastic}}" readonly disable
+                            id="birthday" type="text">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="phone">Subjective Refraction</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" value="{{refract.od_subjective}}" readonly disable
+                            id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" value="{{refract.os_subjective}}" readonly disable
+                            id="birthday" type="text">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card card-body border-0 shadow mb-4 " id="scrollspyHeading3">
+            <h2 class="h5 mb-4">Cover Test</h2>
+            <div class="row">
+                <div class="col-md-2 mb-3 ">
+
+                    <div class="input-group">
+                        <span class="input-group-text bg-light rounded-0 col-12">
+                            .
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-5 mb-3">
+
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-12">
+                            Unilateral
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-12">
+                            Alternating
+                        </span>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 mb-3 ">
+
+                    <div class="input-group ">
+                        <span class="input-group-text rounded-0 col-12 text-center">
+                            Far
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-12">
+                            Far
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{cover_test.od_far_unilateral}}" disable
+                            id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{cover_test.os_far_unilateral}}" disable
+                            id="birthday" type="text">
+                    </div>
+                </div>
+                <div class="col-md-5 mb-3">
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{cover_test.od_far_alternating}}" disable
+                            id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{cover_test.os_far_alternating}}" disable
+                            id="birthday" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-12">
+                            Near
+                        </span>
+
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-12">
+                            Near
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{cover_test.od_near_unilateral}}" disable
+                            id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{cover_test.os_near_unilateral}}" disable
+                            id="birthday" type="text">
+                    </div>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{cover_test.od_near_alternating}}"
+                            disable id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{cover_test.os_near_alternating}}"
+                            disable id="birthday" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-body border-0 shadow mb-4 ">
+            <h2 class="h5 mb-4">Pupil Reflexes</h2>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="phone">Direct</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-3">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" value="{{pupil_reflex.od_direct}}" readonly disable
+                            id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-3">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" value="{{pupil_reflex.os_direct}}" disable id="birthday"
+                            readonly type="text">
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="phone">Consensual</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-3">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" value="{{pupil_reflex.od_consensual}}" disable readonly
+                            id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-3">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" value="{{pupil_reflex.os_consensual}}" disable readonly
+                            id="birthday" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="phone">Swing</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-3">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" value="{{pupil_reflex.od_swing}}" disable id="birthday"
+                            readonly type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-3">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" value="{{pupil_reflex.os_swing}}" disable id="birthday"
+                            readonly type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-body border-0 shadow mb-4 ">
+            <h2 class="h5 mb-4">Pupil Measurement</h2>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="phone">Horizontal</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{pupil_measure.od_horizontal}}" disable
+                            id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{pupil_measure.os_horizontal}}" disable
+                            id="birthday" type="text">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="phone">Vertical</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OD
+                        </span>
+                        <input class="form-control rounded-0" readonly value="{{pupil_measure.od_vertical}}" disable
+                            id="birthday" type="text">
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0 col-2">
+                            OS
+                        </span>
+                        <input class="form-control rounded-0" value="{{pupil_measure.os_vertical}}" disable readonly
+                            id="birthday" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="phone">Maddox Rod</label>
+                        <input class="form-control rounded-0" value="{{pupil_measure.maddox_rod}}" disable id="birthday"
+                            readonly type="text">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="phone">Madox Wing</label>
+                        <input class="form-control rounded-0" value="{{pupil_measure.maddox_wing}}" disable readonly
+                            id="birthday" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <label for="phone">Vergence</label>
+                        <input class="form-control rounded-0" value="{{pupil_measure.vergence}}" disable id="birthday"
+                            readonly type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .form-check-input:checked {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+    </style>
+    <div class="col-4">
+        <div class="card card-body border-0 shadow mb-4" style="scroll-behavior: smooth;">
+            <h3 class="h5 mb-4">Signs And Symptoms</h3>
+            {% for x in signs_list %}
+            <div class="form-check">
+                <input class="form-check-input" checked disabled type="checkbox" value="{{x}}" id="defaultCheck1"
+                    style="opacity: 1;">
+                <label class="form-check-label" for="defaultCheck1" style="opacity: 1;">
+                    {{x}}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="card card-body border-0 shadow mb-4" style="scroll-behavior: smooth;">
+            <h3 class="h5 mb-4">Visual Tasks</h3>
+            {% for x in visual_task_list %}
+            <div class="form-check">
+                <input class="form-check-input" checked disabled type="checkbox" value="{{x}}" id="defaultCheck1"
+                    style="opacity: 1;">
+                <label class="form-check-label" for="defaultCheck1" style="opacity: 1;">
+                    {{x}}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

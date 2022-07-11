@@ -1,56 +1,62 @@
 {% extends 'accounts/base.html' %} {% block title %}Login{% endblock %}
 {% block content %}
+{% load svg %}
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                </div>
-                                <form class="user">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                            id="exampleInputEmail" aria-describedby="emailHelp"
-                                            placeholder="Enter Email Address...">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
+
+<main class="my-5">
+    <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
+        <div class="container">
+            <div class="col-lg-6 d-none d-lg-block position-absolute">
+                <div>{% svg 'signin' %}</div>
+            </div>
+            <div class="row justify-content-center form-bg-image">
+                <div class="col-lg-5 h-100 d-flex align-items-center justify-content-center">
+                    <div class="bg-white shadow border-0 rounded border-light pt-5 pb-1 w-100 fmxw-1000">
+                        <div class=" text-md-center mt-md-0">
+                            <h1 class="mb-0 h3">
+                                Company - Sign IN
+                            </h1>
+                            <br />
+                            <div class="card-body ">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-lg-10 p-5">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        </div>
+                                        <form class="user text-left text-gray-900" method="POST">
+                                            {% csrf_token %}
+                                            <label for="basic-url" class="form-label">Username</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user"
+                                                    name="username" placeholder="Enter Username...">
+                                            </div>
+                                            <label for="basic-url" class="form-label">Password</label>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user"
+                                                    name="password" placeholder="Password">
+                                            </div>
+
+                                            <button type="submit" name="submit"
+                                                class="btn btn-primary btn-user btn-block">
+                                                Login
+                                            </button>
+                                        </form>
+                                        <hr>
+                                        <div class="text-center">
+                                            <a class="small" href="{% url 'reset_password' %}">Forgot Password?</a>
                                         </div>
                                     </div>
-                                    <a class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </a>
-                                    <hr>
-                                    <a href="{% url 'products' %}" class="btn btn-google btn-user btn-block">
-                                        <i class="fab fa-google fa-fw"></i> Login with Google
-                                    </a>
-
-                                </form>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+</main>
 
 
 {% endblock %}

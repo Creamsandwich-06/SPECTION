@@ -1,6 +1,6 @@
 {% extends 'accounts/base.html' %} {% block title %}Calendar{% endblock %}
 {% block content %}
-
+{% load static %}
 
 
 <div class="jumbotron calendar-sections">
@@ -20,30 +20,32 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>
+<script type="text/javascript" src="{% static '/js/admin.js' %}"></script>
 <script>
+    var item = JSON.parse(jsonstr)
+
+    function myFunction(item) {
+        for (const x of item) {
+            x.date = x.date.split(':')
+
+        }
+        return item
+    }
+
+
     $(document).ready(function () {
         $('#calendar').evoCalendar({
             theme: "Orange Coral",
-            calendarEvents: [
-                {
-                    id: 'bHay68s', // Event's ID (required)
-                    badge: "",
-                    name: "New Year", // Event name (required)
-                    date: "January/1/2020", // Event date (required)
-                    type: "holiday", // Event type (required)
-                    everyYear: true // Same event every year (optional)
-                },
-                {
-                    name: "Vacation Leave",
-                    badge: "02/13 - 02/15", // Event badge (optional)
-                    date: ["February/13/2020", "February/15/2020"], // Date range
-                    description: "Vacation leave for 3 days.", // Event description (optional)
-                    type: "event",
-                    color: "#63d867" // Event custom color (optional)
-                }
-            ]
+            todayHighlight: true,
+            format: 'yyyy,mm,dd',
+            eventHeaderFormat: 'MM d, yyyy',
+            calendarEvents: myFunction(item)
+
+
         });
     })
+
+
 </script>
 
 {% endblock %}

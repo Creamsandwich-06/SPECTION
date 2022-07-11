@@ -8,51 +8,201 @@
     For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
         DataTables documentation</a>.</p>
 
-<div class="container">
 
-    <div class="card o-hidden border-0 shadow-lg my-5">
-        <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                <div class="col-lg-7">
-                    <div class="p-5">
-                        <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+
+<main class="my-5">
+    <form method="POST">
+        {% csrf_token %}
+        <section class="my-5 vh-lg-100  mt-lg-0 bg-soft d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center form-bg-image">
+                    <div class="col-xl-9 d-flex align-items-center justify-content-center">
+                        <div
+                            class="signin-inner my-3 my-lg-0 bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+                            <h1 class="h3">Create an Account!</h1>
+                            <p class="mb-4">Please enter your new password twice so we can verify you typed it in
+                                correctly.!</p>
+
+                            <div class="row">
+                                <div class="col-sm-4 mb-3">
+                                    <div>
+                                        <label>First Name</label>
+                                        <input class="form-control" id="first_name" type="text" name="first_name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div>
+                                        <label>Middle Name</label>
+                                        <input class="form-control" id="last_name" type="text" name="middle_name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div>
+                                        <label>Last Name</label>
+                                        <input class="form-control" id="last_name" type="text" name="last_name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-sm-4 mb-3">
+                                    <label for="birthday">Birthday</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-calendar"></i>
+                                        </span>
+                                        <input data-datepicker="" class="form-control" id="birthday" type="date"
+                                            name="birthday" placeholder="dd/mm/yyyy">
+                                    </div>
+                                </div>
+                                <div class="col-4 mb-3">
+                                    <label for="email">Gender</label>
+                                    <div class="row justify-content-around col-12">
+                                        <div class="form-check col-6">
+                                            <input class="form-check-input" type="radio" name="gender"
+                                                id="exampleRadios1" value="Male" checked>
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                Male
+                                            </label>
+                                        </div>
+                                        <div class="form-check col-6">
+                                            <input class="form-check-input" type="radio" name="gender"
+                                                id="exampleRadios2" value="Female">
+                                            <label class="form-check-label" for="exampleRadios2">
+                                                Female
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div>
+                                        <label for="first_name">Occupation</label>
+                                        <input class="form-control" id="first_name" type="text" placeholder="Farmer"
+                                            name="occupation">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input class="form-control" id="email" type="email"
+                                            placeholder="name@company.com" name="email">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input class="form-control" id="phone" type="number" name="phone"
+                                            placeholder="+12-345 678 910">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <form class="user" method="POST">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-user" id="exampleInputName"
-                                    placeholder="Name" name="username">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-user" id="exampleInputPhone"
-                                    placeholder="Phone Number" name="phone">
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                    placeholder="Email Address" name="email">
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" class="form-control form-control-user"
-                                        id="exampleInputPassword" placeholder="Password" name="password1">
-                                </div>
-                                <div class="col-sm-6">
-                                    <input type="password" class="form-control form-control-user"
-                                        id="exampleRepeatPassword" placeholder="Repeat Password" name="password2">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-user btn-block">
-                                Register Patient
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+        <section class="my-5 vh-lg-100  mt-lg-0 bg-soft d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center form-bg-image">
+                    <div class="col-xl-9 d-flex align-items-center justify-content-center">
+                        <div
+                            class="signin-inner my-3 my-lg-0 bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+                            <h2 class="h5 ">Location</h2>
+                            <p class="mb-4">Please enter your new password twice so we can verify you typed it in
+                                correctly.!</p>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="address">Street</label>
+                                        <input class="form-control" id="address" type="text" name="street"
+                                            placeholder="Enter your Street">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="number">Barangay</label>
+                                        <input class="form-control" id="number" type="text" name="barangay"
+                                            placeholder="Enter your Barangay">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 mb-3">
+                                    <div class="form-group">
+                                        <label for="city">City</label>
+                                        <input class="form-control" id="city" type="text" name="city"
+                                            placeholder="Enter your City">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="zip">ZIP</label>
+                                        <input class="form-control" id="zip" type="text" name="zip" placeholder="ZIP">
+                                    </div>
+                                </div>
+                            </div>
 
-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-5 vh-lg-100  mt-lg-0 bg-soft d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center form-bg-image">
+                    <div class="col-xl-9 d-flex align-items-center justify-content-center">
+                        <div
+                            class="signin-inner my-3 my-lg-0 bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+                            <h2 class="h5 ">User Registration</h2>
+                            <p class="mb-4">Please enter your new password twice so we can verify you typed it in
+                                correctly.!</p>
+
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="address">Username</label>
+                                        <input class="form-control" id="address" type="text" name="username"
+                                            placeholder="" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="number">Password</label>
+                                        <input class="form-control" id="number" type="password" name="password1"
+                                            placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="city">Confirm Password</label>
+                                        <input class="form-control" id="city" type="password" name="password2"
+                                            placeholder="" required>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="my-5 vh-lg-100  mt-lg-0 bg-soft d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center form-bg-image">
+                    <div class="col-xl-9 d-flex align-items-center justify-content-center">
+                        <button type="submit" class="btn btn-primary col-xl-12"> Register Patient</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</main>
+
+
 {% endblock %}

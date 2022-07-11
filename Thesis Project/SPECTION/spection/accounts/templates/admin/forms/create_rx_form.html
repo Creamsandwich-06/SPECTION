@@ -1,0 +1,74 @@
+{% extends "admin/components/person.html" %}
+{% block patient %}
+{% load crispy_forms_tags %}
+
+<form method="POST">
+    {% csrf_token %}
+    <h2>Create New Prescription!</h2>
+    <p>Create a new prescription for this patient!</p>
+    <div class="col-xl-12 ">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-start">
+                <span class="d-flex flex-row">
+                    <h6 class="font-weight-bold text-primary">Prescription#:</h6>
+                </span>
+
+            </div>
+            <div class="card card-body border-0 shadow  ">
+                <table class="table table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">OLD RX</th>
+                            <th scope="col">Distance VASC</th>
+                            <th scope="col">Distance VACC</th>
+                            <th scope="col">Near VASC</th>
+                            <th scope="col">Near VACC</th>
+                            <th scope="col">PHV</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">OD</th>
+                            <td> <input class="form-control border border-0" type="text" name="od_old_rx"></td>
+                            <td> <input class="form-control border border-0" type="text" name="od_dist_vasc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="od_dist_vacc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="od_near_vasc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="od_near_vacc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="od_phv"></td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">OS</th>
+                            <td> <input class="form-control border border-0" type="text" name="os_old_rx"></td>
+                            <td> <input class="form-control border border-0" type="text" name="os_dist_vasc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="os_dist_vacc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="os_near_vasc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="os_near_vacc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="os_phv"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">OU</th>
+                            <td> <input class="form-control border border-0" type="text" name="ou_old_rx"></td>
+                            <td> <input class="form-control border border-0" type="text" name="ou_dist_vasc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="ou_dist_vacc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="ou_near_vasc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="ou_near_vacc"></td>
+                            <td> <input class="form-control border border-0" type="text" name="ou_phv"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card card-body border-0 shadow mt-4 p-4 ">
+                <div class="col-md-12 ">
+                    <div class="input-group">
+                        <button type="submit" class="btn btn-primary col-12"> Create New Prescription</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}

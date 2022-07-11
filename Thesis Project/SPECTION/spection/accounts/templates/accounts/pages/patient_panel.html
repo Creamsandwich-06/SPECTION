@@ -1,25 +1,28 @@
 {% extends 'accounts/base.html' %} {% block title %}Patient{% endblock %}
 {% block content %}
+{% load crispy_forms_tags %}
+{% load svg %}
 
 <a type="button" href="#top" class="goto-about" aria-label="Back to top" title="Back to top">Top</a>
 <div class="container mt-3 d-lg-none w-100" style="color:#858796">
     <div class="card mb-3 w-100" style="height: fit-content;">
         <div class="card-body">
             <div class="d-flex flex-row justify-content-around align-items-center">
-                <img class="avatar ">
+                <img class="avatar px-1" style="background-image: url('{{request.user.patient.profile_pic.url}}');">
                 <div class="text-center" style="line-height: 0.2;padding: 0;">
                     <p>Welcome</p>
                     <hr>
-                    <h4 class="font-poppins" style="line-height: 0.2;padding: 0; ">{{patient.name}}</h4>
+                    <h4 class="font-poppins" style="line-height: 0.2;padding: 0; ">{{request.user.patient.name }}</h4>
                 </div>
 
-                <div class="nav-item dropdown d-lg-none">
-                    <a class="nav-link dropdown-toggle page-button" href="#" id="navbarDropdown" type="button"
-                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                    <div class="dropdown-menu" style="z-index: 9999;" id="becth" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Logout</a>
-
-                    </div>
+                <div class="btn-group  d-lg-none ">
+                    <button type="button" class="btn btn-secondary rounded" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <button class="dropdown-item" href="{% url 'logout' %}">Logout</button>
+                    </ul>
                 </div>
 
             </div>
@@ -27,29 +30,31 @@
     </div>
 </div>
 
-<div class="dis-lg-block  w-100 mb-5" style="color:#858796">
+<div class="dis-lg-block  w-100 mb-5 m-5" style="color:#858796">
     <div class="container w-100 pb-3 dis-lg-block flex-grow-1 d-flex flex-column flex-sm-row overflow-auto mt-3">
         <div class="row flex-grow-sm-1 flex-grow-0">
             <aside class="col-sm-3  ">
                 <div class=" d-flex row justify-content-evenly bg-light rounded-3 p-4 dis-ls-block scroll-bar-hide">
                     <div class="w-100 ">
-                        <div class="card mb-3 w-100 d-none d-lg-block" style="height: fit-content;">
+                        <div class=" mb-3 w-100 d-none d-lg-block" style="height: fit-content;">
                             <div class="card-body">
                                 <div class="d-flex flex-row justify-content-around align-items-center"
                                     style="padding: 0;">
-                                    <img class="avatar px-1">
+                                    <img class="avatar px-1"
+                                        style="background-image: url('{{request.user.patient.profile_pic.url}}');">
                                     <div class="text-center " style="line-height: 0.2;padding: 0;">
                                         <p>Welcome</p>
                                         <hr>
-                                        <h4 class="" style="line-height: 0.2;padding: 0;">{{patient.name}}</h4>
+                                        <h4 class="" style="line-height: 0.2;padding: 0;">{{request.user.patient.name }}
+                                        </h4>
                                     </div>
 
                                     <div class="nav-item dropdown d-lg-none">
                                         <a class="nav-link dropdown-toggle page-button" href="#" id="navbarDropdown"
                                             role="button" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false"><i class="fs-5 fas fa-gear mx-3 "></i></a>
-                                        <div class="dropdown-menu" id="becth" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">Logout</a>
+                                        <div class="dropdown-menu " id="becth" aria-labelledby="navbarDropdown">
+                                            <button class="dropdown-item" href="{% url 'logout' %}">Logout</button>
 
                                         </div>
                                     </div>
@@ -57,15 +62,19 @@
                                 </div>
                             </div>
                         </div>
-
-                        <ul class="nav nav-pills  w-100 flex-sm-column   flex-row mb-auto justify-content-around "
-                            style="color:#858796">
+                        <hr>
+                        <style>
+                            .nav-pills .nav-link {
+                                color: gray;
+                            }
+                        </style>
+                        <ul class="nav nav-pills  w-100 flex-sm-column   flex-row mb-auto justify-content-around ">
                             <li class="nav-item ">
                                 <button
-                                    class="nav-link d-flex flex-row mb-2 active border text-left align-items-center w-100 px-1"
+                                    class="nav-link d-flex flex-row mb-2 active btn-hover border text-left align-items-center w-100 px-1"
                                     id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
                                     type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"><i
-                                        class=" fas fa-home mx-3"></i><span class="d-none d-lg-block">Overview</span>
+                                        class=" fas fa-home mx-3 "></i><span class="d-none d-lg-block">Overview</span>
                                 </button>
                             </li>
                             <li class="nav-item">
@@ -73,8 +82,7 @@
                                     class="nav-link d-flex flex-row mb-2 border text-left align-items-center w-100 px-1"
                                     id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
                                     type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true"><i
-                                        class="fs-5 fas fa-user mx-3"></i><span
-                                        class="d-none d-lg-block">Schedule</span>
+                                        class="fs-5 fas fa-user mx-3"></i><span class="d-none d-lg-block">Profile</span>
                                 </button>
                             </li>
                             <li class="nav-item">
@@ -83,7 +91,7 @@
                                     id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
                                     type="button" role="tab" aria-controls="v-pills-message" aria-selected="true"><i
                                         class="fs-5 fas fa-envelope mx-3"></i><span
-                                        class="d-none d-lg-block">Orders</span>
+                                        class="d-none d-lg-block  text-gray">Orders</span>
                                 </button>
                             </li>
                             <li class="nav-item">
@@ -99,7 +107,7 @@
                     </div>
                     <div class=" w-100  d-none d-lg-block">
                         <a class=" btn text-white page-button  d-flex flex-row  border text-left align-items-center w-100"
-                            type="button" href="{% url 'home' %}"><i class="fs-5 fas fa-gear mx-3 "></i><span
+                            type="button" href="{% url 'logout' %}"><i class="fs-5 fas fa-gear mx-3 "></i><span
                                 class="	d-md-none d-lg-block">Logout</span> </a>
                     </div>
 
@@ -109,10 +117,14 @@
             <div id="gen-info" class="tab-content col overflow-auto h-100 scroll-bar-hide" id="v-pills-tabContent">
                 <div class="tab-pane fade show active scroll-bar-hide" id="v-pills-home" role="tabpanel"
                     aria-labelledby="v-pills-home-tab">
-                    <h1 class="mt-4 font-poppins">General Information</h1>
+
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="mt-4 font-poppins">General Information</h1>
+
+                    </div>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="index.html">Patient</a></li>
-                        <li class="breadcrumb-item active ">John Doe</li>
+                        <li class="breadcrumb-item active ">{{request.user.patient.name }}</li>
                     </ol>
                     <div class="card my-4 d-none d-lg-block">
                         <div class="card-body">
@@ -134,34 +146,179 @@
 
                 </div>
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                    <h1 class="mt-4 font-poppins">Schedule</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="index.html">Patient</a></li>
-                        <li class="breadcrumb-item active">John Doe</li>
-                    </ol>
-                    <div class="card my-4 d-none d-lg-block">
-                        <div class="card-body">
-                            Chart.js is a third party plugin that is used to generate the charts in this template. The
-                            charts below have been customized - for further customization options, please visit the
-                            official
-                            <a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a>
-                            .
-                        </div>
-                    </div>
-                    <p>Ethical Kickstarter PBR asymmetrical lo-fi. Dreamcatcher street art Carles, stumptown gluten-free
-                        Kickstarter artisan Wes Anderson wolf pug. Godard sustainable you probably haven't heard of
-                        them, vegan farm-to-table Williamsburg slow-carb readymade disrupt deep v. Meggings seitan Wes
-                        Anderson semiotics, cliche American Apparel whatever. Helvetica cray plaid, vegan brunch Banksy
-                        leggings +1 direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's Shoreditch selfies,
-                        forage fingerstache food truck occupy YOLO Pitchfork fixie iPhone fanny pack art party Portland.
-                    </p>
-                    <hr />
+                    <form enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+
+                        <h1 class="mt-4 font-poppins">Profile</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Patient</a></li>
+                            <li class="breadcrumb-item active">{{request.user.patient.name }}</li>
+                        </ol>
+                        <div class="row">
+                            <div class="col-12 col-xl-8">
+                                <div class="card card-body border-0 shadow mb-4">
+
+
+                                    <div class="form-floating col-lg-8 mb-3">
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div>
+                                                <label for="first_name">First Name</label>
+                                                <input class="form-control" name="name" id="first_name" type="text"
+                                                    placeholder="{{request.user.patient.name}}"
+                                                    value="{{request.user.patient.name}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div>
+                                                <label for="last_name">Last Name</label>
+                                                <input class="form-control" id="last_name" type="text"
+                                                    placeholder="Also your last name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="birthday">Birthday</label>
+                                            <div class="input-group ">
+                                                <span class="input-group-text border-end-0   bg-white">
+                                                    <i class="fas fa-calendar"></i>
+                                                </span>
+                                                <input data-datepicker="" class="form-control" id="birthday" type="text"
+                                                    placeholder="dd/mm/yyyy">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="gender">Gender</label>
+                                            <select class="form-select mb-0" id="gender"
+                                                aria-label="Gender select example">
+                                                <option selected>Gender</option>
+                                                <option value="1">Female</option>
+                                                <option value="2">Male</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input class="form-control" id="email" type="email"
+                                                    placeholder="name@company.com"
+                                                    value="{{ request.user.patient.email }}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <label for="phone">Phone</label>
+                                                <input class="form-control" id="phone" type="text" name="phone"
+                                                    placeholder="{{ request.user.patient.phone }}"
+                                                    value="{{ request.user.patient.phone }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h2 class="h5 my-4">Location</h2>
+                                    <div class="row">
+                                        <div class="col-sm-9 mb-3">
+                                            <div class="form-group">
+                                                <label for="address">Address</label>
+                                                <input class="form-control" id="address" type="text"
+                                                    placeholder="Enter your home address">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 mb-3">
+                                            <div class="form-group">
+                                                <label for="number">Number</label>
+                                                <input class="form-control" id="number" type="number" placeholder="No.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4 mb-3">
+                                            <div class="form-group">
+                                                <label for="city">City</label>
+                                                <input class="form-control" id="city" type="text" placeholder="City">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 mb-3">
+                                            <label for="state">State</label>
+                                            <select class="form-select w-100 mb-0" id="state" name="state"
+                                                aria-label="State select example">
+                                                <option selected>State</option>
+                                                <option value="AL">Alabama</option>
+                                                <option value="AK">Alaska</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="zip">ZIP</label>
+                                                <input class="form-control" id="zip" type="tel" placeholder="ZIP">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <button class="btn btn-secondary mt-2 animate-up-2" type="submit">Save
+                                            all</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-4">
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <div class="card shadow border-0 text-center p-0">
+                                            <div class="profile-cover rounded-top"
+                                                data-background="{{ ASSETS_ROOT }}/img/profile-cover.jpg"></div>
+                                            <div class="card-body pb-5">
+
+                                                <h4 class="h3">
+                                                    {{ request.user.patient.name }}
+                                                </h4>
+                                                <h5 class="fw-normal">
+                                                    {{ request.user.username }}
+                                                </h5>
+                                                <p class="text-gray mb-4">
+                                                    {{ request.user.patient.email }}
+                                                </p>
+                                                <a class="btn btn-sm btn-gray-800 d-inline-flex align-items-center me-2"
+                                                    href="#">
+                                                    <svg class="icon icon-xs me-1" fill="currentColor"
+                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z">
+                                                        </path>
+                                                    </svg>
+                                                    Connect
+                                                </a>
+                                                <a class="btn btn-sm btn-secondary" href="#">Send Message</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card card-body border-0 shadow mb-4 ">
+                                            <h2 class="h5">Select profile photo</h2>
+                                            <div class="my-4 align-self-center">
+                                                <!-- Avatar -->
+                                                <img class="rounded avatar"
+                                                    src="{{request.user.patient.profile_pic.url}}" alt="change avatar">
+                                            </div>
+                                            <input type="file" name="profile_pic">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+                    </form>
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     <h1 class="mt-4 font-poppins">Orders</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="index.html">Patient</a></li>
-                        <li class="breadcrumb-item active">{{patient.name}}</li>
+                        <li class="breadcrumb-item active">{{request.user.patient.name }}</li>
                     </ol>
                     <div class="card my-4 d-none d-lg-block">
                         <div class="card-body">
@@ -210,7 +367,8 @@
                     <h1 class="mt-4 font-poppins">Payments</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="index.html">Patient</a></li>
-                        <li class="breadcrumb-item active">John Doe</li>
+                        <li class="breadcrumb-item active">{{request.user.patient.name }}
+                        </li>
                     </ol>
                     <div class="card my-4 d-none d-lg-block">
                         <div class="card-body">
@@ -232,9 +390,9 @@
             </div>
         </div>
     </div>
-    <hr id="consult" style="border: none;">
+    <hr id="consult" class="border-0 ">
 </div>
-
+<div class="m-5"></div>
 {% include 'accounts/components/consultation.html' %}
 
 {% endblock %}

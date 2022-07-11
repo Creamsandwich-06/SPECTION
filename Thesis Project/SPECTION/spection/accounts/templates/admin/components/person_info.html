@@ -1,0 +1,231 @@
+{% extends 'admin/components/person.html' %} {% block title %}Patients{% endblock %}
+{% block patient %}
+
+
+<div class="row">
+    <div class="col-12 col-xl-8">
+        <div class="card card-body border-0 shadow mb-4">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">General Information</h1>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-{{order.id}}"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-gear fa-lg fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        aria-labelledby="dropdownMenuLink-{{order.id}}">
+                        <div class="dropdown-header">Action Dropdown: </div>
+                        <a href="{% url 'update_info' patient.id %}" class="dropdown-item">Update</a>
+                        <div class="dropdown-divider"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div>
+                        <label for="first_name">First Name</label>
+                        <input class="form-control" id="first_name" type="text" value="{{patient.first_name}}" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <div>
+                        <label>Middle Name</label>
+                        <input class="form-control" id="last_name" type="text" name="middle_name"
+                            value="{{patient.middle_name}}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div>
+                        <label for="last_name">Last Name</label>
+                        <input class="form-control" id="last_name" type="text" value="{{patient.last_name}}" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-3">
+                    <label for="birthday">Birthday</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-calendar"></i>
+                        </span>
+                        <input data-datepicker="" class="form-control" id="birthday" type="text"
+                            placeholder="{{patient.birthday}}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="gender">Age</label>
+                    <input class="form-control" id="last_name" type="text" value="{{patient.age}}" readonly>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="gender">Gender</label>
+                    <input class="form-control" id="last_name" type="text" value="{{patient.gender}}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" id="email" type="email" placeholder="name@company.com"
+                            value="{{ patient.email }}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input class="form-control" id="phone" type="text" value="{{ patient.phone }}"
+                            placeholder="+12-345 678 910" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="h5 ">Location</h2>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="address">Street</label>
+                        <input class="form-control" id="address" type="text" name="street" value="{{ patient.street }}"
+                            placeholder="Enter your Street" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <div class="form-group">
+                        <label for="number">Barangay</label>
+                        <input class="form-control" id="number" type="text" name="barangay"
+                            value="{{ patient.barangay }}" placeholder="Enter your Barangay" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9 mb-3">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input class="form-control" id="city" type="text" name="city" placeholder="Enter your City"
+                            value="{{ patient.city }}" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="zip">ZIP</label>
+                        <input class="form-control" id="zip" type="text" value="{{ patient.zip }}" name="zip"
+                            placeholder="ZIP" readonly>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="card card-body border-0 shadow mb-4 mb-xl-0">
+            <h2 class="h5 mb-4">Visual Tasks</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex align-items-center justify-content-between px-0 border-bottom">
+                    <div>
+                        <h3 class="h6 mb-1">Company News</h3>
+                        <p class="small pe-4">Get Rocket news, announcements, and product updates</p>
+                    </div>
+                    <div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="user-notification-1">
+                            <label class="form-check-label" for="user-notification-1"></label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item d-flex align-items-center justify-content-between px-0 border-bottom">
+                    <div>
+                        <h3 class="h6 mb-1">Account Activity</h3>
+                        <p class="small pe-4">Get important notifications about you or activity you've missed</p>
+                    </div>
+                    <div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="user-notification-2" checked>
+                            <label class="form-check-label" for="user-notification-2"></label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                    <div>
+                        <h3 class="h6 mb-1">Meetups Near You</h3>
+                        <p class="small pe-4">Get an email when a Dribbble Meetup is posted close to my location</p>
+                    </div>
+                    <div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="user-notification-3" checked>
+                            <label class="form-check-label" for="user-notification-3"></label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-12 col-xl-4">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card shadow border-0 text-center p-0">
+                    <div class="profile-cover rounded-top" data-background="{{ ASSETS_ROOT }}/img/profile-cover.jpg">
+                    </div>
+                    <div class="card-body pb-5">
+                        <img class="avatar px-1" style="background-image: '{{.patient.profile_pic.url}}';">
+                        <h3 class="h3">
+                            {{patient.first_name}} {{patient.middle_name}} {{patient.last_name}}
+                        </h3>
+                        <h5 class="fw-normal">
+                            {{ request.user.username }}
+                        </h5>
+                        <p class="text-gray mb-4">
+                            {{ patient.email }}
+                        </p>
+                        <a class="btn btn-sm btn-gray-800 d-inline-flex align-items-center me-2" href="#">
+                            <svg class="icon icon-xs me-1" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z">
+                                </path>
+                            </svg>
+                            Connect
+                        </a>
+                        <a class="btn btn-sm btn-secondary" href="#">Send Message</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12 ">
+                <div class="card shadow border-0  p-0">
+                    <div class="card-header ">
+                        <span class="text-gray">
+                            Last Visit
+                        </span>
+                    </div>
+                    <div class="card-body text-center">
+
+                        <h4 class="h3">
+                            July 03,2022
+                        </h4>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 ">
+                <div class="card shadow border-0  p-0">
+                    <div class="card-header ">
+                        <span class="text-gray">
+                            Dues
+                        </span>
+                    </div>
+                    <div class="card-body text-center">
+
+                        <h4 class="h3">
+                            No Due
+                        </h4>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,50 +1,45 @@
-{% extends 'admin/admin.html' %} {% block title %}Patients{% endblock %}
-{% block content %}
+{% extends 'admin/components/person.html' %} {% block title %}Patients{% endblock %}
+{% block patient %}
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Patients List</h1>
-    <a class="btn btn-primary" href="{% url 'register' %}" type="button">Register Patient</a>
+    <h1 class="h3 mb-0 text-gray-800">Case</h1>
+    <a class="btn btn-primary" href="{% url 'create_case' patient.id %}" type="button">Add Case</a>
 </div>
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
     For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
         DataTables documentation</a>.</p>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-
-
 <!-- DataTales Example -->
-<div class=" mb-4 border">
+<div class="card shadow mb-4">
+
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table " id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
+                        <th>Case #</th>
+                        <th>Date</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for patient in patients%}
+                    {% for case in cases%}
                     <tr>
-                        <td>{{patient.user.account.first_name}}</td>
-                        <td>{{patient.user.account.phone}}</td>
-                        <td>{{patient.user.email}}</td>
+                        <td>{{case.id}}</td>
+                        <td>{{case.date_created}}</td>
                         <td class="text-center">
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-{{order.id}}"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    style="z-index: 9999;">
                                     <i class="fas fa-ellipsis-h fa-lg fa-fw text-gray-400"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink-{{order.id}}">
+                                    aria-labelledby="dropdownMenuLink-{{order.id}}" style="z-index: 9999;">
                                     <div class="dropdown-header">Action Dropdown: </div>
-                                    <a href="{% url 'person_info'  patient.id   %}" class="dropdown-item">View
-                                        Information</a>
+                                    <a href="{% url 'person_case' patient.id case.id %}" class="dropdown-item">View</a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="{% url 'delete_patient' patient.id %}" class="dropdown-item">Delete</a>
+                                    <a href="{% url 'delete_case' patient.id case.id %}"
+                                        class="dropdown-item">Delete</a>
                                 </div>
                             </div>
                         </td>
@@ -55,9 +50,6 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('#dataTable').DataTable();
-    });
-</script>
+
+
 {% endblock %}
