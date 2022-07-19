@@ -71,6 +71,10 @@ def contact(request):
     return render(request, 'accounts/pages/contacts.html')
 
 
+def services(request):
+    return render(request, 'accounts/pages/services.html')
+
+
 def about(request):
     form = AppointmentForm()
     if request.method == 'POST':
@@ -113,9 +117,13 @@ def loginUser(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['patient'])
 def patient(request):
-    patient = request.user.patient
+    patient = request.user
+    account = Account.objects.get(user = patient)
     form = PatientForm(instance=patient)
     orders = request.user.patient.order_set.all()
+    prescriptions = Rx.objects.all().filter(user=patient).order_by('-date_created')
+    current_pres = prescriptions.first()
+    print(prescriptions)
 
     if request.method == 'POST':
         form = PatientForm(request.POST, request.FILES, instance=patient)
@@ -124,9 +132,10 @@ def patient(request):
             form.save()
 
     context = {
-
+        'account':account,
         'orders': orders,
         'form': form,
+        'current_rx':current_pres,
     }
     return render(request, 'accounts/pages/patient_panel.html', context)
 
@@ -355,7 +364,7 @@ def update_news(request, pk):
 def register(request):
     form = CreateUserForm()
     form_2 = AccountForm()
-    models = [Patient, History]
+    models = [Patient]
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         form_2 = AccountForm(request.POST)
@@ -542,6 +551,7 @@ def person_case(request, pk, case_id):
     pupil_measure = PupilMeasurement.objects.get(user=case)
     history = History.objects.get(user=case)
     form = SignsForm()
+
 
     signs_list = signs.signs_details.split(":")
     visual_task_list = signs.activity_details.split(":")

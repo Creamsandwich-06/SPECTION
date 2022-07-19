@@ -24,14 +24,6 @@
 </nav>
 
 
-<div class=" mb-4 sticky-top navbar-light bg-light p-3 ">
-    <a type="button" href="#Signs" class="btn btn-outline-secondary ">Case History</a>
-    <a type="button" href="#Ref" class="btn btn-outline-secondary">Refraction</a>
-    <a type="button" href="#Cover" class="btn btn-outline-secondary">Cover Test</a>
-    <a type="button" href="#Reflex" class="btn btn-outline-secondary">Pupil Reflex</a>
-    <a type="button" href="#Measure" class="btn btn-outline-secondary">Pupil Measurement</a>
-
-</div>
 <hr class="mb-4">
 <div class="row" style="scroll-behavior: smooth;">
     <div class="col-8 ">
@@ -60,12 +52,12 @@
                                     <div class="form-check">
                                         {% if history.dm %}
                                         <input class="form-check-input" disabled checked type="checkbox" name="dm"
-                                            value="Yes" id="defaultCheck1">
+                                            value="Yes" id="defaultCheck1" style="opacity: 1;">
                                         {% else %}
                                         <input class="form-check-input" disabled type="checkbox" name="dm" value="Yes"
-                                            id="defaultCheck1">
+                                            id="defaultCheck1" style="opacity: 1;">
                                         {% endif %}
-                                        <label class="form-check-label" for="defaultCheck1">
+                                        <label class="form-check-label" style="opacity: 1;" for="defaultCheck1">
                                             DM
                                         </label>
                                     </div>
@@ -74,12 +66,12 @@
                                     <div class="form-check">
                                         {% if history.hpn %}
                                         <input class="form-check-input" disabled checked type="checkbox" name="hpn"
-                                            value="Yes" id="defaultCheck1">
+                                            value="Yes" id="defaultCheck1" style="opacity: 1;">
                                         {% else %}
                                         <input class="form-check-input" disabled type="checkbox" name="hpn" value="Yes"
-                                            id="defaultCheck1">
+                                            id="defaultCheck1" style="opacity: 1;">
                                         {% endif %}
-                                        <label class="form-check-label" for="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1" style="opacity: 1;">
                                             HPN
                                         </label>
                                     </div>
@@ -88,12 +80,12 @@
                                     <div class="form-check">
                                         {% if history.allergies %}
                                         <input class="form-check-input" checked disabled type="checkbox"
-                                            name="allergies" value="Yes" id="defaultCheck1">
+                                            name="allergies" value="Yes" id="defaultCheck1" style="opacity: 1;">
                                         {% else %}
                                         <input class="form-check-input" disabled type="checkbox" name="allergies"
-                                            value="Yes" id="defaultCheck1">
+                                            value="Yes" id="defaultCheck1" style="opacity: 1;">
                                         {% endif %}
-                                        <label class="form-check-label" for="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1" style="opacity: 1;">
                                             Allergies
                                         </label>
                                     </div>
@@ -179,12 +171,12 @@
                                 <div class="form-check">
                                     {% if history.anatomical %}
                                     <input class="form-check-input" checked disabled type="checkbox" name="anatomical"
-                                        value="Yes" id="defaultCheck1">
+                                        style="opacity: 1;" value="Yes" id="defaultCheck1">
                                     {% else %}
                                     <input class="form-check-input" type="checkbox" disabled name="anatomical"
-                                        value="Yes" id="defaultCheck1">
+                                        style="opacity: 1;" value="Yes" id="defaultCheck1">
                                     {% endif %}
-                                    <label class="form-check-label" for="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1" style="opacity: 1;">
                                         Anatomical
                                     </label>
                                 </div>
@@ -193,12 +185,12 @@
                                 <div class="form-check">
                                     {% if history.catopric %}
                                     <input class="form-check-input" checked type="checkbox" disabled name="catopric"
-                                        value="Yes" id="defaultCheck1">
+                                        style="opacity: 1;" value="Yes" id="defaultCheck1">
                                     {% else %}
                                     <input class="form-check-input" type="checkbox" disabled name="catopric" value="Yes"
-                                        id="defaultCheck1">
+                                        style="opacity: 1;" id="defaultCheck1">
                                     {% endif %}
-                                    <label class="form-check-label" for="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1" style="opacity: 1;">
                                         Catopric
                                     </label>
                                 </div>

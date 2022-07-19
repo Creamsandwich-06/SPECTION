@@ -2,6 +2,11 @@
 {% block content %}
 {% load static %}
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/style.css">
 
 <div class="jumbotron calendar-sections">
 
@@ -15,12 +20,17 @@
     <hr id="consult" style="border: none;">
 </div>
 
+
 {% include 'accounts/components/consultation.html' %}
 
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>
 <script type="text/javascript" src="{% static '/js/admin.js' %}"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
 <script>
     var item = JSON.parse(jsonstr)
 
@@ -31,7 +41,10 @@
         }
         return item
     }
-
+    $('.datepicker').datepicker({
+        min: new Date(2022, 6, 20),
+        max: new Date(2022, 7, 14)
+    })
 
     $(document).ready(function () {
         $('#calendar').evoCalendar({
@@ -44,6 +57,7 @@
 
         });
     })
+
 
 
 </script>

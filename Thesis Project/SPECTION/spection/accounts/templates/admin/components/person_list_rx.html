@@ -27,8 +27,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <span class="d-flex flex-row col-4 justify-content-between">
-                <h6 class="font-weight-bold text-primary">RX Created:</h6>
-                <h6>{{rx.date_created}}</h6>
+                <h6 class="font-weight-bold ">Latest RX : {{ current_rx.date_created}}</h6>
             </span>
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
@@ -48,13 +47,13 @@
         <div class="card card-body border-0 shadow  ">
             <table class="table table-bordered text-center" id="dataTable">
                 <thead>
-                    <tr>
+                    <tr class="text-light bg-dark">
                         <th scope="col">#</th>
-                        <th scope="col">OLD RX</th>
-                        <th scope="col">Distance VASC</th>
-                        <th scope="col">Distance VACC</th>
-                        <th scope="col">Near VASC</th>
-                        <th scope="col">Near VACC</th>
+                        <th scope="col">RX</th>
+                        <th scope="col"><small>Distance</small> VASC</th>
+                        <th scope="col"><small>Distance</small> VACC</th>
+                        <th scope="col"><small>Near</small> VASC</th>
+                        <th scope="col"><small>Near</small> VACC</th>
                         <th scope="col">PHV</th>
                     </tr>
                 </thead>
