@@ -2,7 +2,6 @@
 
 from bootstrap_modal_forms.forms import BSModalModelForm
 from django import forms
-from sqlalchemy import null
 from .models import *
 from django.forms import CheckboxInput, DateInput, ModelForm
 from django.contrib.auth.forms import UserCreationForm

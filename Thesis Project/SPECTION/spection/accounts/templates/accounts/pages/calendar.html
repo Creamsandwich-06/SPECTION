@@ -41,10 +41,6 @@
         }
         return item
     }
-    $('.datepicker').datepicker({
-        min: new Date(2022, 6, 20),
-        max: new Date(2022, 7, 14)
-    })
 
     $(document).ready(function () {
         $('#calendar').evoCalendar({
@@ -53,8 +49,6 @@
             format: 'yyyy,mm,dd',
             eventHeaderFormat: 'MM d, yyyy',
             calendarEvents: myFunction(item)
-
-
         });
     })
 
