@@ -173,10 +173,10 @@ def create_appointment(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Appointment is successfully send!')
-            return redirect('home')
+            return redirect('appointment')
         else:
             messages.error(request, 'Appointment is invalid!')
-    context = {}
+    context = {'form':form}
     return render(request, 'admin/forms/create_appointment.html', context)
 
 def delete_appointment(request,pk):
