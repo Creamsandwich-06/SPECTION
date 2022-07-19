@@ -1,0 +1,29 @@
+{% extends "admin/admin.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<p>Create New Appoitment</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" id="fname" name="first_name" placeholder="Firstname"><br><br>
+    <input type="text" id="fname" name="last_name" placeholder="Lastname"><br><br>
+    <input type="text" id="lname" name="phone" placeholder="Contact"><br><br>
+    <input type="emails" id="lname" name="email" placeholder="Email"><br><br>
+    <input type="date" id="lname" name="date" onchange="this.className=(this.value!=''?'has-value':'')"
+        class="date"><br><br>
+    <input type="time" id="lname" name="time" onchange="this.className=(this.value!=''?'has-value':'')"
+        class="date"><br><br>
+    <select name="purpose" class="dropdown-toggle">
+        <option>Type of Service</option>
+        <option value="Emergency Care">Emergency Care</option>
+        <option value="Pediatrics">Pediatrics</option>
+        <option value="Ocular Inspection">Ocular Inspection</option>
+    </select><br><br>
+    <button type="submit">Book an Appointment</button>
+
+    <a href="">Cancel</a>
+    <input type="submit" name="Confirm">
+</form>
+
+{% endblock %}

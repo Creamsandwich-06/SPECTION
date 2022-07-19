@@ -166,6 +166,29 @@ def appointment(request):
     }
     return render(request, 'admin/pages/appointment.html', context)
 
+def create_appointment(request):
+    form = AppointmentForm()
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Appointment is successfully send!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Appointment is invalid!')
+    context = {}
+    return render(request, 'admin/forms/create_appointment.html', context)
+
+def delete_appointment(request,pk):
+    appointment = Appointment.objects.get(id=pk)
+    if request.method == "POST":
+        appointment.delete()
+        messages.success(request, 'Appointment has been Deleted!')
+        return redirect('appointment')
+
+    context = {'item': appointment}
+    return render(request, 'admin/forms/delete_appointment.html', context)
+    
 
 def create_billing(request):
     return render(request, 'admin/forms/create_billing.html')

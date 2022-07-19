@@ -53,6 +53,9 @@ urlpatterns = [
          views.update_case, name='update_case'),
     path('patient_list/patient/<str:pk>/Case/<str:case_id>/delete_case/',
          views.delete_case, name='delete_case'),
+     # Appointment
+     path('Appointment/Create', views.create_appointment, name='create_appointment'),
+     path('Appointment/<str:pk>/Delete', views.delete_appointment, name='delete_appointment'),
     # Billing
     path('Billing/Create', views.create_billing, name='create_billing'),
     # Schedule

@@ -2,7 +2,7 @@
 {% block content %}
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Appointment</h1>
-    <a class="btn btn-primary" href="{% url 'register' %}" type="button">Add News</a>
+    <a class="btn btn-primary" href="{% url 'create_appointment' %}" type="button">Add Appointment</a>
 </div>
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
     For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
@@ -59,7 +59,8 @@
                                     <a href="" class="dropdown-item">View
                                         Information</a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="" class="dropdown-item">Delete</a>
+                                    <a href="{% url 'delete_appointment' appointment.id %}"
+                                        class="dropdown-item">Delete</a>
                                 </div>
                             </div>
                         </td>
