@@ -347,6 +347,18 @@ html {
     input[type="date"]:active {
         background: rgb(232,240,254);
     }
+
+    
+    input[type="time"]::before{
+        color: #666666;
+        content: attr(placeholder) "Time : ";
+        }
+    input[type="time"]:focus::before {
+        content: "" !important;
+        }
+    input[type="time"]:active {
+            background: rgb(232,240,254);
+        }
    .consultationRequest > form > select {
        width: 248px;
        border:2px solid #e6e6e6;

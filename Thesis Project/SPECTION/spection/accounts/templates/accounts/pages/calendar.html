@@ -42,6 +42,7 @@
         return item
     }
 
+
     $(document).ready(function () {
         $('#calendar').evoCalendar({
             theme: "Orange Coral",
@@ -49,11 +50,13 @@
             format: 'yyyy,mm,dd',
             eventHeaderFormat: 'MM d, yyyy',
             calendarEvents: myFunction(item)
+
+
         });
     })
 
 
-
 </script>
+
 
 {% endblock %}

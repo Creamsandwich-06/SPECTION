@@ -2,36 +2,72 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<p>Create Post</p>
 
-<form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="col-md-6 mb-3">
-        <div class="form-group">
-            <label for="phone">Title:</label>
-            <input class="form-control rounded-0" name="title" type="text">
-        </div>
-    </div>
-    <div class="col-md-6 mb-3">
-        <div>
-            <label>Description:</label>
-            <textarea class="form-control" type="text" name="desc"></textarea>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="headline" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-                Add to Feature
-            </label>
-        </div>
-    </div>
-    <div class="col-md-6 mb-3">
-        {{form.profile_pic}}
-    </div>
+<main class="">
+    <section class="vh-lg-100  bg-soft d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center form-bg-image  mt-5">
+                <div class="col-xl-6 d-flex align-items-center justify-content-center">
+                    <div class="signin-inner my-3 my-lg-0 bg-white shadow border-0 rounded p-4 p-lg-4 w-100 fmxw-500">
+                        <div class="col-12  order-2 order-lg-1 text-center text-lg-left">
 
-    <a href="">Cancel</a>
-    <input type="submit" name="Confirm">
-</form>
+                            <h1 class="">Create New Post</h1>
+                            <p class="lead ">Fill out the fields below!</p>
+                            <hr>
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class=" mb-3">
+                                    <div class="form-group">
+                                        <label for="phone">Title:</label>
+                                        <input class="form-control rounded-0" name="title" id="birthday" type="text">
+                                    </div>
+                                </div>
+                                <div class=" mb-3">
+                                    <div>
+                                        <label>Description:</label>
+                                        <textarea class="form-control" type="text" rows="3" name="desc"></textarea>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        {% if news.headline %}
+                                        <input class="form-check-input" checked type="checkbox" name="headline"
+                                            id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Add to Feature
+                                        </label>
+                                        {% else %}
+                                        <input class="form-check-input" type="checkbox" name="headline"
+                                            id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Add to Feature
+                                        </label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class=" mb-3">
+                                    {{form.profile_pic}}
+                                </div>
+                                <hr>
+                                <a href="{% url 'news'  %}"
+                                    class="btn btn btn-outline-secondary d-inline-flex align-items-center justify-content-center mb-4">
+
+                                    Cancel
+                                </a>
+                                <button type="submit"
+                                    class="btn btn-primary d-inline-flex align-items-center justify-content-center mb-4 col-5">
+
+                                    Create New Post
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
 
 {% endblock %}
