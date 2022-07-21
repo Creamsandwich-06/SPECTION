@@ -16,8 +16,11 @@ from django.urls import reverse_lazy
 from bootstrap_modal_forms.generic import (
     BSModalCreateView,
 )
-
+from django.core.mail import send_mail
+from django.core.mail import mail_admins
+from django.core.mail import EmailMessage
 from django.conf import settings
+from django.template import RequestContext
 
 from .filters import Orderfilter
 import json
@@ -67,8 +70,28 @@ def calendar(request):
     return render(request, 'accounts/pages/calendar.html')
 
 
+
 def contact(request):
-    return render(request, 'accounts/pages/contacts.html')
+    form = EmailForm()
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            mail = form.cleaned_data
+
+            subject = mail['subject']
+            message = mail['message']
+            from_email = 'ghifere@gmail.com'
+            recipient_list = [ 'ghifere6@gmail.com',]
+            send_email = EmailMessage(subject,message,from_email,recipient_list)
+            send_email.send()
+            #send_mail(subject,message,from_email, recipient_list)
+            messages.success(request, 'Email is successfully send to gmail!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Appointment is invalid!')
+    context = {
+        'form': form,}
+    return render(request, 'accounts/pages/contacts.html',context)
 
 
 def services(request):

@@ -20,6 +20,13 @@ class AccountForm(ModelForm):
         fields = '__all__'
         exclude = ('user',)
 
+class EmailForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
+        exclude = ()
+  
+
 
 class AppointmentForm(ModelForm):
     class Meta:

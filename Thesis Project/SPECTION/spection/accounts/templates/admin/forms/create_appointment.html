@@ -2,28 +2,100 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<p>Create New Appoitment</p>
 
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" id="fname" name="first_name" placeholder="Firstname"><br><br>
-    <input type="text" id="fname" name="last_name" placeholder="Lastname"><br><br>
-    <input type="text" id="lname" name="phone" placeholder="Contact"><br><br>
-    <input type="emails" id="lname" name="email" placeholder="Email"><br><br>
-    <input type="date" id="lname" name="date" onchange="this.className=(this.value!=''?'has-value':'')"
-        class="date"><br><br>
-    <input type="time" id="lname" name="time" onchange="this.className=(this.value!=''?'has-value':'')"
-        class="date"><br><br>
-    <select name="purpose" class="dropdown-toggle">
-        <option>Type of Service</option>
-        <option value="Emergency Care">Emergency Care</option>
-        <option value="Pediatrics">Pediatrics</option>
-        <option value="Ocular Inspection">Ocular Inspection</option>
-    </select><br><br>
-    <button type="submit">Book an Appointment</button>
 
-    <a href="">Cancel</a>
-    <input type="submit" name="Confirm">
-</form>
+<main class="my-5">
+    <form method="POST">
+        {% csrf_token %}
+        <section class="my-5 vh-lg-100  mt-lg-0 bg-soft d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center form-bg-image">
+                    <div class="col-xl-9 d-flex align-items-center justify-content-center">
+                        <div
+                            class="signin-inner my-3 my-lg-0 bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+                            <h1 class="h3">Create New Appoitment!</h1>
+                            <p class="mb-4">Please enter the fields below!</p>
+
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <div>
+                                        <label>First Name</label>
+                                        <input class="form-control" id="first_name" type="text" name="first_name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <div>
+                                        <label>Last Name</label>
+                                        <input class="form-control" id="last_name" type="text" name="last_name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input class="form-control" id="email" type="email"
+                                            placeholder="name@company.com" name="email">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input class="form-control" id="phone" type="number" name="phone"
+                                            placeholder="+12-345 678 910">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4 mb-3">
+                                    <div>
+                                        <label>Date</label>
+                                        <input class="form-control" id="first_name" type="date" name="date">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div>
+                                        <label>Time</label>
+                                        <input class="form-control" id="first_name" type="time" name="time">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div>
+                                        <label>Service</label>
+                                        <select name="purpose" class="form-select">
+                                            <option>Type of Service</option>
+                                            <option value="Emergency Care">Emergency Care</option>
+                                            <option value="Pediatrics">Pediatrics</option>
+                                            <option value="Ocular Inspection">Ocular Inspection</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="my-5 vh-lg-100  mt-lg-0 bg-soft d-flex align-items-center">
+            <div class="container">
+                <div class="col-12 d-flex justify-content-center form-bg-image">
+                    <div class="row col-9">
+                        <div class="col-xl-6 d-flex align-items-center justify-content-center">
+                            <a type="button" href="{% url 'appointment' %}" class="btn btn-secondary col-xl-12">
+                                Cancel</a>
+                        </div>
+                        <div class="col-xl-6 d-flex align-items-center justify-content-center">
+                            <button type="submit" class="btn btn-primary col-xl-12"> Register Patient</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </form>
+</main>
+
 
 {% endblock %}
