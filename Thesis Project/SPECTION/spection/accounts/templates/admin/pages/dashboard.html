@@ -35,7 +35,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_rx}}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        <i class="fas fa-user fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Pending Requests</div>
+                            Appointment Requests</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                     </div>
                     <div class="col-auto">
@@ -84,5 +84,21 @@
         </div>
     </div>
 </div>
+<select id="formsel">
+    <option value="text 1">text 1</option>
+    <option value="text 2">text 2</option>
+    <option value="text 3">text 3</option>
+</select>
 
+
+<script>
+
+    $("#formsel").change(function () {
+        var selectedText = $("#formsel option:selected").text()
+        if (selectedText == 'text 2') {
+            alert('Hello')
+        }
+    });
+
+</script>
 {% endblock %}

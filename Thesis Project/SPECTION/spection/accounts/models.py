@@ -131,8 +131,8 @@ class History(models.Model):
 class Signs(models.Model):
     user = models.OneToOneField(
         Case, null=True, blank=True, on_delete=models.CASCADE)
-    signs_details = models.CharField(max_length=200, null=True, blank=True)
-    activity_details = models.CharField(max_length=200, null=True, blank=True)
+    signs_details = models.CharField(default='After Reading:',max_length=200, null=True, blank=True)
+    activity_details = models.CharField(default='Reading:',max_length=200, null=True, blank=True)
 
 
 class Refraction(models.Model):
