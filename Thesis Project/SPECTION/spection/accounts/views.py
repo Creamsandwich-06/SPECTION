@@ -441,13 +441,22 @@ def register(request):
     }
     return render(request, 'admin/pages/registration.html', context)
 
+from datetime import date
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def dashboard(request):
     patients = Patient.objects.all()
+    rx = Rx.objects.all()
+    todays_date = date.today()
+    mm = todays_date.month
+    yy = todays_date.year
+
+    rx_month = rx.filter(date_created__year =yy ).filter(date_created__month=mm)
+    total_rx = rx_month.count()
     total_patient = patients.count()
-    context = {'total_patient': total_patient}
+    context = {'total_patient': total_patient,
+    'total_rx':total_rx}
     return render(request, 'admin/pages/dashboard.html', context)
 
 # Patient
@@ -460,7 +469,8 @@ def patient_list(request):
     context = {'patients': patients}
     return render(request, 'admin/pages/patient_list.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def deletePatient(request, pk):
     patient = Account.objects.get(id=pk)
     user = User.objects.get(username=patient)
@@ -473,13 +483,15 @@ def deletePatient(request, pk):
     context = {'patient': patient}
     return render(request, 'admin/forms/delete_patient.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def person_info(request, pk):
     patient = Account.objects.get(id=pk)
     context = {'patient': patient}
     return render(request, 'admin/components/person_info.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def update_info(request, pk):
     patient = Account.objects.get(id=pk)
     form = AccountForm()
@@ -501,7 +513,8 @@ def update_info(request, pk):
     }
     return render(request, 'admin/forms/update_info.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def person_list_case(request, pk):
     patient = Account.objects.get(id=pk)
     user = User.objects.get(username=patient)
@@ -512,7 +525,8 @@ def person_list_case(request, pk):
     }
     return render(request, 'admin/components/person_list_case.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def person_list_rx(request, pk):
     patient = Account.objects.get(id=pk)
     user = User.objects.get(username=patient)
@@ -525,7 +539,8 @@ def person_list_rx(request, pk):
     }
     return render(request, 'admin/components/person_list_rx.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def create_rx(request, pk):
     patient = Account.objects.get(id=pk)
     user = User.objects.get(username=patient)
@@ -547,7 +562,8 @@ def create_rx(request, pk):
     }
     return render(request, 'admin/forms/create_rx_form.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def update_rx(request, pk, rx_id):
     patient = Account.objects.get(id=pk)
     user = User.objects.get(username=patient)
@@ -571,7 +587,8 @@ def update_rx(request, pk, rx_id):
     }
     return render(request, 'admin/forms/update_rx_form.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def delete_rx(request, pk, rx_id):
     patient = Account.objects.get(id=pk)
     rx = Rx.objects.get(id=rx_id)
@@ -585,7 +602,8 @@ def delete_rx(request, pk, rx_id):
     }
     return render(request, 'admin/forms/delete_rx.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def person_case(request, pk, case_id):
     patient = Account.objects.get(id=pk)
 
@@ -611,7 +629,8 @@ def person_case(request, pk, case_id):
     }
     return render(request, 'admin/components/person_case.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def create_case(request, pk):
     patient = Account.objects.get(id=pk)
     user = User.objects.get(username=patient)
@@ -634,7 +653,8 @@ def create_case(request, pk):
     }
     return render(request, 'admin/forms/case_form.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def update_case(request, pk, case_id):
     patient = Account.objects.get(id=pk)
     case = Case.objects.get(id=case_id)
@@ -705,7 +725,8 @@ def update_case(request, pk, case_id):
 
     return render(request, 'admin/forms/update_case.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def delete_case(request, pk, case_id):
     patient = Account.objects.get(id=pk)
     case = Case.objects.get(id=case_id)

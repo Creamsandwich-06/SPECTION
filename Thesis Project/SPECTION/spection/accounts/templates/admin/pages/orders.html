@@ -8,12 +8,42 @@
     For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
         DataTables documentation</a>.</p>
 <div class="row mb-4">
-    <div class="col">
+    <div class="col-12">
         <div class="card card-body">
             {% load widget_tweaks %}
             <form action="" method="GET">
-                {{myFilter.form}}
-                <button class="btn btn-primary" type="submit">Search</button>
+                <div class="row">
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            <label>Product</label>
+                            <input class="form-control rounded-0" name="product" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <input class="form-control rounded-0" name="status" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            <label>Date Created</label>
+                            <input class="form-control rounded-0" name="status" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            <label>Date Ended</label>
+                            <input class="form-control rounded-0" name="status" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            <label>.</label>
+                            <button class="form-control btn btn-primary" type="submit">Search</button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -27,6 +57,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+
                         <th>Name</th>
                         <th>Product</th>
                         <th>Status</th>
@@ -37,6 +68,7 @@
                 <tbody>
                     {% for order in orders%}
                     <tr>
+
                         <td>{{order.customer.name}}</td>
                         <td>{{order.product}}</td>
                         <td>{{order.status}}</td>
