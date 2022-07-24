@@ -84,21 +84,5 @@
         </div>
     </div>
 </div>
-<select id="formsel">
-    <option value="text 1">text 1</option>
-    <option value="text 2">text 2</option>
-    <option value="text 3">text 3</option>
-</select>
 
-
-<script>
-
-    $("#formsel").change(function () {
-        var selectedText = $("#formsel option:selected").text()
-        if (selectedText == 'text 2') {
-            alert('Hello')
-        }
-    });
-
-</script>
 {% endblock %}

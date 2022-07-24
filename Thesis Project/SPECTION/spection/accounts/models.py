@@ -244,15 +244,16 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    STATUS = (
-        ('Pending', 'Pending'),
-        ('Out for Delivery', 'Out for Delivery'),
-        ('Delivered', 'Delivered'),
+    TYPE = (
+        ('Glasses', 'Glasses'),
+        ('Product', 'Product'),
     )
-    customer = models.ForeignKey(Patient, null=True, on_delete=models.SET_NULL)
-    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, blank=True,on_delete=models.SET_NULL)
+    price = models.FloatField(null=True)
+    type = models.CharField(max_length=200, null=True, choices=TYPE)
     date_created = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=200, null=True, choices=STATUS)
+    dispense_details = models.CharField(default='None:',max_length=200, null=True, blank=True)
+    lab_details = models.CharField(default='None:',max_length=200, null=True, blank=True)
 
     def __str__(self) -> str:
-        return self.product.name
+        return self.user

@@ -789,6 +789,22 @@ def orders(request):
     return render(request, 'admin/pages/orders.html', context)
 
 
+def create_order(request):
+    form = OrderForm()
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Post is successfully send!')
+            return redirect('news')
+        else:
+            messages.error(request, 'Fields are invalid!')
+    context = {
+    }
+    return render(request, 'admin/forms/create_order.html', context)
+
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def updateOrder(request, pk):

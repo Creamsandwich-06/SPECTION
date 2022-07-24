@@ -2,7 +2,7 @@
 {% block content %}
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Orders</h1>
-    <button id="create-order" class="btn btn-primary" type="button" name="button">Create book</button>
+    <a class="btn btn-primary" href="{% url 'create_order' %}" type="button" name="button">Create Orders</a>
 </div>
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
     For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
@@ -60,7 +60,7 @@
 
                         <th>Name</th>
                         <th>Product</th>
-                        <th>Status</th>
+                        <th>Type</th>
                         <th>Date Created</th>
                         <th class="text-center">Action</th>
                     </tr>
