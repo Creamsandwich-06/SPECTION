@@ -262,7 +262,7 @@ html {
        font-weight: bold;
        text-align: center;
        text-transform: uppercase;
-       font-family: 'Merriweather Sans', sans-serif;
+        
        letter-spacing: 2px;
        font-size: 16px;
    }
@@ -288,8 +288,7 @@ html {
        font-family: 'Poppins', sans-serif;
    }
    .consultationRequest .p1{
-       margin-left: 15%;
-       margin-right: 50%;
+      
        padding-top: 50px;
        font-weight: bold;
        font-size: 15px;
@@ -300,8 +299,7 @@ html {
    }
    
    .consultationRequest .p2{
-       margin-left: 15%;
-       margin-right: 50%;
+       
        font-size: 40px;
        padding-top: -80px;
        text-align: center;
@@ -311,11 +309,7 @@ html {
        font-family: 'Poppins', sans-serif;
    }
    
-   .consultationRequest > form {
-       margin-left: 15%;
-       margin-right: 50%;
-       padding-top: 30px;
-   }
+
    
    .consultationRequest > form > input {
        background-color: white;
@@ -347,8 +341,6 @@ html {
     input[type="date"]:active {
         background: rgb(232,240,254);
     }
-
-    
     input[type="time"]::before{
         color: #666666;
         content: attr(placeholder) "Time : ";
@@ -502,7 +494,9 @@ html {
        font-size: 18px;
        color:rgba(255,255,255,1);
        outline: none;
-       backdrop-filter: blur(5px);
+       backdrop-filter: blur(5px);   
+       font-family: 'Poppins';
+       font-weight: 500;
    }
    
    
@@ -1058,11 +1052,6 @@ html {
             font-size: 12vh;
             color: #B83A1A;
         }
-        .home-wind .home-wind-background > p > span:nth-child(2){
-            font-size: 12px;
-        }
-  
-      
             
 
         .home-wind .home-wind-background > h6 {

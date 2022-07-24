@@ -22,12 +22,13 @@
 
 </section>
 
-<section class="consultationRequest" id="consult">
-    <p class="p1">Request for your</p>
-    <p class="p2">Consultation</p>
-    <form method="POST">
+<section class="consultationRequest col-12" id="consult">
+    <p class="p1 text-left px-3">Request for your</p>
+    <p class="p2 mb-5 text-left px-3">Consultation</p>
+    <form method="POST" class=" col-9 align-middle mx-3">
         {% csrf_token %}
-        <input type="text" id="fname" name="first_name" placeholder="Firstname"><br><br>
+        <div></div>
+        <input type="text" class="align-middle " id="fname" name="first_name" placeholder="Firstname"><br><br>
         <input type="text" id="fname" name="last_name" placeholder="Lastname"><br><br>
         <input type="text" id="lname" name="phone" placeholder="Contact"><br><br>
         <input type="emails" id="lname" name="email" placeholder="Email"><br><br>
