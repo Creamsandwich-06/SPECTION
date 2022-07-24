@@ -22,7 +22,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template import RequestContext
 
-from .filters import Orderfilter
+from .filters import *
 import json
 import sys
 import re
@@ -44,14 +44,23 @@ def home(request):
 
 def post(request):
     news = News.objects.all()
-    news = news.filter(headline=True)
-    total_news = news.count() + 1
+    news_list = news.filter(type='News').order_by('-date_created')
+    featured_news = news.filter(type='Featured')
+    header_1_news = news.filter(type='Heading 1').first()
+    header_2_news = news.filter(type='Heading 2').first()
+
+  
+
+    total_news = featured_news.count() + 1
     total = []
     for num in range(1, total_news):
         total.append(num)
-    print(total)
+
     context = {
-        'news': news,
+        'news_list':news_list,
+        'featured_news': featured_news,
+        'header_1_news':header_1_news,
+        'header_2_news':header_2_news,
         'total_news': total,
     }
     return render(request, 'accounts/pages/post.html', context)
@@ -122,8 +131,7 @@ def loginUser(request):
             login(request, user)
             fname = request.user.first_name
             lname = request.user.last_name
-            messages.success(request, fname + ' ' +
-                             lname + ' has been logged in!')
+            messages.success(request, username + ' has been logged in!')
             group = None
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
@@ -165,6 +173,7 @@ def patient(request):
 
 def logoutUser(request):
     group = None
+    username = request.user.username
     # if request.user.groups.exists():
     #     group = request.user.groups.all()[0].name
     #     if group == "patient":
@@ -172,7 +181,7 @@ def logoutUser(request):
     #     if group == "admin":
     #         name = 'Admin'
 
-    messages.success(request,  ' User has logged out!')
+    messages.success(request, username + ' has logged out!')
     logout(request)
     return redirect('login')
 
@@ -340,18 +349,11 @@ def news(request):
     order_by_list = ['-date_created']
     new = News.objects.all()
     news = new.order_by('-date_created')
-    form = NewsForm()
-    if request.method == 'POST':
-        form = NewsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'News is successfully created!')
-            return redirect('news')
-        else:
-            messages.error(request, 'News not Created!')
+    myFilter = Newsfilter(request.GET, queryset=news)
+    news = myFilter.qs
+   
     context = {
         'news': news,
-        'form': form,
     }
     return render(request, 'admin/pages/announcement.html', context)
 

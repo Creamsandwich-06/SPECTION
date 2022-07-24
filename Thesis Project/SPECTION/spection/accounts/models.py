@@ -61,6 +61,7 @@ class News(models.Model):
         default="pexels-misael-garcia-1707828.jpg", null=True, blank=True)
     headline = models.BooleanField(
         default=False, max_length=200, null=True, blank=True)
+    type = models.CharField(max_length=200, null=True, blank=True)
     date_created = models.DateField(auto_now_add=True)
 
     def __str__(self) -> str:

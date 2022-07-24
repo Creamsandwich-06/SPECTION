@@ -29,21 +29,15 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <div class="form-check">
-                                        {% if news.headline %}
-                                        <input class="form-check-input" checked type="checkbox" name="headline"
-                                            id="defaultCheck1">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                            Add to Feature
-                                        </label>
-                                        {% else %}
-                                        <input class="form-check-input" type="checkbox" name="headline"
-                                            id="defaultCheck1">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                            Add to Feature
-                                        </label>
-                                        {% endif %}
-                                    </div>
+                                    <label for="exampleFormControlInput1" class="form-label">Type</label>
+                                    <select class="form-select" required name="type"
+                                        aria-label="Default select example">
+                                        <option selected value="News">News</option>
+                                        <option value="Featured">Featured</option>
+                                        <option value="Heading 1">Heading 1</option>
+                                        <option value="Heading 2">Heading 2</option>
+
+                                    </select>
                                 </div>
                                 <div class=" mb-3">
                                     {{form.profile_pic}}

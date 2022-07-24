@@ -18,3 +18,9 @@ class Orderfilter(django_filters.FilterSet):
         model = Order
         fields = '__all__'
         exclude = ['customer', 'date_created']
+
+class Newsfilter(django_filters.FilterSet):
+    class Meta:
+        model = News
+        fields = '__all__'
+        exclude = ['profile_pic', 'date_created']
