@@ -122,7 +122,8 @@
                                 <h1 class="mt-4 font-poppins">General Information</h1>
                             </div>
                             <hr>
-                            <div class="card-header bg-light mb-4">Latest RX : {{ current_rx.date_created}}</div>
+                            <div class="card-header border-0  bg-light mb-4">Latest RX : {{ current_rx.date_created}}
+                            </div>
                             <div class="card card-body border-0  col-sm-12  table-responsive">
                                 <table class="table table-bordered text-center rounded-3" id="dataTable">
                                     <thead>
@@ -183,8 +184,16 @@
                                     </figcaption>
                                 </figure>
                             </div>
-
+                            <div class="card  my-5">
+                                <figure class="text-center pt-4">
+                                    <blockquote class="blockquote lead">
+                                        <p>Next Scheduled Visit:</p>
+                                    </blockquote>
+                                    <h3 class="emphasize">{{current_sched.date}}</h3>
+                                </figure>
+                            </div>
                         </div>
+
 
                     </div>
 

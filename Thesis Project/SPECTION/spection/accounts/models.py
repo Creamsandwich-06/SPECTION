@@ -43,6 +43,8 @@ class Schedule(models.Model):
 
 
 class Appointment(models.Model):
+    user = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True)
     phone = models.CharField(max_length=200, null=True, blank=True)
@@ -51,7 +53,7 @@ class Appointment(models.Model):
     date = models.DateField(null=True, blank=True)
     time = models.TimeField(null=True, blank=True)
     status = models.CharField(
-        max_length=200, null=True, blank=True, default='Not Arrived')
+        max_length=200, null=True, blank=True, default='Not Approved')
 
 
 class News(models.Model):

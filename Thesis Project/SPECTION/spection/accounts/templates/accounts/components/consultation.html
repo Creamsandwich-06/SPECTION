@@ -2,15 +2,25 @@
 
 <section class="container ">
     <div class=" d-flex justify-content-around mb-5">
-        <section class="consultationRequest consult-change" style="position: relative; margin:0;">
-            <p class="p1">Request for your</p>
-            <p class="p2">Consultation</p>
-            <form method="POST">
+        <section class="consultationRequest  consult-change" style="position: relative; margin:0;">
+            <p class="p1 text-left px-4">Request for your</p>
+            <p class="p2 mb-5 text-left px-4">Consultation</p>
+            <form method="POST" class=" col-9 align-middle mx-4">
                 {% csrf_token %}
-                <input type="text" id="fname" name="first_name" placeholder="Firstname"><br><br>
+                {% if request.user.is_authenticated %}
+                <input type="text" class="align-middle " value="{{request.user.account.first_name}}" name="first_name"
+                    placeholder="Firstname"><br><br>
+                <input type="text" value="{{request.user.account.last_name}}" name="last_name"
+                    placeholder="Lastname"><br><br>
+                <input type="text" value="{{request.user.account.phone}}" name="phone" placeholder="Contact"><br><br>
+                <input type="email" value="{{request.user.account.email}}" name="email" placeholder="Email"><br><br>
+                {% else %}
+                <input type="text" class="align-middle " id="fname" name="first_name" placeholder="Firstname"><br><br>
                 <input type="text" id="fname" name="last_name" placeholder="Lastname"><br><br>
                 <input type="text" id="lname" name="phone" placeholder="Contact"><br><br>
-                <input type="emails" id="lname" name="email" placeholder="Email"><br><br>
+                <input type="email" id="lname" name="email" placeholder="Email"><br><br>
+
+                {% endif %}
                 <input type="date" id="lname" name="date" onchange="this.className=(this.value!=''?'has-value':'')"
                     class="date datepicker"><br><br>
                 <input type="time" id="lname" name="time" onchange="this.className=(this.value!=''?'has-value':'')"

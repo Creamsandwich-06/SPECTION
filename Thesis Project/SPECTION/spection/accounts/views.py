@@ -33,8 +33,11 @@ def home(request):
     form = AppointmentForm()
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
+        user = request.user
         if form.is_valid():
-            form.save()
+            appoint=form.save(commit=False)
+            appoint.user=user
+            appoint.save()
             messages.success(request, 'Appointment is successfully send!')
             return redirect('home')
         else:
@@ -48,8 +51,6 @@ def post(request):
     featured_news = news.filter(type='Featured')
     header_1_news = news.filter(type='Heading 1').first()
     header_2_news = news.filter(type='Heading 2').first()
-
-  
 
     total_news = featured_news.count() + 1
     total = []
@@ -150,6 +151,8 @@ def loginUser(request):
 def patient(request):
     patient = request.user
     account = Account.objects.get(user = patient)
+    order_by_list = ['-date', '-time',]
+    appoint = Appointment.objects.all().filter(user=patient).filter(status="Approved").order_by(*order_by_list).first()
     form = PatientForm(instance=patient)
     orders = request.user.patient.order_set.all()
     prescriptions = Rx.objects.all().filter(user=patient).order_by('-date_created')
@@ -167,6 +170,7 @@ def patient(request):
         'orders': orders,
         'form': form,
         'current_rx':current_pres,
+        'current_sched':appoint,
     }
     return render(request, 'accounts/pages/patient_panel.html', context)
 
@@ -192,7 +196,14 @@ def appointment(request):
     order_by_list = ['-date', '-time']
     appoint = Appointment.objects.all()
     appointments = appoint.order_by(*order_by_list)
-
+    if request.method == 'POST':
+        app_id = request.POST['approved']
+        set_app = Appointment.objects.get(id=app_id)
+        if set_app.status=="Not Approved":
+            set_app.status = "Approved"
+        else:
+            set_app.status = "Not Approved"
+        set_app.save()
     context = {
         'appointments': appointments,
     }
@@ -450,14 +461,20 @@ from datetime import date
 def dashboard(request):
     patients = Patient.objects.all()
     rx = Rx.objects.all()
+ 
+    appoint = Appointment.objects.all()
+    appointments = appoint.filter(status="Not Approved")
     todays_date = date.today()
     mm = todays_date.month
     yy = todays_date.year
 
     rx_month = rx.filter(date_created__year =yy ).filter(date_created__month=mm)
+
     total_rx = rx_month.count()
     total_patient = patients.count()
-    context = {'total_patient': total_patient,
+    total_appointments = appointments.count()
+
+    context = {'total_patient': total_patient,'total_appointments':total_appointments,
     'total_rx':total_rx}
     return render(request, 'admin/pages/dashboard.html', context)
 

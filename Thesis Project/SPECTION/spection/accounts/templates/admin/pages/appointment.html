@@ -19,9 +19,9 @@
             <table class="table mt-2 text-center">
 
                 <tr class="p-0 mb-2 h6 text-dark-100 bolder">
-                    <th><input type="checkbox" id="btn" value="{{ appointment.id }}"></th>
                     <th scope="col">Lastname</th>
                     <th scope="col">Firstname</th>
+                    <th scope="col">User</th>
                     <th scope="col">Contact</th>
                     <th scope="col">Email</th>
                     <th scope="col">Service</th>
@@ -31,18 +31,15 @@
                     <th scope="col" class="text-center">Action</th>
 
                 </tr>
-
-
-
                 <tbody class="p-5">
                     <tr class="p-5">
                         <td colspan="9"></td>
                     </tr>
                     {% for appointment in appointments %}
                     <tr class="p-0">
-                        <th><input type="checkbox" name="factura" value="{{ appointment.id }}"></th>
                         <td>{{appointment.last_name}}</td>
                         <td>{{appointment.first_name}}</td>
+                        <td>{{appointment.user}}</td>
                         <td>{{appointment.phone}}</td>
                         <td>{{appointment.email}}</td>
                         <td>{{appointment.purpose}}</td>
@@ -55,11 +52,20 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis-h fa-lg fa-fw text-gray-400"></i>
                                 </a>
+
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink-{{order.id}}">
                                     <div class="dropdown-header">Action Dropdown: </div>
-                                    <a href="" class="dropdown-item">View
-                                        Information</a>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <input type="text" name="approved" hidden value="{{appointment.id}}">
+                                        {% if appointment.status == 'Not Approved' %}
+                                        <button type="submit" class="dropdown-item">Approved</button>
+                                        {% else %}
+                                        <button type="submit" class="dropdown-item">Not Approved</button>
+                                        {% endif %}
+
+                                    </form>
                                     <div class="dropdown-divider"></div>
                                     <a href="{% url 'delete_appointment' appointment.id %}"
                                         class="dropdown-item">Delete</a>
