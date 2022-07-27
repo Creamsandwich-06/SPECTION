@@ -34,6 +34,7 @@ admin.site.register(PupilMeasurement)
 admin.site.register(Appointment)
 admin.site.register(News)
 admin.site.register(Schedule)
+admin.site.register(Billing)
 
 
 @admin.register(Rx)

@@ -159,6 +159,15 @@ def patient(request):
     current_pres = prescriptions.first()
 
     orders = Order.objects.all().filter(user=patient).order_by('-date_created')
+    orders_dues = orders.filter(due__gt=0)
+    total_due = 0
+    billings= Billing.objects.filter(order__user=patient)
+
+    
+    for order in orders_dues:
+        total_due = total_due + order.due
+        
+    print(billings)
 
     if request.method == 'POST':
         form = PatientForm(request.POST, request.FILES, instance=patient)
@@ -172,6 +181,9 @@ def patient(request):
         'current_rx':current_pres,
         'current_sched':appoint,
         'orders':orders,
+        'total_due':total_due,
+        'orders_dues':orders_dues,
+        'billings':billings,
     }
     return render(request, 'accounts/pages/patient_panel.html', context)
 
@@ -791,9 +803,45 @@ def orders(request):
     orders = Order.objects.all().order_by('-date_created')
     myFilter = Orderfilter(request.GET, queryset=orders)
     orders = myFilter.qs
+    form = OrderForm()
+
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        id = request.POST['get_id']
+        order = Order.objects.get(id=id)
+        
+        price = order.due
+        amount = request.POST['amount']
+
+        due =  float(price) - float(amount)
+        if due > 0 :
+            status = "Unsettled"
+            description="You have an unsettled balance!"
+        elif due == 0:
+            status = "Fully Paid"
+            description="Thank you for purchasing our Product!"
+        else:
+            status = "Negative Balance"
+            description="It looks like you have a negative balance. We will add this up for your next purchase! Thank you for purchasing our Product!"
+        
+        if form.is_valid():
+            order.due = due
+            order.status = status
+            order.save()
+
+            Billing.objects.create(
+                order=order,
+                amount = float(amount),
+                description=description,
+            )
+            messages.success(request, 'Order has been successfully Updated!')
+            return redirect('orders')
+        else:
+            messages.error(request, 'Input Fields Error!')
     context = {
         'orders': orders,
         'myFilter': myFilter,
+        'form':form,
     }
     return render(request, 'admin/pages/orders.html', context)
 
@@ -818,11 +866,14 @@ def create_order(request):
 
         due =  float(price) - float(amount)
         if due > 0 :
-            status = "Unsettled" 
+            status = "Unsettled"
+            description="You have an unsettled balance!"
         elif due == 0:
             status = "Fully Paid"
+            description="Thank you for purchasing our Product!"
         else:
             status = "Negative Balance"
+            description="It looks like you have a negative balance. We will add this up for your next purchase! Thank you for purchasing our Product!"
         
         dispense_array = ['organization','address','manufacturer','style','color','a_frame','dbl_frame','b_frame','ed_frame']
         frame_num_array = ['frame_1_50','frame_Poly','frame_1_60','frame_1_67','frame_1_74']
@@ -878,6 +929,12 @@ def create_order(request):
             order.lab_details = order_details
             order.dispense_details=dispense_details
             order.save()
+
+            Billing.objects.create(
+                order=order,
+                amount = float(amount),
+                description=description,
+            )
             messages.success(request, 'New Order has been created!')
             return redirect('orders')
         else:
@@ -895,7 +952,7 @@ def create_order(request):
 @allowed_users(allowed_roles=['admin'])
 def viewOrder(request,pk):
     order = Order.objects.get(id=pk)
-
+    
     lab_details = order.lab_details.split(':')
     dd = order.dispense_details.split(':')
     dispense_array = ['organization','address','manufacturer','style','color','a_frame','dbl_frame','b_frame','ed_frame']

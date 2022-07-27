@@ -5,31 +5,32 @@
         <div class="row">
             <div class="col-sm-12 col-xl-6">
                 <section class="consultationRequest col-12 position-relative consult-change card text-center my-0">
-                    <p class=" p1  px-4">Request for your</p>
-                    <p class="p2 mb-5  px-4">Consultation</p>
-                    <form method="POST" class="  align-middle mx-4">
+                    <p class=" p1 ">Request for your</p>
+                    <p class="p2 mb-5">Consultation</p>
+                    <form method="POST" class="  align-middle ">
                         {% csrf_token %}
                         {% if request.user.is_authenticated %}
                         <input type="text" class="align-middle " value="{{request.user.account.first_name}}"
                             name="first_name" placeholder="Firstname"><br><br>
-                        <input type="text" value="{{request.user.account.last_name}}" name="last_name"
+                        <input type="text" value="{{request.user.account.last_name}}" name="last_name" required
                             placeholder="Lastname"><br><br>
-                        <input type="text" value="{{request.user.account.phone}}" name="phone"
+                        <input type="text" value="{{request.user.account.phone}}" name="phone" required
                             placeholder="Contact"><br><br>
-                        <input type="email" value="{{request.user.account.email}}" name="email"
+                        <input type="email" value="{{request.user.account.email}}" name="email" required
                             placeholder="Email"><br><br>
                         {% else %}
-                        <input type="text" class="align-middle " id="fname" name="first_name"
+                        <input type="text" class="align-middle " id="fname" name="first_name" required
                             placeholder="Firstname"><br><br>
-                        <input type="text" id="fname" name="last_name" placeholder="Lastname"><br><br>
-                        <input type="text" id="lname" name="phone" placeholder="Contact"><br><br>
-                        <input type="email" id="lname" name="email" placeholder="Email"><br><br>
+                        <input type="text" id="fname" name="last_name" placeholder="Lastname" required><br><br>
+                        <input type="text" id="lname" name="phone" placeholder="Contact" required><br><br>
+                        <input type="email" id="lname" name="email" placeholder="Email" required><br><br>
 
                         {% endif %}
                         <input type="date" id="lname" name="date"
-                            onchange="this.className=(this.value!=''?'has-value':'')" class="date datepicker"><br><br>
+                            onchange="this.className=(this.value!=''?'has-value':'')" class="date datepicker"
+                            required><br><br>
                         <input type="time" id="lname" name="time"
-                            onchange="this.className=(this.value!=''?'has-value':'')" class="date"><br><br>
+                            onchange="this.className=(this.value!=''?'has-value':'')" class="date" required> <br><br>
                         <select name="service" class="dropdown-toggle">
                             <option>Type of Service</option>
                             <option>Emergency Care</option>
@@ -40,7 +41,7 @@
                     </form>
                 </section>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6 col-sm-12">
                 <section class=" col-md-10">
                     <div class=" offer-abox text-justify">
                         <i></i>

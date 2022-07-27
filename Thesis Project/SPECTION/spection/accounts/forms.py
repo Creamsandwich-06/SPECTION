@@ -142,7 +142,6 @@ class NewsForm(ModelForm):
 
 
 class OrderForm(ModelForm):
-
     uv400 = forms.BooleanField(initial=False,required=False)
     anti_scratch =  forms.BooleanField(initial=False,required=False)
     anti_reflective = forms.BooleanField(initial=False,required=False)
@@ -158,7 +157,11 @@ class OrderForm(ModelForm):
         fields = '__all__'
 
   
-
+class BillingForm(ModelForm):
+    class Meta:
+        model = Billing
+        fields = '__all__'
+        exclude = ('user',)
 
 class CreateUserForm(UserCreationForm):
     class Meta:

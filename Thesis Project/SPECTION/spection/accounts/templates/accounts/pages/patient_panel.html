@@ -32,12 +32,12 @@
 
 <div class="dis-lg-block  col-12 mb-5 " style="color:#858796">
     <div
-        class="container w-100 pb-3 dis-lg-block flex-grow-1 d-flex flex-column flex-sm-row overflow-auto mt-3 scroll-bar-hide">
+        class="container w-100 dis-lg-block flex-grow-1 d-flex flex-column flex-sm-row overflow-auto mt-3 scroll-bar-hide">
         <div class="row flex-grow-sm-1 flex-grow-0 ">
-            <aside class="col-sm-3 mb-4   ">
+            <aside class="col-sm-3   ">
                 <div
                     class=" d-flex row border justify-content-evenly bg-light rounded-3 p-4 dis-ls-block scroll-bar-hide">
-                    <div class=" card  mb-3 col-12  d-none d-lg-block scroll-bar-hide" style="height: fit-content;">
+                    <div class=" card   col-12  d-none d-lg-block scroll-bar-hide" style="height: fit-content;">
                         <div class="card-body col-12 ">
                             <div class="row  ">
                                 <div class="col-6">
@@ -89,7 +89,7 @@
                                     class="nav-link d-flex flex-row mb-2 border text-left align-items-center w-100 px-1"
                                     id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
                                     type="button" role="tab" aria-controls="v-pills-message" aria-selected="true"><i
-                                        class="fs-5 fas fa-envelope mx-3"></i><span
+                                        class="fs-5 fas fa-shopping-cart mx-3"></i><span
                                         class="d-none d-lg-block  text-gray">Orders</span>
                                 </button>
                             </li>
@@ -98,7 +98,7 @@
                                     class="nav-link d-flex flex-row mb-2 border text-left align-items-center w-100 px-1"
                                     id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings"
                                     type="button" role="tab" aria-controls="v-pills-settings" aria-selected="true"><i
-                                        class="fs-5 fas fa-gear mx-3"></i><span
+                                        class="fs-5 fas fa-money-bill mx-3"></i><span
                                         class="d-none d-lg-block">Payments</span>
                                 </button>
                             </li>
@@ -199,7 +199,7 @@
                     <form enctype="multipart/form-data" method="POST">
                         {% csrf_token %}
                         <div class="row">
-                            <div class=" col-xl-8">
+                            <div class=" col-xl-8 overflow-auto" style="max-height: 70vh;">
                                 <div class="card card-body border-0 shadow mb-4 ">
                                     <h2 class="h5 ">Profile</h2>
                                     <p class="mb-4">Includes the Information of your Identity in the Company!</p>
@@ -338,17 +338,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="card card-body border-0 shadow mb-4 ">
-                                            <h2 class="h5">Select profile photo</h2>
-                                            <div class="my-4 align-self-center">
-                                                <!-- Avatar -->
-                                                <img class="rounded avatar" src="{{account.profile_pic.url}}"
-                                                    alt="change avatar">
-                                            </div>
-                                            <input type="file" name="profile_pic">
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                             <hr>
@@ -358,71 +348,109 @@
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     <h1 class="mt-4 font-poppins fs-1">Orders</h1>
                     <hr>
-                    <div class="row">
-                        {% for item in orders %}
-                        <div class="col-xl-6 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="d-flex flex-row
-                                            justify-content-between">
-                                                <div class="small w-50">{{item.date_created}}</div>
-                                                {% if item.type == 'Glasses' %}
-                                                <a type="button" class="btn btn-warning btn-sm text-light"
-                                                    href="{% url 'view_patient_order' item.id %}">View
-                                                    details</a>
-                                                {% endif %}
-                                            </div>
-                                            {% if item.type == 'Glasses' %}
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                {{item.type}}</div>
-                                            {% else %}
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                {{item.type}}</div>
-                                            {% endif %}
+                    <div class="col-12 overflow-auto" style="max-height: 70vh;">
+                        <div class="row">
+                            {% for item in orders %}
+                            <div class="col-xl-6 col-md-6 mb-4">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="d-flex flex-row
+                                                justify-content-between">
+                                                    <div class="small w-50">{{item.date_created}}</div>
+                                                    {% if item.type == 'Glasses' %}
+                                                    <a type="button" class="btn btn-warning btn-sm text-light"
+                                                        href="{% url 'view_patient_order' item.id %}">View
+                                                        details</a>
+                                                    {% endif %}
 
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">Note:<span
-                                                    class="mx-1 small">-{{item.note}}</span></div>
+                                                </div>
+                                                {% if item.type == 'Glasses' %}
+                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                    {{item.type}}</div>
+                                                {% else %}
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                    {{item.type}}</div>
+                                                {% endif %}
+
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">Note:<span
+                                                        class="mx-1 small">-{{item.note}}</span></div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
+
                     </div>
 
                 </div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                    <h1 class="mt-4 font-poppins">Payments</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="index.html">Patient</a></li>
-                        <li class="breadcrumb-item active">{{request.user.patient.name }}
-                        </li>
-                    </ol>
-                    <div class="card my-4 d-none d-lg-block">
-                        <div class="card-body">
-                            Chart.js is a third party plugin that is used to generate the charts in this template. The
-                            charts below have been customized - for further customization options, please visit the
-                            official
-                            <a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a>
-                            .
+                    <div class="row">
+                        <div class=" col-xl-8 overflow-auto" style="max-height: 70vh;">
+                            <div class="card shadow border-0 text-center p-0 mb-4">
+                                <div class="profile-cover rounded-top">
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order Id</th>
+                                                    <th>Remaining Due</th>
+                                                    <th>Amount Paid</th>
+                                                    <th>Description</th>
+                                                    <th>Date Created</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for billings in billings %}
+                                                <tr>
+                                                    <td>{{billings.order.id}}</td>
+                                                    <td>{{billings.order.due}}</td>
+                                                    <td>{{billings.amount}}</td>
+                                                    <td>{{billings.description}}</td>
+                                                    <td>{{billings.date_created}}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+                        <div class="col-12 col-xl-4">
+                            <div class="row">
+                                <div class="col-12 mb-4">
+                                    <div class="card shadow border-0 text-center p-0">
+                                        <div class="profile-cover rounded-top"
+                                            data-background="{{ ASSETS_ROOT }}/img/profile-cover.jpg">
+                                        </div>
+                                        <div class="card-body pb-5">
+
+                                            <h4 class="h3  text-center">
+                                                {{total_due}}
+                                            </h4>
+                                            <hr>
+                                            <span class="small p-0">Your total Due</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr>
                     </div>
-                    <p>Ethical Kickstarter PBR asymmetrical lo-fi. Dreamcatcher street art Carles, stumptown gluten-free
-                        Kickstarter artisan Wes Anderson wolf pug. Godard sustainable you probably haven't heard of
-                        them, vegan farm-to-table Williamsburg slow-carb readymade disrupt deep v. Meggings seitan Wes
-                        Anderson semiotics, cliche American Apparel whatever. Helvetica cray plaid, vegan brunch Banksy
-                        leggings +1 direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's Shoreditch selfies,
-                        forage fingerstache food truck occupy YOLO Pitchfork fixie iPhone fanny pack art party Portland.
-                    </p>
                 </div>
             </div>
         </div>
     </div>
     <hr id="consult" class="border-0 ">
 </div>
-<div class="m-5"></div>
 {% include 'accounts/components/consultation.html' %}
 
 {% endblock %}

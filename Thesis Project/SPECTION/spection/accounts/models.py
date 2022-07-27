@@ -261,4 +261,8 @@ class Order(models.Model):
     status = models.CharField(max_length=200, null=True,blank=True)
     note = models.CharField(max_length=200, null=True,blank=True)
 
-   
+class Billing(models.Model):
+    order = models.ForeignKey(Order, null=True, blank=True,on_delete=models.SET_NULL)
+    amount = models.FloatField(null=True,blank=True)
+    description = models.CharField(max_length=200, null=True,blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
