@@ -1,5 +1,6 @@
 
 
+from email.policy import default
 from bootstrap_modal_forms.forms import BSModalModelForm
 from django import forms
 from .models import *
@@ -141,15 +142,22 @@ class NewsForm(ModelForm):
 
 
 class OrderForm(ModelForm):
+
+    uv400 = forms.BooleanField(initial=False,required=False)
+    anti_scratch =  forms.BooleanField(initial=False,required=False)
+    anti_reflective = forms.BooleanField(initial=False,required=False)
+    blue_block =  forms.BooleanField(initial=False,required=False)
+    frame_1_50 =  forms.BooleanField(initial=False,required=False)
+    frame_Poly =  forms.BooleanField(initial=False,required=False)
+    frame_1_60 =  forms.BooleanField(initial=False,required=False)
+    frame_1_67 =  forms.BooleanField(initial=False,required=False)
+    frame_1_74 =  forms.BooleanField(initial=False,required=False)
+
     class Meta:
         model = Order
         fields = '__all__'
 
-
-class CreateModalForm(BSModalModelForm):
-    class Meta:
-        model = Order
-        fields = '__all__'
+  
 
 
 class CreateUserForm(UserCreationForm):

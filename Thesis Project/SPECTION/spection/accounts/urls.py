@@ -69,6 +69,7 @@ urlpatterns = [
     # Order
     path('orders/', views.orders, name='orders'),
     path('create_order/', views.create_order, name='create_order'),
+     path('View Order/<str:pk>', views.viewOrder, name="view_order"),
     path('update_order/<str:pk>', views.updateOrder, name="update_order"),
     path('delete_order/<str:pk>', views.deleteOrder, name="delete_order"),
     # Reset Passwords

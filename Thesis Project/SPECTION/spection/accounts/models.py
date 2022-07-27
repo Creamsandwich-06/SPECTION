@@ -248,12 +248,16 @@ class Order(models.Model):
         ('Glasses', 'Glasses'),
         ('Product', 'Product'),
     )
+
     user = models.ForeignKey(User, null=True, blank=True,on_delete=models.SET_NULL)
-    price = models.FloatField(null=True)
-    type = models.CharField(max_length=200, null=True, choices=TYPE)
+    price = models.FloatField(null=True,blank=True)
+    quantity = models.IntegerField(null=True,blank=True)
+    due = models.FloatField(null=True,blank=True)
+    type = models.CharField(max_length=200, null=True,blank=True, choices=TYPE)
     date_created = models.DateTimeField(auto_now_add=True)
+    product_details = models.CharField(default='None:',max_length=200, null=True, blank=True)
     dispense_details = models.CharField(default='None:',max_length=200, null=True, blank=True)
     lab_details = models.CharField(default='None:',max_length=200, null=True, blank=True)
+    status = models.CharField(max_length=200, null=True,blank=True)
 
-    def __str__(self) -> str:
-        return self.user
+   

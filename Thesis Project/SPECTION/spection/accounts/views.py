@@ -1,6 +1,7 @@
 
 
 import datetime
+from tokenize import group
 from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib import messages
@@ -130,8 +131,7 @@ def loginUser(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            fname = request.user.first_name
-            lname = request.user.last_name
+ 
             messages.success(request, username + ' has been logged in!')
             group = None
             if request.user.groups.exists():
@@ -154,7 +154,6 @@ def patient(request):
     order_by_list = ['-date', '-time',]
     appoint = Appointment.objects.all().filter(user=patient).filter(status="Approved").order_by(*order_by_list).first()
     form = PatientForm(instance=patient)
-    orders = request.user.patient.order_set.all()
     prescriptions = Rx.objects.all().filter(user=patient).order_by('-date_created')
     current_pres = prescriptions.first()
     print(prescriptions)
@@ -167,7 +166,6 @@ def patient(request):
 
     context = {
         'account':account,
-        'orders': orders,
         'form': form,
         'current_rx':current_pres,
         'current_sched':appoint,
@@ -769,17 +767,13 @@ def products(request):
     return render(request, 'admin/pages/products.html', context)
 
 
-class BookCreateView(BSModalCreateView):
-    template_name = 'admin/components/create_order.html'
-    form_class = CreateModalForm
-    success_message = 'Success: Book was created.'
-    success_url = reverse_lazy('orders')
+
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def orders(request):
-    orders = Order.objects.all()
+    orders = Order.objects.all().order_by('-date_created')
     myFilter = Orderfilter(request.GET, queryset=orders)
     orders = myFilter.qs
     context = {
@@ -790,19 +784,123 @@ def orders(request):
 
 
 def create_order(request):
+    patient = User.objects.filter(groups__name='patient')
     form = OrderForm()
+
     if request.method == 'POST':
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Post is successfully send!')
-            return redirect('news')
+        form = OrderForm(request.POST  or None)
+        name = request.POST['name']
+        user = User.objects.get(username=name)
+
+        lab = request.POST['laboratory']
+        sent = request.POST['sent']
+        recieve = request.POST['recieve']
+        due = request.POST['due_date']
+        order_array = [lab,sent,recieve,due]
+
+        price = request.POST['price']
+        amount = request.POST['amount']
+
+        due =  float(price) - float(amount)
+        if due > 0 :
+            status = "Unsettled" 
+        elif due == 0:
+            status = "Fully Paid"
         else:
-            messages.error(request, 'Fields are invalid!')
+            status = "Negative Balance"
+        
+        dispense_array = ['organization','address','manufacturer','style','color','a_frame','dbl_frame','b_frame','ed_frame']
+        frame_num_array = ['frame_1_50','frame_Poly','frame_1_60','frame_1_67','frame_1_74']
+        pd_array = ['other','dis_num','dis_deno','near_num','near_deno',]
+        coating_array = ['uv400','anti_scratch','anti_reflective','blue_block']
+        other_info_array = ['od_sphere','od_cyl','od_axis','od_prism_b','od_add','od_height',
+        'os_sphere','os_cyl','os_axis','os_prism_b','os_add','os_height',
+        'tint','sv','bifocal','progressive','instruction']
+        
+        dispense_details = []
+        frame_num_details = []
+        pd_details = []
+        coating_details = []
+        other_info_details = []
+    
+        if form.is_valid():
+            for item in dispense_array:
+                dispense_details.append(request.POST[item])  
+
+            for item in  frame_num_array:
+                data = request.POST.get(item, False)
+                if item:
+                    data = form.cleaned_data[item]
+                    frame_num_details.append(str(data))
+            
+            dispense_details = dispense_details + frame_num_details
+
+            for item in pd_array:
+                pd_details.append(request.POST[item])  
+            
+            dispense_details = dispense_details + pd_details
+
+            for item in coating_array:
+                data = request.POST.get(item, False)
+                if item:
+                    data = form.cleaned_data[item]
+                coating_details.append(str(data))
+            
+            dispense_details = dispense_details + coating_details
+
+            for item in other_info_array:
+                other_info_details.append(request.POST[item])  
+
+            dispense_details = dispense_details + other_info_details
+            
+            dispense_details = ":".join(dispense_details)
+            order_details = ":".join(order_array)
+
+            order = form.save(commit=False)
+            order.user = user
+            order.due = due
+            order.status = status
+            order.lab_details = order_details
+            order.dispense_details=dispense_details
+            order.save()
+            messages.success(request, 'New Order has been created!')
+            return redirect('orders')
+        else:
+            error = " & ".join(form.errors)
+
+            messages.error(
+                request, error + ' is Invalid.')
     context = {
+        'patient':patient,
+        'form':form,
     }
     return render(request, 'admin/forms/create_order.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def viewOrder(request,pk):
+    order = Order.objects.get(id=pk)
+
+    lab_details = order.lab_details.split(':')
+    dd = order.dispense_details.split(':')
+    dispense_array = ['organization','address','manufacturer','style','color','a_frame','dbl_frame','b_frame','ed_frame']
+    frame_num_array = ['frame_1_50','frame_Poly','frame_1_60','frame_1_67','frame_1_74']
+    pd_array = ['other','dis_num','dis_deno','near_num','near_deno',]
+    coating_array = ['uv400','anti_scratch','anti_reflective','blue_block']
+    other_info_array = ['od_sphere','od_cyl','od_axis','od_prism_b','od_add','od_height',
+    'os_sphere','os_cyl','os_axis','os_prism_b','os_add','os_height',
+        'tint','sv','bifocal','progressive','instruction']
+    dispense_details= dispense_array+frame_num_array+pd_array+coating_array+other_info_array
+
+    import itertools 
+    context = {
+   'order':order,
+    }
+    for (i,j) in zip(dispense_details, dd):
+        context.update({i:j}) 
+    print(context)
+   
+    return render(request, 'admin/forms/view_order.html', context)
 
 
 @login_required(login_url='login')
