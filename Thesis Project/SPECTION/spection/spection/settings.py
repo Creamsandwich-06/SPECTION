@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ur1n_4#f3=%lsyq-9q(ak%qq2!q2tpcl#(@k@j2$bv+-)y#l7g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '90dc-112-198-67-248.ngrok.io']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cd5f-110-54-230-20.ngrok.io']
 
 DATE_INPUT_FORMATS = ('%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d')
 
@@ -159,4 +159,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ghifere6@gmail.com'
 EMAIL_HOST_PASSWORD = 'mvqpofdgapctdhot'
 
-CSRF_TRUSTED_ORIGINS=['https://90dc-112-198-67-248.ngrok.io']
+CSRF_TRUSTED_ORIGINS=['http://cd5f-110-54-230-20.ngrok.io']

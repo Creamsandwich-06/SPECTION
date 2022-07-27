@@ -1,7 +1,8 @@
 
 
 import datetime
-from tokenize import group
+import itertools 
+
 from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib import messages
@@ -156,7 +157,8 @@ def patient(request):
     form = PatientForm(instance=patient)
     prescriptions = Rx.objects.all().filter(user=patient).order_by('-date_created')
     current_pres = prescriptions.first()
-    print(prescriptions)
+
+    orders = Order.objects.all().filter(user=patient).order_by('-date_created')
 
     if request.method == 'POST':
         form = PatientForm(request.POST, request.FILES, instance=patient)
@@ -169,9 +171,22 @@ def patient(request):
         'form': form,
         'current_rx':current_pres,
         'current_sched':appoint,
+        'orders':orders,
     }
     return render(request, 'accounts/pages/patient_panel.html', context)
 
+def patientOrderDetails(request,pk):
+    order = Order.objects.get(id=pk)
+
+
+    details = ['laboratory','sent','recieve','due_date']
+    lab_details = order.lab_details.split(':')
+    
+    context = {  }
+    for (i,j) in zip(details, lab_details):
+        context.update({i:j}) 
+
+    return render(request, 'accounts/pages/patient_order.html', context)
 
 def logoutUser(request):
     group = None
@@ -891,14 +906,11 @@ def viewOrder(request,pk):
     'os_sphere','os_cyl','os_axis','os_prism_b','os_add','os_height',
         'tint','sv','bifocal','progressive','instruction']
     dispense_details= dispense_array+frame_num_array+pd_array+coating_array+other_info_array
-
-    import itertools 
     context = {
-   'order':order,
+   'order':order,'lab_details':lab_details,
     }
     for (i,j) in zip(dispense_details, dd):
         context.update({i:j}) 
-    print(context)
    
     return render(request, 'admin/forms/view_order.html', context)
 

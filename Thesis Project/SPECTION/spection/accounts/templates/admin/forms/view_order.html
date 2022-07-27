@@ -42,8 +42,8 @@
                             <div class="row align-items-center">
                                 <div class="col-sm-4 mb-3">
                                     <label>Type</label>
-                                    <input type="text" id="order_type" class="form-control" disabled
-                                        value="{{order.type}}">
+
+                                    <input type="text" id="order_type" class="form-control" value="{{order.type}}">
 
                                 </div>
 
@@ -73,6 +73,14 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <hr>
+                            <div class="">
+                                <button type="button" class="btn btn-primary col-xl-12" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">
+                                    Pay Due
+                                </button>
+
                             </div>
 
                         </div>
@@ -532,10 +540,48 @@
         get_date.value = utc;
     }
 
-    function show() {
 
-
+    if ($("#order_type").val() == 'Glasses') {
+        $("#glasses").css({
+            display: "block",
+            visibility: "visible"
+        });
+        $("#dispense").css({
+            display: "block",
+            visibility: "visible"
+        });
+        $("#product").css({
+            display: "none",
+            visibility: "hidden"
+        });
+    } else if ($("#order_type").val() == 'Product') {
+        $("#product").css({
+            display: "block",
+            visibility: "visible"
+        });
+        $("#glasses").css({
+            display: "none",
+            visibility: "hidden"
+        });
+        $("#dispense").css({
+            display: "none",
+            visibility: "hidden"
+        });
+    } else {
+        $("#glasses").css({
+            display: "none",
+            visibility: "hidden"
+        });
+        $("#dispense").css({
+            display: "none",
+            visibility: "hidden"
+        });
+        $("#product").css({
+            display: "none",
+            visibility: "hidden"
+        });
     }
+
     getPrice()
     getDue()
     getToday()

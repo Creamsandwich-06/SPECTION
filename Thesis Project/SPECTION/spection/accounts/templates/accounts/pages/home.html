@@ -21,11 +21,10 @@
     </div>
 
 </section>
-
-<section class="consultationRequest col-12" id="consult">
-    <p class="p1 text-left px-3">Request for your</p>
-    <p class="p2 mb-5 text-left px-3">Consultation</p>
-    <form method="POST" class=" col-9 align-middle mx-3">
+<section class="consultationRequest col-12  consult-change card text-center ">
+    <p class=" p1  px-4">Request for your</p>
+    <p class="p2 mb-5  px-4">Consultation</p>
+    <form method="POST" class="  align-middle mx-4">
         {% csrf_token %}
         {% if request.user.is_authenticated %}
         <input type="text" class="align-middle " value="{{request.user.account.first_name}}" name="first_name"
@@ -41,14 +40,14 @@
 
         {% endif %}
         <input type="date" id="lname" name="date" onchange="this.className=(this.value!=''?'has-value':'')"
-            class="date"><br><br>
+            class="date datepicker"><br><br>
         <input type="time" id="lname" name="time" onchange="this.className=(this.value!=''?'has-value':'')"
             class="date"><br><br>
-        <select name="purpose" class="dropdown-toggle">
+        <select name="service" class="dropdown-toggle">
             <option>Type of Service</option>
-            <option value="Emergency Care">Emergency Care</option>
-            <option value="Pediatrics">Pediatrics</option>
-            <option value="Ocular Inspection">Ocular Inspection</option>
+            <option>Emergency Care</option>
+            <option>Pediatrics</option>
+            <option>Ocular Inspection</option>
         </select><br><br>
         <button type="submit">Book an Appointment</button>
     </form>

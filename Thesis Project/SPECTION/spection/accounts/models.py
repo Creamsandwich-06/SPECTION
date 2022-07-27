@@ -259,5 +259,6 @@ class Order(models.Model):
     dispense_details = models.CharField(default='None:',max_length=200, null=True, blank=True)
     lab_details = models.CharField(default='None:',max_length=200, null=True, blank=True)
     status = models.CharField(max_length=200, null=True,blank=True)
+    note = models.CharField(max_length=200, null=True,blank=True)
 
    

@@ -14,6 +14,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('post/', views.post, name='post'),
     path('patient/', views.patient, name='patient'),
+    path('patient/Order/<str:pk>/Details', views.patientOrderDetails, name="view_patient_order"),
     # Admin Panel
     path('registration/', views.register, name='register'),
     path('dashboard/', views.dashboard, name='dashboard'),

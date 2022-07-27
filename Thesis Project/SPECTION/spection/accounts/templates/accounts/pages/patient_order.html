@@ -1,0 +1,74 @@
+{% extends 'accounts/base.html' %} {% block title %}Patient{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load svg %}
+
+<section class=" vh-lg-100  mt-5 bg-soft d-flex align-items-center">
+    <div id="glasses" class="mb-5 container">
+        <div class="row justify-content-center form-bg-image">
+            <div class="col-xl-9 d-flex align-items-center justify-content-center">
+                <div class="signin-inner my-lg-0 bg-white shadow border-0 rounded px-5 pt-5 pb-3 w-100 fmxw-500">
+                    <h2 class="h1">Order Information</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12 mb-1">
+                            <div class="form-group">
+                                <label for="address">Laboratory</label>
+                                <input class="form-control" type="text" name="laboratory" disabled
+                                    value="{{laboratory}}" placeholder="Enter Date of Manufacturer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-1">
+                            <div class="form-group">
+                                <label>Date Sent</label>
+                                <input class="form-control" type="text" name="sent" disabled value="{{sent}}">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-1">
+                            <div class="form-group">
+                                <label>Date Recieve</label>
+                                <input class="form-control" type="text" name="recieve" disabled value="{{recieve}}">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="zip">Due Date</label>
+                                <input class="form-control" type="text" name="due_date" disabled value="{{due_date}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class=" vh-lg-100  d-flex align-items-center">
+    <div id="" class="mb-5 container">
+        <div class="row justify-content-center ">
+            <div class="col-xl-9  align-items-center justify-content-center">
+                <div class="bg-white shadow border-0 rounded p-3 w-100 ">
+                    <p class=""><span class="fw-bolder">Order Information:</span> Your order will be delivered according
+                        to
+                        the schedule. You may claim your order onsite/clinic or may request to deliver.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class=" vh-lg-100  bg-soft d-flex align-items-center">
+    <div id="glasses" class="container">
+        <div class="row justify-content-center form-bg-image">
+            <div class="col-xl-9 d-flex align-items-center justify-content-center">
+                <a type="button" href="{% url 'login' %}" class="btn btn-outline-secondary col-md-12">Go
+                    Back</a>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="m-5"></div>
+{% include 'accounts/components/consultation.html' %}
+
+{% endblock %}

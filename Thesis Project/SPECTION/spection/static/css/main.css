@@ -288,8 +288,7 @@ html {
        font-family: 'Poppins', sans-serif;
    }
    .consultationRequest .p1{
-       margin-left: 15%;
-       margin-right: 50%;
+      
        padding-top: 50px;
        font-weight: bold;
        font-size: 15px;
@@ -300,8 +299,7 @@ html {
    }
    
    .consultationRequest .p2{
-       margin-left: 15%;
-       margin-right: 50%;
+       
        font-size: 40px;
        padding-top: -80px;
        text-align: center;
@@ -311,11 +309,7 @@ html {
        font-family: 'Poppins', sans-serif;
    }
    
-   .consultationRequest > form {
-       margin-left: 15%;
-       margin-right: 50%;
-       padding-top: 30px;
-   }
+
    
    .consultationRequest > form > input {
        background-color: white;
@@ -1087,7 +1081,7 @@ html {
     }
     .consult-change{
         width: 100%;
-        transform: translateX(0%);
+
     }
     
     .consultationRequest > form > input {
