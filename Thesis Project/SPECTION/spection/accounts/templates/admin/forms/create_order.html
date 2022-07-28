@@ -19,7 +19,8 @@
                             <div class="row">
                                 <div class="col-sm-8 mb-3">
                                     <label>User</label>
-                                    <select class="form-select" aria-label="Default select example" name="name">
+                                    <select class="form-select" aria-label="Default select example" name="name"
+                                        required>
                                         <option value="" selected>Unknown</option>
                                         {% for name in patient %}
                                         <option value="{{name}}">{{name.account.first_name}} {{name.account.last_name}}
@@ -48,11 +49,18 @@
                                             <option value="Product">Product</option>
                                         </select>
                                     </div>
-
                                 </div>
 
-                                <div class="col-sm-8 mb-3">
-                                    <label for="price">Price</label>
+                                <div class="col-sm-2 my-3">
+                                    <label for="address">Quantity</label>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="quantity" id="quantity" required
+                                            placeholder="ex. 10">
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="price">Price per Item</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon1"> &#8369;</span>
                                         <input class="form-control" id="price" type="text" placeholder="5.00" required
@@ -80,11 +88,23 @@
                         <div class="signin-inner  my-lg-0 bg-white shadow border-0 rounded p-5  w-100 fmxw-500">
                             <h2 class="h5 ">Product Information</h2>
                             <div class="row">
-                                <div class="col-md-12 ">
+                                <div class="col-md-6 ">
                                     <div class="form-group">
-                                        <label for="address">Name</label>
-                                        <input class="form-control" type="text" name="laboratory"
+                                        <label for="address">Brand Name</label>
+                                        <input class="form-control" type="text" name="brand_name"
                                             placeholder="Enter Product Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 "> <label for="inputGroupSelect01">Type</label>
+                                    <div class="input-group">
+
+                                        <select class="form-select" required name="brand_type" id="formsel"
+                                            aria-label="Default select example">
+                                            <option selected>Type</option>
+                                            <option value="Lens">Lens</option>
+                                            <option value="Cleanser">Cleanser</option>
+                                            <option value="Cleanser">Lens Cleaning CLoth</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -463,12 +483,14 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
+                                <label for="address">Total Price</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1"> &#8369;</span>
                                     <input class="form-control" type="text" readonly placeholder="Price" id="get_price">
                                 </div>
                             </div>
                             <div class="col-md-6 ">
+                                <label for="address">Due</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Due</span>
                                     <input class="form-control" type="text" name="due" placeholder="Due" readonly
@@ -525,16 +547,28 @@
                 }, false)
             })
     })()
+    $('#staticBackdrop').on('hide.bs.modal', function (e) {
+        const amount = document.getElementById("amount");
+        const due = document.getElementById("due");
+        amount.value = 0;
+        due.value = 0;
+    })
     function getPrice() {
         const price = document.getElementById("price");
         const get_price = document.getElementById("get_price");
+        const quantity = document.getElementById("quantity");
+        const due = document.getElementById("due");
 
         const inputHandler = function (e) {
-            get_price.value = e.target.value;
+            get_price.value = price.value * quantity.value;
         }
 
         price.addEventListener('input', inputHandler);
         price.addEventListener('propertychange', inputHandler);
+        quantity.addEventListener('input', inputHandler);
+        quantity.addEventListener('propertychange', inputHandler);
+        due.addEventListener('input', inputHandler);
+        due.addEventListener('propertychange', inputHandler);
     }
     function getDue() {
         const due = document.getElementById("due");
@@ -549,6 +583,10 @@
 
         amount.addEventListener('input', inputHandler);
         amount.addEventListener('propertychange', inputHandler);
+        get_price.addEventListener('input', inputHandler);
+        get_price.addEventListener('propertychange', inputHandler);
+        due.addEventListener('input', inputHandler);
+        due.addEventListener('propertychange', inputHandler);
     }
     function getToday() {
         const get_date = document.getElementById("date_created");

@@ -812,7 +812,8 @@ def orders(request):
         
         price = order.due
         amount = request.POST['amount']
-
+       
+    
         due =  float(price) - float(amount)
         if due > 0 :
             status = "Unsettled"
@@ -838,6 +839,7 @@ def orders(request):
             return redirect('orders')
         else:
             messages.error(request, 'Input Fields Error!')
+   
     context = {
         'orders': orders,
         'myFilter': myFilter,
@@ -861,10 +863,16 @@ def create_order(request):
         due = request.POST['due_date']
         order_array = [lab,sent,recieve,due]
 
+        brand_name = request.POST['brand_name']
+        brand_type = request.POST['brand_type']
+
+        product_array = [brand_name,brand_type]
+
+        quantity = request.POST['quantity']
         price = request.POST['price']
         amount = request.POST['amount']
 
-        due =  float(price) - float(amount)
+        due =  (float(price)*int(quantity)) - float(amount)
         if due > 0 :
             status = "Unsettled"
             description="You have an unsettled balance!"
@@ -888,6 +896,8 @@ def create_order(request):
         pd_details = []
         coating_details = []
         other_info_details = []
+
+
     
         if form.is_valid():
             for item in dispense_array:
@@ -921,6 +931,7 @@ def create_order(request):
             
             dispense_details = ":".join(dispense_details)
             order_details = ":".join(order_array)
+            product_details = ":".join(product_array)
 
             order = form.save(commit=False)
             order.user = user
@@ -928,6 +939,7 @@ def create_order(request):
             order.status = status
             order.lab_details = order_details
             order.dispense_details=dispense_details
+            order.product_details=product_details
             order.save()
 
             Billing.objects.create(
@@ -953,7 +965,12 @@ def create_order(request):
 def viewOrder(request,pk):
     order = Order.objects.get(id=pk)
     
-    lab_details = order.lab_details.split(':')
+    ll= order.lab_details.split(':')
+    lab_details= ['laboratory','sent','recieve','due_date']
+
+    product_details = order.product_details.split(':')
+    pp= ['brand_name','brand_type']
+
     dd = order.dispense_details.split(':')
     dispense_array = ['organization','address','manufacturer','style','color','a_frame','dbl_frame','b_frame','ed_frame']
     frame_num_array = ['frame_1_50','frame_Poly','frame_1_60','frame_1_67','frame_1_74']
@@ -963,12 +980,17 @@ def viewOrder(request,pk):
     'os_sphere','os_cyl','os_axis','os_prism_b','os_add','os_height',
         'tint','sv','bifocal','progressive','instruction']
     dispense_details= dispense_array+frame_num_array+pd_array+coating_array+other_info_array
+
+
     context = {
-   'order':order,'lab_details':lab_details,
+   'order':order,
     }
     for (i,j) in zip(dispense_details, dd):
         context.update({i:j}) 
-   
+    for (x,y) in zip(lab_details, ll):
+        context.update({x:y})
+    for (i,j) in zip(product_details, pp):
+        context.update({i:j})
     return render(request, 'admin/forms/view_order.html', context)
 
 

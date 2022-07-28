@@ -21,7 +21,7 @@
                         <i class="fas fa-angle-down"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <button class="dropdown-item" href="{% url 'logout' %}">Logout</button>
+                        <a type="button" class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                     </ul>
                 </div>
 
@@ -34,7 +34,7 @@
     <div
         class="container w-100 dis-lg-block flex-grow-1 d-flex flex-column flex-sm-row overflow-auto mt-3 scroll-bar-hide">
         <div class="row flex-grow-sm-1 flex-grow-0 ">
-            <aside class="col-sm-3   ">
+            <aside class="col-sm-3  mb-4 ">
                 <div
                     class=" d-flex row border justify-content-evenly bg-light rounded-3 p-4 dis-ls-block scroll-bar-hide">
                     <div class=" card   col-12  d-none d-lg-block scroll-bar-hide" style="height: fit-content;">
@@ -50,18 +50,13 @@
                                     <h5 class="  col-12" style="line-height: 0.2;">
                                         <div class="row">
                                             <div class="col-12"> {{account.first_name }}</div>
-
                                         </div>
-
-
                                     </h5>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-12 ">
-
                         <style>
                             .nav-pills .nav-link {
                                 color: gray;
@@ -98,7 +93,7 @@
                                     class="nav-link d-flex flex-row mb-2 border text-left align-items-center w-100 px-1"
                                     id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings"
                                     type="button" role="tab" aria-controls="v-pills-settings" aria-selected="true"><i
-                                        class="fs-5 fas fa-money-bill mx-3"></i><span
+                                        class="fs-5 fas fa-file-invoice mx-3"></i><span
                                         class="d-none d-lg-block">Payments</span>
                                 </button>
                             </li>
@@ -119,7 +114,7 @@
                     <div class="row">
                         <div class="col-lg-8 col-sm-12 ">
                             <div class="d-sm-flex align-items-center justify-content-between ">
-                                <h1 class="mt-4 font-poppins">General Information</h1>
+                                <h1 class="font-poppins">General Information</h1>
                             </div>
                             <hr>
                             <div class="card-header border-0  bg-light mb-4">Latest RX : {{ current_rx.date_created}}
@@ -346,7 +341,7 @@
                     </form>
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                    <h1 class="mt-4 font-poppins fs-1">Orders</h1>
+                    <h1 class=" font-poppins fs-1">Orders</h1>
                     <hr>
                     <div class="col-12 overflow-auto" style="max-height: 70vh;">
                         <div class="row">
@@ -362,7 +357,7 @@
                                                     {% if item.type == 'Glasses' %}
                                                     <a type="button" class="btn btn-warning btn-sm text-light"
                                                         href="{% url 'view_patient_order' item.id %}">View
-                                                        details</a>
+                                                        Delivery</a>
                                                     {% endif %}
 
                                                 </div>
@@ -370,12 +365,20 @@
                                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                     {{item.type}}</div>
                                                 {% else %}
-                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                <div
+                                                    class="text-xs font-weight-bold text-info text-uppercase mt-3 mb-1">
                                                     {{item.type}}</div>
                                                 {% endif %}
 
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">Note:<span
-                                                        class="mx-1 small">-{{item.note}}</span></div>
+                                                <div class="d-flex flex-row
+                                                justify-content-between">
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Price:<span
+                                                            class="mx-1 small">{{item.price}}</span></div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Due:<span
+                                                            class="mx-1 small">{{item.due}}</span></div>
+
+                                                </div>
+
                                             </div>
 
                                         </div>
