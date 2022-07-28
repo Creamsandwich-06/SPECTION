@@ -39,10 +39,10 @@
     </div>
 </div>
 
-<div class="col-xl-8 mt-4">
+<div class="col-xl-12 mt-4">
     <div class=" card rounded-0  mb-4">
         <div class=" card card-body border-0  table-responsive ">
-            <table class="table  mt-2 text-center">
+            <table class="table table-bordered text-center align-middle">
                 <tr class="p-0 mb-2 h6 text-dark-100 bolder">
                     <th scope="col">Title</th>
                     <th scope="col ">Description</th>
@@ -54,10 +54,10 @@
 
 
                     {% for news in news %}
-                    <tr class="p-0 ">
+                    <tr class="small text-center lh-1">
                         <td>{{news.title}}</td>
                         <td>
-                            <div class="d-inline-block text-truncate" style="max-width: 150px;">{{news.desc}}</div>
+                            <div class="d-inline-block text-truncate" style="max-width: 300px;">{{news.desc}}</div>
                         </td>
                         <td>{{news.date_created}}</td>
                         <td>{{news.type}}</td>

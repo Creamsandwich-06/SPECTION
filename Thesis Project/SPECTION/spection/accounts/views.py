@@ -486,6 +486,7 @@ from datetime import date
 def dashboard(request):
     patients = Patient.objects.all()
     rx = Rx.objects.all()
+    orders = Order.objects.all()
  
     appoint = Appointment.objects.all()
     appointments = appoint.filter(status="Not Approved")
@@ -494,13 +495,18 @@ def dashboard(request):
     yy = todays_date.year
 
     rx_month = rx.filter(date_created__year =yy ).filter(date_created__month=mm)
+    orders = orders.filter(date_created__year =yy ).filter(date_created__month=mm)
 
     total_rx = rx_month.count()
     total_patient = patients.count()
     total_appointments = appointments.count()
+    total_orders = orders.count()
 
-    context = {'total_patient': total_patient,'total_appointments':total_appointments,
-    'total_rx':total_rx}
+    context = {
+        'total_patient': total_patient,
+        'total_appointments':total_appointments,
+        'total_rx':total_rx,
+        'total_orders':total_orders,}
     return render(request, 'admin/pages/dashboard.html', context)
 
 # Patient

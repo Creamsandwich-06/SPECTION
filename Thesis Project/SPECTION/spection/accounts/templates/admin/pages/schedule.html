@@ -20,7 +20,7 @@
 <div class="col-xl-12 mt-4">
     <div class=" card rounded-0  mb-4">
         <div class=" card card-body border-0  table-responsive ">
-            <table class="table  mt-2 text-center">
+            <table class="table table-bordered text-center align-middle">
                 <tr class="p-0 mb-2 h6 text-dark-100 bolder">
                     <th scope="col">Title</th>
                     <th scope="col ">Description</th>
@@ -33,14 +33,23 @@
 
 
                     {% for schedule in schedule%}
-                    <tr class="p-0 ">
+                    <tr class="small text-center lh-1">
                         <td>{{schedule.name}}</td>
                         <td>
                             <div class="d-inline-block text-truncate" style="max-width: 150px;">{{schedule.description}}
                             </div>
                         </td>
                         <td> {{schedule.date}}</td>
-                        <td>{{schedule.type}}</td>
+                        <td class="align-middle">
+                            {% if schedule.type == "Holiday" %}
+                            <span class="badge p-2 bg-success align-middle">{{schedule.type}}</span>
+                            {% elif schedule.type == "Event" %}
+                            <span class="badge p-2 bg-danger align-middle">{{schedule.type}}</span>
+                            {% else %}
+                            <span class="badge p-2 bg-warning align-middle">{{schedule.type}}</span>
+                            {% endif %}
+
+                        </td>
                         <td>{{schedule.everyYear}}</td>
                         <td class="text-center">
                             <div class="dropdown no-arrow">

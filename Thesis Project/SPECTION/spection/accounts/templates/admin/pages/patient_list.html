@@ -14,26 +14,32 @@
 
 
 <!-- DataTales Example -->
-<div class=" mb-4 border">
+<div class="card shadow mb-4 border">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table " id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered text-center align-middle">
                 <thead>
                     <tr>
+                        <th>User</th>
                         <th>Last Name</th>
                         <th>First Name</th>
                         <th>Phone</th>
                         <th>Email</th>
+                        <th>Last Visit</th>
+                        <th># of Cases</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for patient in patients%}
-                    <tr>
+                    <tr class="small text-center lh-1">
+                        <td>{{patient.user}}</td>
                         <td>{{patient.user.account.first_name}}</td>
                         <td>{{patient.user.account.last_name}}</td>
                         <td>{{patient.user.account.phone}}</td>
                         <td>{{patient.user.email}}</td>
+                        <td></td>
+                        <td></td>
                         <td class="text-center">
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-{{order.id}}"
