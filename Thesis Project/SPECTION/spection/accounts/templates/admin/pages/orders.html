@@ -12,7 +12,8 @@
     {% csrf_token %}
     <div class="card shadow mb-4">
         <div class="card-header">
-            <button class="btn btn-primary" type="submit">Delete Selected Orders</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#confirm_delete_all">Delete Selected Order</button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -36,7 +37,7 @@
                         {% for order in orders%}
                         <tr class="small text-center lh-1">
                             <td class="text-center"><input type="checkbox" id="checkbox-{{order.id}}"
-                                    value="False name=" checkbox_{{order.id}}"></td>
+                                    value="checkbox_{{order.id}}" name="checkbox_{{order.id}}"></td>
                             <td class="text-center">{{order.id}}</td>
                             <td>{{order.user.account.last_name}}</td>
                             <td>{{order.user.account.first_name}}</td>
@@ -85,6 +86,35 @@
             </div>
         </div>
     </div>
+    <section class="modal fade" id="confirm_delete_all" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="staticBackdropLabel">Confirmation
+                    </h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="lead">
+                        Are you sure you want to delete the Selected
+                        Orders?
+                    </p>
+                </div>
+                <div class="modal-footer ">
+                    <div class="row col-12">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-secondary col-md-12"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary col-md-12"> Delete Selected Orders</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </form>
 {% for order in orders%}
 <section class="modal fade" id="staticBackdrop-{{order.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -94,7 +124,8 @@
             <form method="POST" class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="modal-header">
-                    <h5 class="modal-title" data-id-num="{{order.id}}" id="staticBackdropLabel">Payment {{order.id}}
+                    <h5 class="modal-title" data-id-num="{{order.id}}" id="staticBackdropLabel">Payment Order
+                        #{{order.id}}
                     </h5>
                     <input type="text" hidden placeholder="Price" name="get_id" value="{{order.id}}">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

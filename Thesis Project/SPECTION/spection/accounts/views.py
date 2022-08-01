@@ -1,7 +1,9 @@
 
 
+from datetime import date
+from .analytics import analyze
 import datetime
-import itertools 
+import itertools
 
 from django.shortcuts import render, redirect
 from .forms import *
@@ -37,8 +39,8 @@ def home(request):
         form = AppointmentForm(request.POST)
         user = request.user
         if form.is_valid():
-            appoint=form.save(commit=False)
-            appoint.user=user
+            appoint = form.save(commit=False)
+            appoint.user = user
             appoint.save()
             messages.success(request, 'Appointment is successfully send!')
             return redirect('home')
@@ -60,10 +62,10 @@ def post(request):
         total.append(num)
 
     context = {
-        'news_list':news_list,
+        'news_list': news_list,
         'featured_news': featured_news,
-        'header_1_news':header_1_news,
-        'header_2_news':header_2_news,
+        'header_1_news': header_1_news,
+        'header_2_news': header_2_news,
         'total_news': total,
     }
     return render(request, 'accounts/pages/post.html', context)
@@ -82,7 +84,6 @@ def calendar(request):
     return render(request, 'accounts/pages/calendar.html')
 
 
-
 def contact(request):
     form = EmailForm()
     if request.method == 'POST':
@@ -93,17 +94,18 @@ def contact(request):
             subject = mail['subject']
             message = mail['message']
             from_email = 'ghifere@gmail.com'
-            recipient_list = [ 'ghifere6@gmail.com',]
-            send_email = EmailMessage(subject,message,from_email,recipient_list)
+            recipient_list = ['ghifere6@gmail.com', ]
+            send_email = EmailMessage(
+                subject, message, from_email, recipient_list)
             send_email.send()
-            #send_mail(subject,message,from_email, recipient_list)
+            # send_mail(subject,message,from_email, recipient_list)
             messages.success(request, 'Email is successfully send to gmail!')
             return redirect('home')
         else:
             messages.error(request, 'Appointment is invalid!')
     context = {
-        'form': form,}
-    return render(request, 'accounts/pages/contacts.html',context)
+        'form': form, }
+    return render(request, 'accounts/pages/contacts.html', context)
 
 
 def services(request):
@@ -132,7 +134,7 @@ def loginUser(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
- 
+
             messages.success(request, username + ' has been logged in!')
             group = None
             if request.user.groups.exists():
@@ -151,9 +153,10 @@ def loginUser(request):
 @allowed_users(allowed_roles=['patient'])
 def patient(request):
     patient = request.user
-    account = Account.objects.get(user = patient)
-    order_by_list = ['-date', '-time',]
-    appoint = Appointment.objects.all().filter(user=patient).filter(status="Approved").order_by(*order_by_list).first()
+    account = Account.objects.get(user=patient)
+    order_by_list = ['-date', '-time', ]
+    appoint = Appointment.objects.all().filter(user=patient).filter(
+        status="Approved").order_by(*order_by_list).first()
     form = PatientForm(instance=patient)
     prescriptions = Rx.objects.all().filter(user=patient).order_by('-date_created')
     current_pres = prescriptions.first()
@@ -161,13 +164,11 @@ def patient(request):
     orders = Order.objects.all().filter(user=patient).order_by('-date_created')
     orders_dues = orders.filter(due__gt=0)
     total_due = 0
-    billings= Billing.objects.filter(order__user=patient)
+    billings = Billing.objects.filter(
+        order__user=patient).order_by('-date_created')
 
-    
     for order in orders_dues:
         total_due = total_due + order.due
-        
-    print(billings)
 
     if request.method == 'POST':
         form = PatientForm(request.POST, request.FILES, instance=patient)
@@ -176,29 +177,30 @@ def patient(request):
             form.save()
 
     context = {
-        'account':account,
+        'account': account,
         'form': form,
-        'current_rx':current_pres,
-        'current_sched':appoint,
-        'orders':orders,
-        'total_due':total_due,
-        'orders_dues':orders_dues,
-        'billings':billings,
+        'current_rx': current_pres,
+        'current_sched': appoint,
+        'orders': orders,
+        'total_due': total_due,
+        'orders_dues': orders_dues,
+        'billings': billings,
     }
     return render(request, 'accounts/pages/patient_panel.html', context)
 
-def patientOrderDetails(request,pk):
+
+def patientOrderDetails(request, pk):
     order = Order.objects.get(id=pk)
 
-
-    details = ['laboratory','sent','recieve','due_date']
+    details = ['laboratory', 'sent', 'recieve', 'due_date']
     lab_details = order.lab_details.split(':')
-    
-    context = {  }
-    for (i,j) in zip(details, lab_details):
-        context.update({i:j}) 
+
+    context = {}
+    for (i, j) in zip(details, lab_details):
+        context.update({i: j})
 
     return render(request, 'accounts/pages/patient_order.html', context)
+
 
 def logoutUser(request):
     group = None
@@ -224,7 +226,7 @@ def appointment(request):
     if request.method == 'POST':
         app_id = request.POST['approved']
         set_app = Appointment.objects.get(id=app_id)
-        if set_app.status=="Not Approved":
+        if set_app.status == "Not Approved":
             set_app.status = "Approved"
         else:
             set_app.status = "Not Approved"
@@ -233,6 +235,7 @@ def appointment(request):
         'appointments': appointments,
     }
     return render(request, 'admin/pages/appointment.html', context)
+
 
 def create_appointment(request):
     form = AppointmentForm()
@@ -244,10 +247,11 @@ def create_appointment(request):
             return redirect('appointment')
         else:
             messages.error(request, 'Appointment is invalid!')
-    context = {'form':form}
+    context = {'form': form}
     return render(request, 'admin/forms/create_appointment.html', context)
 
-def delete_appointment(request,pk):
+
+def delete_appointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
     if request.method == "POST":
         appointment.delete()
@@ -256,14 +260,16 @@ def delete_appointment(request,pk):
 
     context = {'item': appointment}
     return render(request, 'admin/forms/delete_appointment.html', context)
-    
+
 
 def create_billing(request):
     return render(request, 'admin/forms/create_billing.html')
 
 
 def billing(request):
-    return render(request, 'admin/pages/billing.html')
+    billings = Billing.objects.all().order_by('-date_created')
+    context = {'billings': billings}
+    return render(request, 'admin/pages/billing.html', context)
 
 
 def dues(request):
@@ -301,7 +307,7 @@ def create_schedule(request):
             color = '#ffa808'
         else:
             color = '#40a900'
-        print(to_date)
+
         if form.is_valid():
             sched = form.save(commit=False)
             sched.color = color
@@ -387,7 +393,7 @@ def news(request):
     news = new.order_by('-date_created')
     myFilter = Newsfilter(request.GET, queryset=news)
     news = myFilter.qs
-   
+
     context = {
         'news': news,
     }
@@ -479,7 +485,6 @@ def register(request):
     }
     return render(request, 'admin/pages/registration.html', context)
 
-from datetime import date
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -487,15 +492,32 @@ def dashboard(request):
     patients = Patient.objects.all()
     rx = Rx.objects.all()
     orders = Order.objects.all()
- 
+    cases = Case.objects.all()
+
+    list = []
+
+    for case in cases:
+        list.append({'case': case.id, 'date': str(case.date_created.date())})
+    my_list = analyze(list)
+
+    data = []
+    for list in my_list:
+        data.append({'date': datetime.datetime.strptime(
+            list[0], '%Y-%m-%d').strftime('%d %B %Y'), 'count': list[1]})
+    print(data)
+    sys.stdout = open(settings.STATICFILES_DIRS[0] + '/js/array.js', 'w')
+    jsonobj = json.dumps(data)
+    print("var list = '{0}';".format(jsonobj))
+
     appoint = Appointment.objects.all()
     appointments = appoint.filter(status="Not Approved")
     todays_date = date.today()
     mm = todays_date.month
     yy = todays_date.year
 
-    rx_month = rx.filter(date_created__year =yy ).filter(date_created__month=mm)
-    orders = orders.filter(date_created__year =yy ).filter(date_created__month=mm)
+    rx_month = rx.filter(date_created__year=yy).filter(date_created__month=mm)
+    orders = orders.filter(date_created__year=yy).filter(
+        date_created__month=mm)
 
     total_rx = rx_month.count()
     total_patient = patients.count()
@@ -504,9 +526,9 @@ def dashboard(request):
 
     context = {
         'total_patient': total_patient,
-        'total_appointments':total_appointments,
-        'total_rx':total_rx,
-        'total_orders':total_orders,}
+        'total_appointments': total_appointments,
+        'total_rx': total_rx,
+        'total_orders': total_orders, }
     return render(request, 'admin/pages/dashboard.html', context)
 
 # Patient
@@ -518,6 +540,7 @@ def patient_list(request):
     patients = Account.objects.all()
     context = {'patients': patients}
     return render(request, 'admin/pages/patient_list.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -533,12 +556,43 @@ def deletePatient(request, pk):
     context = {'patient': patient}
     return render(request, 'admin/forms/delete_patient.html', context)
 
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def person_info(request, pk):
     patient = Account.objects.get(id=pk)
-    context = {'patient': patient}
+    orders = Order.objects.all().filter(user=patient.user).order_by('-date_created')
+    orders_dues = orders.filter(due__gt=0)
+    total_due = 0
+
+    for order in orders_dues:
+        total_due = total_due + order.due
+
+    context = {'patient': patient, 'total_due': total_due, }
     return render(request, 'admin/components/person_info.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def person_billing(request, pk):
+    patient = Account.objects.get(id=pk)
+    billings = Billing.objects.filter(
+        order__user=patient.user).order_by('-date_created')
+
+    context = {'patient': patient, 'billings': billings, }
+    return render(request, 'admin/components/person_billing.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def person_order(request, pk):
+    patient = Account.objects.get(id=pk)
+    orders = Order.objects.filter(
+        user=patient.user).order_by('-date_created')
+
+    context = {'patient': patient, 'orders': orders, }
+    return render(request, 'admin/components/person_orders.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -563,6 +617,7 @@ def update_info(request, pk):
     }
     return render(request, 'admin/forms/update_info.html', context)
 
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def person_list_case(request, pk):
@@ -574,6 +629,7 @@ def person_list_case(request, pk):
         'cases': cases,
     }
     return render(request, 'admin/components/person_list_case.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -588,6 +644,7 @@ def person_list_rx(request, pk):
         'total_prescriptions': total_prescriptions
     }
     return render(request, 'admin/components/person_list_rx.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -611,6 +668,7 @@ def create_rx(request, pk):
         'form': form,
     }
     return render(request, 'admin/forms/create_rx_form.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -637,6 +695,7 @@ def update_rx(request, pk, rx_id):
     }
     return render(request, 'admin/forms/update_rx_form.html', context)
 
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def delete_rx(request, pk, rx_id):
@@ -652,6 +711,7 @@ def delete_rx(request, pk, rx_id):
     }
     return render(request, 'admin/forms/delete_rx.html', context)
 
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def person_case(request, pk, case_id):
@@ -666,7 +726,6 @@ def person_case(request, pk, case_id):
     history = History.objects.get(user=case)
     form = SignsForm()
 
-
     signs_list = signs.signs_details.split(":")
     visual_task_list = signs.activity_details.split(":")
 
@@ -678,6 +737,7 @@ def person_case(request, pk, case_id):
         'form': form,
     }
     return render(request, 'admin/components/person_case.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -702,6 +762,7 @@ def create_case(request, pk):
         'form': form,
     }
     return render(request, 'admin/forms/case_form.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -775,6 +836,7 @@ def update_case(request, pk, case_id):
 
     return render(request, 'admin/forms/update_case.html', context)
 
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def delete_case(request, pk, case_id):
@@ -800,9 +862,6 @@ def products(request):
     return render(request, 'admin/pages/products.html', context)
 
 
-
-
-
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def orders(request):
@@ -811,45 +870,53 @@ def orders(request):
     orders = myFilter.qs
     form = OrderForm()
 
+    delete_list = []
+    checkboxes = request.GET
+    for checkbox in checkboxes:
+        x = checkbox.split("_")
+        delete_list.append(x)
+    for delete in delete_list[1:]:
+        order = Order.objects.get(id=delete[1])
+        order.delete()
+
     if request.method == "POST":
         form = OrderForm(request.POST)
         id = request.POST['get_id']
         order = Order.objects.get(id=id)
-        
-        price = order.due
+        due = order.due
         amount = request.POST['amount']
-       
-    
-        due =  float(price) - float(amount)
-        if due > 0 :
+        due_price = float(due) - float(amount)
+
+        if due_price > 0:
             status = "Unsettled"
-            description="You have an unsettled balance!"
-        elif due == 0:
+            description = "You have an unsettled balance!"
+        elif due_price == 0:
             status = "Fully Paid"
-            description="Thank you for purchasing our Product!"
+            description = "Thank you for purchasing our Product!"
         else:
             status = "Negative Balance"
-            description="It looks like you have a negative balance. We will add this up for your next purchase! Thank you for purchasing our Product!"
-        
+            description = "It looks like you have a negative balance. We will add this up for your next purchase!"
+
         if form.is_valid():
-            order.due = due
+            order.due = due_price
             order.status = status
             order.save()
 
             Billing.objects.create(
                 order=order,
-                amount = float(amount),
+                remain_due=due_price,
+                amount=float(amount),
                 description=description,
             )
             messages.success(request, 'Order has been successfully Updated!')
             return redirect('orders')
         else:
             messages.error(request, 'Input Fields Error!')
-   
+
     context = {
         'orders': orders,
         'myFilter': myFilter,
-        'form':form,
+        'form': form,
     }
     return render(request, 'admin/pages/orders.html', context)
 
@@ -859,7 +926,7 @@ def create_order(request):
     form = OrderForm()
 
     if request.method == 'POST':
-        form = OrderForm(request.POST  or None)
+        form = OrderForm(request.POST or None)
         name = request.POST['name']
         user = User.objects.get(username=name)
 
@@ -867,59 +934,60 @@ def create_order(request):
         sent = request.POST['sent']
         recieve = request.POST['recieve']
         due = request.POST['due_date']
-        order_array = [lab,sent,recieve,due]
+        order_array = [lab, sent, recieve, due]
 
         brand_name = request.POST['brand_name']
         brand_type = request.POST['brand_type']
 
-        product_array = [brand_name,brand_type]
+        product_array = [brand_name, brand_type]
 
         quantity = request.POST['quantity']
         price = request.POST['price']
         amount = request.POST['amount']
 
-        due =  (float(price)*int(quantity)) - float(amount)
-        if due > 0 :
+        due = (float(price)*int(quantity)) - float(amount)
+        if due > 0:
             status = "Unsettled"
-            description="You have an unsettled balance!"
+            description = "You have an unsettled balance!"
         elif due == 0:
             status = "Fully Paid"
-            description="Thank you for purchasing our Product!"
+            description = "Thank you for purchasing our Product!"
         else:
             status = "Negative Balance"
-            description="It looks like you have a negative balance. We will add this up for your next purchase! Thank you for purchasing our Product!"
-        
-        dispense_array = ['organization','address','manufacturer','style','color','a_frame','dbl_frame','b_frame','ed_frame']
-        frame_num_array = ['frame_1_50','frame_Poly','frame_1_60','frame_1_67','frame_1_74']
-        pd_array = ['other','dis_num','dis_deno','near_num','near_deno',]
-        coating_array = ['uv400','anti_scratch','anti_reflective','blue_block']
-        other_info_array = ['od_sphere','od_cyl','od_axis','od_prism_b','od_add','od_height',
-        'os_sphere','os_cyl','os_axis','os_prism_b','os_add','os_height',
-        'tint','sv','bifocal','progressive','instruction']
-        
+            description = "It looks like you have a negative balance. We will add this up for your next purchase! Thank you for purchasing our Product!"
+
+        dispense_array = ['organization', 'address', 'manufacturer',
+                          'style', 'color', 'a_frame', 'dbl_frame', 'b_frame', 'ed_frame']
+        frame_num_array = ['frame_1_50', 'frame_Poly',
+                           'frame_1_60', 'frame_1_67', 'frame_1_74']
+        pd_array = ['other', 'dis_num', 'dis_deno', 'near_num', 'near_deno', ]
+        coating_array = ['uv400', 'anti_scratch',
+                         'anti_reflective', 'blue_block']
+        other_info_array = ['od_sphere', 'od_cyl', 'od_axis', 'od_prism_b', 'od_add', 'od_height',
+                            'os_sphere', 'os_cyl', 'os_axis', 'os_prism_b', 'os_add', 'os_height',
+                            'tint', 'sv', 'bifocal', 'progressive', 'instruction']
+
         dispense_details = []
         frame_num_details = []
         pd_details = []
         coating_details = []
         other_info_details = []
 
-
-    
         if form.is_valid():
             for item in dispense_array:
-                dispense_details.append(request.POST[item])  
+                dispense_details.append(request.POST[item])
 
-            for item in  frame_num_array:
+            for item in frame_num_array:
                 data = request.POST.get(item, False)
                 if item:
                     data = form.cleaned_data[item]
                     frame_num_details.append(str(data))
-            
+
             dispense_details = dispense_details + frame_num_details
 
             for item in pd_array:
-                pd_details.append(request.POST[item])  
-            
+                pd_details.append(request.POST[item])
+
             dispense_details = dispense_details + pd_details
 
             for item in coating_array:
@@ -927,14 +995,14 @@ def create_order(request):
                 if item:
                     data = form.cleaned_data[item]
                 coating_details.append(str(data))
-            
+
             dispense_details = dispense_details + coating_details
 
             for item in other_info_array:
-                other_info_details.append(request.POST[item])  
+                other_info_details.append(request.POST[item])
 
             dispense_details = dispense_details + other_info_details
-            
+
             dispense_details = ":".join(dispense_details)
             order_details = ":".join(order_array)
             product_details = ":".join(product_array)
@@ -944,13 +1012,14 @@ def create_order(request):
             order.due = due
             order.status = status
             order.lab_details = order_details
-            order.dispense_details=dispense_details
-            order.product_details=product_details
+            order.dispense_details = dispense_details
+            order.product_details = product_details
             order.save()
 
             Billing.objects.create(
                 order=order,
-                amount = float(amount),
+                remain_due=due,
+                amount=float(amount),
                 description=description,
             )
             messages.success(request, 'New Order has been created!')
@@ -961,42 +1030,45 @@ def create_order(request):
             messages.error(
                 request, error + ' is Invalid.')
     context = {
-        'patient':patient,
-        'form':form,
+        'patient': patient,
+        'form': form,
     }
     return render(request, 'admin/forms/create_order.html', context)
 
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
-def viewOrder(request,pk):
+def viewOrder(request, pk):
     order = Order.objects.get(id=pk)
-    
-    ll= order.lab_details.split(':')
-    lab_details= ['laboratory','sent','recieve','due_date']
+
+    ll = order.lab_details.split(':')
+    lab_details = ['laboratory', 'sent', 'recieve', 'due_date']
 
     product_details = order.product_details.split(':')
-    pp= ['brand_name','brand_type']
+    pp = ['brand_name', 'brand_type']
 
     dd = order.dispense_details.split(':')
-    dispense_array = ['organization','address','manufacturer','style','color','a_frame','dbl_frame','b_frame','ed_frame']
-    frame_num_array = ['frame_1_50','frame_Poly','frame_1_60','frame_1_67','frame_1_74']
-    pd_array = ['other','dis_num','dis_deno','near_num','near_deno',]
-    coating_array = ['uv400','anti_scratch','anti_reflective','blue_block']
-    other_info_array = ['od_sphere','od_cyl','od_axis','od_prism_b','od_add','od_height',
-    'os_sphere','os_cyl','os_axis','os_prism_b','os_add','os_height',
-        'tint','sv','bifocal','progressive','instruction']
-    dispense_details= dispense_array+frame_num_array+pd_array+coating_array+other_info_array
-
+    dispense_array = ['organization', 'address', 'manufacturer',
+                      'style', 'color', 'a_frame', 'dbl_frame', 'b_frame', 'ed_frame']
+    frame_num_array = ['frame_1_50', 'frame_Poly',
+                       'frame_1_60', 'frame_1_67', 'frame_1_74']
+    pd_array = ['other', 'dis_num', 'dis_deno', 'near_num', 'near_deno', ]
+    coating_array = ['uv400', 'anti_scratch', 'anti_reflective', 'blue_block']
+    other_info_array = ['od_sphere', 'od_cyl', 'od_axis', 'od_prism_b', 'od_add', 'od_height',
+                        'os_sphere', 'os_cyl', 'os_axis', 'os_prism_b', 'os_add', 'os_height',
+                        'tint', 'sv', 'bifocal', 'progressive', 'instruction']
+    dispense_details = dispense_array+frame_num_array + \
+        pd_array+coating_array+other_info_array
 
     context = {
-   'order':order,
+        'order': order,
     }
-    for (i,j) in zip(dispense_details, dd):
-        context.update({i:j}) 
-    for (x,y) in zip(lab_details, ll):
-        context.update({x:y})
-    for (i,j) in zip(product_details, pp):
-        context.update({i:j})
+    for (i, j) in zip(dispense_details, dd):
+        context.update({i: j})
+    for (x, y) in zip(lab_details, ll):
+        context.update({x: y})
+    for (i, j) in zip(product_details, pp):
+        context.update({i: j})
     return render(request, 'admin/forms/view_order.html', context)
 
 

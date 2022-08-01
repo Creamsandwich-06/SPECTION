@@ -249,7 +249,7 @@ class Order(models.Model):
         ('Product', 'Product'),
     )
 
-    user = models.ForeignKey(User, null=True, blank=True,on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, blank=True,on_delete=models.CASCADE)
     price = models.FloatField(null=True,blank=True)
     quantity = models.IntegerField(null=True,blank=True)
     due = models.FloatField(null=True,blank=True)
@@ -262,7 +262,8 @@ class Order(models.Model):
     note = models.CharField(max_length=200, null=True,blank=True)
 
 class Billing(models.Model):
-    order = models.ForeignKey(Order, null=True, blank=True,on_delete=models.SET_NULL)
+    order = models.ForeignKey(Order, null=True, blank=True,on_delete=models.CASCADE)
     amount = models.FloatField(null=True,blank=True)
+    remain_due = models.FloatField(null=True,blank=True)
     description = models.CharField(max_length=200, null=True,blank=True)
     date_created = models.DateTimeField(auto_now_add=True)

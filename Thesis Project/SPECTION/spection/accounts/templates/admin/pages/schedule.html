@@ -16,7 +16,6 @@
 <div class="container-fluid mb-0">
     <h1>Events Created</h1>
 </div>
-
 <div class="col-xl-12 mt-4">
     <div class=" card rounded-0  mb-4">
         <div class=" card card-body border-0  table-responsive ">
@@ -30,8 +29,6 @@
                     <th scope="col" class="text-center">Action</th>
                 </tr>
                 <tbody class="p-5 ">
-
-
                     {% for schedule in schedule%}
                     <tr class="small text-center lh-1">
                         <td>{{schedule.name}}</td>
@@ -48,7 +45,6 @@
                             {% else %}
                             <span class="badge p-2 bg-warning align-middle">{{schedule.type}}</span>
                             {% endif %}
-
                         </td>
                         <td>{{schedule.everyYear}}</td>
                         <td class="text-center">
@@ -67,15 +63,12 @@
                             </div>
                         </td>
                     </tr>
-
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>

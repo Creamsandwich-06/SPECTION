@@ -1,0 +1,56 @@
+{% extends 'admin/components/person.html' %} {% block title %}Patients{% endblock %}
+{% block patient %}
+{% load svg %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Billing</h1>
+</div>
+<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+    For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+        DataTables documentation</a>.</p>
+
+<div class="col-xl-12 mt-4">
+    <div class=" card rounded-0  mb-4">
+        <div class=" card card-body border-0   ">
+            <table class="table table-bordered text-center align-middle">
+                <tr class="p-0 mb-2 h6 text-dark-100 bolder">
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Amount Paid</th>
+                    <th scope="col ">Remaining Due</th>
+                    <th scope="colasdasd">Date</th>
+                    <th>Description</th>
+                </tr>
+                <tbody class="p-5 ">
+                    {% for billing in billings%}
+                    <tr class="small text-center lh-1">
+                        <td>{{billing.order.id}}</td>
+                        <td>{{billing.amount}}</td>
+                        <td>{{billing.remain_due}}</td>
+
+                        <td>
+                            <div class="d-inline-block text-truncate" style="max-width: 150px;">
+                                {{billing.date_created.date}}
+                            </div>
+                        </td>
+                        <td>{{billing.description}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    const tds = table.querySelectorAll('td')
+    function changeHtml() {
+        if (tds.innerHTML == 'None') {
+            tds.innerHTML = ' ';
+        }
+    }
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+    changeHtml() 
+</script>
+{% endblock %}

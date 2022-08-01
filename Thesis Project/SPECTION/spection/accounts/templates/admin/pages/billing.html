@@ -2,7 +2,7 @@
 {% block content %}
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Billing</h1>
-    <a class="btn btn-primary" href="{% url 'create_billing' %}" type="button">Add Order</a>
+    <a class="btn btn-primary" href="{% url 'orders' %}" type="button">Pay Unsettled Dues</a>
 </div>
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
     For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
@@ -11,30 +11,32 @@
 <div class="col-xl-12 mt-4">
     <div class=" card rounded-0  mb-4">
         <div class=" card card-body border-0   ">
-            <table class="table  mt-2 text-center">
+            <table class="table table-bordered text-center align-middle">
                 <tr class="p-0 mb-2 h6 text-dark-100 bolder">
-                    <th scope="col">Purchase</th>
-                    <th scope="col ">User</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Rate</th>
-                    <th scope="col">Amount</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Lastname</th>
+                    <th scope="col">Firstname</th>
+                    <th scope="col">Amount Paid</th>
+                    <th scope="col ">Remaining Due</th>
+                    <th scope="colasdasd">Date</th>
+                    <th>Description</th>
                     <th scope="col" class="text-center">Action</th>
                 </tr>
                 <tbody class="p-5 ">
+                    {% for billing in billings%}
+                    <tr class="small text-center lh-1">
+                        <td>{{billing.order.id}}</td>
+                        <td>{{billing.order.user.account.last_name}}</td>
+                        <td>{{billing.order.user.account.first_name}}</td>
+                        <td>{{billing.amount}}</td>
+                        <td>{{billing.remain_due}}</td>
 
-                    <tr class="p-0 ">
-                        <td></td>
-                        <td></td>
-                        <td></td>
                         <td>
-                            <div class="d-inline-block text-truncate" style="max-width: 150px;">{{schedule.description}}
+                            <div class="d-inline-block text-truncate" style="max-width: 150px;">
+                                {{billing.date_created.date}}
                             </div>
                         </td>
-                        <td> </td>
-                        <td></td>
-                        <td></td>
+                        <td>{{billing.description}}</td>
                         <td class="text-center">
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -51,6 +53,7 @@
                             </div>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

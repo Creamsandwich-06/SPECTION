@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     # User Panel
     path('', views.home, name='home'),
-     path('Services/', views.services, name='services'),
+    path('Services/', views.services, name='services'),
     path('calendar/', views.calendar, name='calendar'),
     path('login/', views.loginUser, name='login'),
     path('logout/', views.logoutUser, name='logout'),
@@ -14,7 +14,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('post/', views.post, name='post'),
     path('patient/', views.patient, name='patient'),
-    path('patient/Order/<str:pk>/Details', views.patientOrderDetails, name="view_patient_order"),
+    path('patient/Order/<str:pk>/Details',
+         views.patientOrderDetails, name="view_patient_order"),
     # Admin Panel
     path('registration/', views.register, name='register'),
     path('dashboard/', views.dashboard, name='dashboard'),
@@ -31,6 +32,10 @@ urlpatterns = [
     # Patient Sidebar
     path('patient_list/patient/<str:pk>/Information/',
          views.person_info, name='person_info'),
+    path('patient_list/patient/<str:pk>/Billing/',
+         views.person_billing, name='person_billing'),
+    path('patient_list/patient/<str:pk>/Orders/',
+         views.person_order, name='person_order'),
     path('patient_list/patient/<str:pk>/Information/update/',
          views.update_info, name='update_info'),
 
@@ -54,9 +59,11 @@ urlpatterns = [
          views.update_case, name='update_case'),
     path('patient_list/patient/<str:pk>/Case/<str:case_id>/delete_case/',
          views.delete_case, name='delete_case'),
-     # Appointment
-     path('Appointment/Create', views.create_appointment, name='create_appointment'),
-     path('Appointment/<str:pk>/Delete', views.delete_appointment, name='delete_appointment'),
+    # Appointment
+    path('Appointment/Create', views.create_appointment,
+         name='create_appointment'),
+    path('Appointment/<str:pk>/Delete',
+         views.delete_appointment, name='delete_appointment'),
     # Billing
     path('Billing/Create', views.create_billing, name='create_billing'),
     # Schedule
@@ -70,7 +77,7 @@ urlpatterns = [
     # Order
     path('orders/', views.orders, name='orders'),
     path('create_order/', views.create_order, name='create_order'),
-     path('View Order/<str:pk>', views.viewOrder, name="view_order"),
+    path('View Order/<str:pk>', views.viewOrder, name="view_order"),
     path('update_order/<str:pk>', views.updateOrder, name="update_order"),
     path('delete_order/<str:pk>', views.deleteOrder, name="delete_order"),
     # Reset Passwords

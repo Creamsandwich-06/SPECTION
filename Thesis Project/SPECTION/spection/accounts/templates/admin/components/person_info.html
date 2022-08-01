@@ -50,12 +50,12 @@
                             <i class="fas fa-calendar"></i>
                         </span>
                         <input data-datepicker="" class="form-control" id="birthday" type="text"
-                            placeholder="{{patient.birthday}}" readonly>
+                            placeholder="{{patient.birthday}}" value="{{patient.birthday}}" readonly>
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="gender">Age</label>
-                    <input class="form-control" id="last_name" type="text" value="{{patient.age}}" readonly>
+                    <input class="form-control" id="age_" type="text" readonly>
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="gender">Gender</label>
@@ -130,16 +130,7 @@
                         <p class="text-gray mb-4">
                             {{ patient.email }}
                         </p>
-                        <a class="btn btn-sm btn-gray-800 d-inline-flex align-items-center me-2" href="#">
-                            <svg class="icon icon-xs me-1" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z">
-                                </path>
-                            </svg>
-                            Connect
-                        </a>
-                        <a class="btn btn-sm btn-secondary" href="#">Send Message</a>
+
                     </div>
                 </div>
             </div>
@@ -167,20 +158,36 @@
                 <div class="card shadow border-0  p-0">
                     <div class="card-header ">
                         <span class="text-gray">
-                            Dues
+                            Total Remaining Dues
                         </span>
                     </div>
                     <div class="card-body text-center">
 
                         <h4 class="h3">
-                            No Due
+                            &#8369; {{total_due}}
                         </h4>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var str = $("#birthday").val();
+    const d = Date.parse(str)
+    const num = new Date(d);
+
+
+    var month_diff = Date.now() - num.getTime();
+    var age_dt = new Date(month_diff);
+    var year = age_dt.getUTCFullYear();
+    var age = Math.abs(year - 1970);
+
+
+    var x = document.querySelector('#age_');
+    x.value = age;
+
+</script>
 {% endblock %}

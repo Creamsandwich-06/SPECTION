@@ -363,11 +363,11 @@
                                                 </div>
                                                 {% if item.type == 'Glasses' %}
                                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                    {{item.type}}</div>
+                                                    {{item.type}} - {{item.quantity}}</div>
                                                 {% else %}
                                                 <div
                                                     class="text-xs font-weight-bold text-info text-uppercase mt-3 mb-1">
-                                                    {{item.type}}</div>
+                                                    {{item.type}} - {{item.quantity}}</div>
                                                 {% endif %}
 
                                                 <div class="d-flex flex-row
@@ -393,13 +393,13 @@
                 </div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                     <div class="row">
-                        <div class=" col-xl-8 overflow-auto" style="max-height: 70vh;">
+                        <div class=" col-xl-9 overflow-auto" style="max-height: 70vh;">
                             <div class="card shadow border-0 text-center p-0 mb-4">
                                 <div class="profile-cover rounded-top">
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <table class="table table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>Order Id</th>
@@ -411,9 +411,9 @@
                                             </thead>
                                             <tbody>
                                                 {% for billings in billings %}
-                                                <tr>
+                                                <tr class="small text-center lh-1">
                                                     <td>{{billings.order.id}}</td>
-                                                    <td>{{billings.order.due}}</td>
+                                                    <td>{{billings.remain_due}}</td>
                                                     <td>{{billings.amount}}</td>
                                                     <td>{{billings.description}}</td>
                                                     <td>{{billings.date_created}}</td>
@@ -426,20 +426,20 @@
                             </div>
 
                         </div>
-                        <div class="col-12 col-xl-4">
+                        <div class="col-sm-12 col-xl-3">
                             <div class="row">
                                 <div class="col-12 mb-4">
                                     <div class="card shadow border-0 text-center p-0">
                                         <div class="profile-cover rounded-top"
                                             data-background="{{ ASSETS_ROOT }}/img/profile-cover.jpg">
                                         </div>
-                                        <div class="card-body pb-5">
+                                        <div class="card-body ">
 
                                             <h4 class="h3  text-center">
                                                 {{total_due}}
                                             </h4>
                                             <hr>
-                                            <span class="small p-0">Your total Due</span>
+                                            <span class="lead p-0">Your total Due</span>
                                         </div>
                                     </div>
                                 </div>

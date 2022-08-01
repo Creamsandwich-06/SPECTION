@@ -1,0 +1,149 @@
+{% extends 'admin/components/person.html' %} {% block title %}Patients{% endblock %}
+{% block patient %}
+{% load svg %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Orders</h1>
+</div>
+<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+    For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+        DataTables documentation</a>.</p>
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered text-center align-middle">
+                <thead>
+                    <tr>
+                        <th class="text-center">Order #</th>
+                        <th>Quantitiy</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                        <th>Date Created</th>
+                        <th class="text-center">Dues</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders%}
+                    <tr class="small text-center lh-1">
+                        <td class="text-center">{{order.id}}</td>
+                        <td>{{order.quantity}}</td>
+                        <td>{{order.price}}</td>
+                        <td>{{order.type}}</td>
+                        <td>{{order.date_created}}</td>
+                        <td class="align-middle">{{order.due}}</td>
+                        <td class="align-middle">
+                            {% if order.status == "Fully Paid" %}
+                            <span class="badge p-2 bg-success align-middle">{{order.status}}</span>
+                            {% elif order.status == "Unsettled" %}
+                            <span class="badge p-2 bg-danger align-middle">{{order.status}}</span>
+                            {% else %}
+                            <span class="badge p-2 bg-warning align-middle">{{order.status}}</span>
+                            {% endif %}
+
+                        </td>
+                        <td class="text-center">
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-{{order.id}}"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-h fa-lg fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink-{{order.id}}">
+
+                                    <div class="dropdown-header">Action Dropdown: </div>
+                                    <div class="dropdown-divider"></div>
+                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                        data-due-id="{{order.id}}" data-bs-target="#staticBackdrop-{{order.id}}"
+                                        onclick="getDue(this)">
+                                        Pay Remaining Balance
+                                    </button>
+                                    <a href="{% url 'view_order' order.id %}" class="dropdown-item">View
+                                        Information</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="{% url 'delete_order' order.id %}" class="dropdown-item">Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% for order in orders%}
+<section class="modal fade" id="staticBackdrop-{{order.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" data-id-num="{{order.id}}" id="staticBackdropLabel">Payment Order
+                        #{{order.id}}
+                    </h5>
+                    <input type="text" hidden placeholder="Price" name="get_id" value="{{order.id}}">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6"> <label for="address">Remaining Due</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1"> &#8369;</span>
+                                <input class="form-control" type="text" readonly placeholder="Price"
+                                    id="get_price_{{order.id}}" value="{{order.due}}">
+                            </div>
+                        </div>
+                        <div class="col-md-6 "> <label for="address">Due</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Due</span>
+                                <input class="form-control" type="text" name="due" placeholder="Due" readonly
+                                    id="due_{{order.id}}">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="address">Amount</label>
+                            <div class="input-group ">
+                                <span class="input-group-text" id="basic-addon1"> &#8369;</span>
+                                <input class="form-control" type="text" name="amount" id="amount_{{order.id}}"
+                                    placeholder="Enter Amount to Pay">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="row col-12">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-secondary col-md-12"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary col-md-12"> Create New Order</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endfor %}
+<script>
+    const tds = table.querySelectorAll('td')
+    function changeHtml() {
+        if (tds.innerHTML == 'None') {
+            tds.innerHTML = ' ';
+        }
+    }
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+    changeHtml() 
+</script>
+{% endblock %}
