@@ -1,7 +1,7 @@
 
 
 from datetime import date
-from .analytics import analyze
+from .analytics import *
 import datetime
 import itertools
 
@@ -31,6 +31,9 @@ import json
 import sys
 import re
 # Create your views here.
+currentDate = datetime.date.today()
+currentMonth = currentDate.strftime("%B")
+currentYear = currentDate.strftime('%Y')
 
 
 def home(request):
@@ -486,28 +489,69 @@ def register(request):
     return render(request, 'admin/pages/registration.html', context)
 
 
+def getAge(birth_date):
+    today = date.today()
+    y = today.year - birth_date.year
+    if today.month < birth_date.month or today.month == birth_date.month and today.day < birth_date.day:
+        y -= 1
+    return y
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def dashboard(request):
     patients = Patient.objects.all()
-    rx = Rx.objects.all()
     orders = Order.objects.all()
     cases = Case.objects.all()
+    billings = Billing.objects.all()
 
+    #  Patient visit according to Age
+    age = []
+    for case in cases:
+        my_age = getAge(case.user.account.birthday)
+        age.append({'date': my_age})
+    age_list = analyze(age)
+
+    data = []
+    age_data = []
+    for list in age_list:
+        age_data.append({'age': list[0], 'count': list[1]})
+
+    # Monthly Patient Visit
     list = []
-
     for case in cases:
         list.append({'case': case.id, 'date': str(case.date_created.date())})
     my_list = analyze(list)
-
-    data = []
     for list in my_list:
-        data.append({'date': datetime.datetime.strptime(
-            list[0], '%Y-%m-%d').strftime('%d %B %Y'), 'count': list[1]})
-    print(data)
+        given_date = datetime.datetime.strptime(list[0], '%Y-%m-%d')
+        given_month = given_date.strftime('%B')
+        given_year = given_date.strftime('%Y')
+
+        if given_month == currentMonth and given_year == currentYear:
+            data.append({'date': datetime.datetime.strptime(
+                list[0], '%Y-%m-%d').strftime('%d %B %Y'), 'count': list[1]})
+    # Sales
+    sales = []
+    data_sales = []
+    for billing in billings:
+        sales.append({'Amount': billing.amount,
+                      'Date': str(billing.date_created.date())})
+    new_sales = analyze_sales(sales)
+
+    for list in new_sales:
+        given_date = datetime.datetime.strptime(list[0], '%Y-%m-%d')
+        given_month = given_date.strftime('%B')
+        given_year = given_date.strftime('%Y')
+
+        data_sales.append({'Date': datetime.datetime.strptime(
+            list[0], '%Y-%m-%d').strftime('%d %B %Y'), 'Amount': list[1]})
+
     sys.stdout = open(settings.STATICFILES_DIRS[0] + '/js/array.js', 'w')
-    jsonobj = json.dumps(data)
-    print("var list = '{0}';".format(jsonobj))
+    date_obj = json.dumps(data)
+    sales_obj = json.dumps(data_sales)
+    age_obj = json.dumps(age_data)
+    print("var list = '{0}';\n var age_list = '{1}';\n var sales_list = '{2}';".format(
+        date_obj, age_obj, sales_obj))
 
     appoint = Appointment.objects.all()
     appointments = appoint.filter(status="Not Approved")
@@ -515,11 +559,12 @@ def dashboard(request):
     mm = todays_date.month
     yy = todays_date.year
 
-    rx_month = rx.filter(date_created__year=yy).filter(date_created__month=mm)
+    cases_month = cases.filter(
+        date_created__year=yy).filter(date_created__month=mm)
     orders = orders.filter(date_created__year=yy).filter(
         date_created__month=mm)
 
-    total_rx = rx_month.count()
+    total_rx = cases_month.count()
     total_patient = patients.count()
     total_appointments = appointments.count()
     total_orders = orders.count()
@@ -528,7 +573,8 @@ def dashboard(request):
         'total_patient': total_patient,
         'total_appointments': total_appointments,
         'total_rx': total_rx,
-        'total_orders': total_orders, }
+        'total_orders': total_orders,
+        'currentMonth': currentMonth, }
     return render(request, 'admin/pages/dashboard.html', context)
 
 # Patient
@@ -623,7 +669,7 @@ def update_info(request, pk):
 def person_list_case(request, pk):
     patient = Account.objects.get(id=pk)
     user = User.objects.get(username=patient)
-    cases = Case.objects.all().filter(user=user)
+    cases = Case.objects.all().filter(user=user).order_by('-date_created')
     context = {
         'patient': patient,
         'cases': cases,
