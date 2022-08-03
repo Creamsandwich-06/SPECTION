@@ -1,0 +1,341 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Comprehensive eye examination Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-center mt-5 mb-0">
+            <img id="logonav" src="{% static 'images/logo.png' %}" width="200" height="120"
+                class="d-inline-block align-middle" alt="">
+            <h1 class="text-center display-3 fw-bold">Company Family Eye Care</h1>
+        </div>
+        <div class="d-flex justify-content-center mb-5" style="margin-top: -30px;">
+            <h5 class="text-center lh-1 mx-5 lead">Cebu City, Cebu</h5>
+            <h5 class="text-center lead">+63478932145</h5>
+        </div>
+
+        <div class="border p-5">
+            <h5 class="text-center ">COMPREHENSIVE EYE EXAMINATION FORM</h5>
+            <div class="d-flex justify-content-between">
+                <label>Case#:
+                    <input class="border-0 border-bottom text-center fw-bold" type="text" value="{{case.id}}" required>
+                </label>
+                <label>Date:
+                    <input class="border-0 border-bottom text-center fw-bold" type="text"
+                        value="{{case.date_created.date}}" required>
+                </label>
+            </div>
+            <div>
+                <label>Patient
+                    Name:
+                    <input class="border-0 border-bottom text-center fw-bold" type="text"
+                        value="{{patient.last_name}}, {{patient.first_name}} {{patient.middle_name}}" required
+                        style="width: 350px;">
+                </label>
+                <input data-datepicker="" class="form-control" id="birthday" type="text" value="{{patient.birthday}}"
+                    hidden>
+                <label>Age:
+                    <input class="border-0 border-bottom text-center fw-bold" type="text" id="age_" required
+                        style="width: 50px;">
+                </label>
+
+                <label>Sex:
+                    <input class="border-0 border-bottom text-center fw-bold" type="text" value="{{patient.gender}}"
+                        required style="width: 50px;">
+                </label>
+                <label>Occupation:
+                    <input class="border-0 border-bottom text-center fw-bold" type="text" value="{{patient.occupation}}"
+                        required style="width: 145px;">
+                </label>
+            </div>
+
+
+            <div>
+                <label>Address:
+                    <input class="border-0 border-bottom text-center fw-bold" type="text" required
+                        style="width: 350px;">
+                </label>
+
+                <label>Mobile #:
+                    <input class="border-0 border-bottom text-center fw-bold" type="text" value="{{patient.phone}}">
+                </label>
+
+                <label>PD:
+                    <input class="border-0 border-bottom text-center fw-bold" type="text" required
+                        style="width: 160px;">
+                </label>
+            </div>
+
+        </div>
+
+
+        <hr>
+
+        <h4>Case History</h4>
+
+        <!-- column left -->
+
+        <div>
+
+            <div class="row">
+                <div class="column" style="background-color:rgb(255, 255, 255);">
+                    <br>
+                    <h5>Patient Statement of complaint/s</h5>
+                    <textarea name="paragraph_text" cols="100" rows="13"></textarea>
+
+                    <p>Medical History
+                        <label class="choice"> <input type="radio" name="DM" required value="male">DM</label>
+                        <label class="choice"> <input type="radio" name="HPN" required value="male">HPN</label>
+                        <label class="choice"> <input type="radio" name="ALLERGIES" required
+                                value="male">ALLERGIES</label><br>
+                        <textarea name="paragraph_text" cols="100" rows="4"></textarea>
+                    </p>
+                    <p>
+                        Ocular History
+                        <textarea name="paragraph_text" cols="100" rows="4"></textarea>
+                    </p>
+                    <p>
+                        Phiscal Condition
+                        <textarea name="paragraph_text" cols="100" rows="4"></textarea>
+                    </p>
+
+                    <P>
+                        Are you taking any kind of treatment/s?
+                        <label class="choice"> <input type="radio" name="yes" required value="male">Y</label>
+                        <label class="choice"> <input type="radio" name="no" required value="male">No</label>
+                    </P>
+
+                    <P>
+                        Dominant Head
+                        <label class="choice"> <input type="radio" name="right" required value="male">Right</label>
+                        <label class="choice"> <input type="radio" name="left" required value="male">Left</label>
+                    </P>
+
+                    <P>
+                        Dominant Eye
+                        <label class="choice"> <input type="radio" name="right" required value="male">Right</label>
+                        <label class="choice"> <input type="radio" name="left" required value="male">Left</label>
+                    </P>
+                    <p>
+                        IPD
+                        <input class="inputline" type="text" name="ipd" placeholder="Enter IPD" required>
+                        <label class="choice"> <input type="radio" name="Anatomical" required
+                                value="Anatomical">Anatomical</label>
+                        <label class="choice"> <input type="radio" name="Catoptric" required
+                                value="Catoptric">Catoptric</label>
+                    </p>
+
+                    <p>
+                        Blood pressure
+                        <input class="inputline" type="text" name="ipd" placeholder="Enter bp" required> <br>
+                        TENTATIVE DIAGNOSIS:
+                        <input class="inputline" type="text" name="tentative diagnosis" placeholder="" required>
+                        Mono PD:
+                        <label class="choice"> <input type="radio" name="OD" required value="OD">OD</label>
+                        <label class="choice"> <input type="radio" name="OS" required value="OS">OS</label>
+
+                        <br><br>
+                </div>
+
+                <!-- column right -->
+                <div class="column" style="background-color:rgb(255, 255, 255);">
+                    <h5>SIGNS AND SYMPTOMS: (Circle all that appllies)</h5>
+
+                    <!-- signs and symptoms column left -->
+                    <div class="column" style="background-color:rgb(255, 255, 255);">
+                        <ol>
+                            <li>
+                                Headache-frontal,temporal,ocipital, introcular, parietal, intermittent movement, after
+                                reading
+                            </li>
+                            <li>
+                                eyes: burn, ache, tire
+                            </li>
+                            <li>
+                                Blur: far, near
+                            </li>
+                            <li>
+                                Pains: smarting, shooting, throbbing
+                            </li>
+                            <li>
+                                Granulation
+                            </li>
+                            <li>
+                                Amblyopis
+                            </li>
+                            <li>
+                                Epiphora
+                            </li>
+                        </ol>
+                    </div>
+                    <!--signs and symptoms column left -->
+
+                    <!-- signs and symptoms column right -->
+                    <div class="column" style="background-color:rgb(255, 255, 255);">
+                        <ol>
+                            <li>
+                                Diplolpia: far, near
+                            </li>
+                            <li>
+                                Photophoiba
+                            </li>
+                            <li>
+                                Hordsolum
+                            </li>
+                            <li>
+                                Redness
+                            </li>
+                            <li>
+                                Muscle Voltantes
+                            </li>
+                            <li>
+                                Plods
+                            </li>
+                            <li>
+                                Nausea or dizziness
+                            </li>
+                            <li>
+                                Visual Fatigue
+                            </li>
+                            <li>
+                                Nervousness
+                            </li>
+                        </ol>
+                    </div>
+                    <!-- signs and symptoms column right end-->
+
+                    <table class="tg">
+                        <thead>
+                            <tr>
+                                <th class="tg-0lax" colspan="3">Visual Tasks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="tg-0lax">reading</td>
+                                <td class="tg-0lax">watching TV</td>
+                                <td class="tg-0lax" rowspan="4">Hobbies/Reacreational
+                                    activities:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="tg-0lax">writing</td>
+                                <td class="tg-0lax">swimming</td>
+                            </tr>
+                            <tr>
+                                <td class="tg-0lax">computing</td>
+                                <td class="tg-0lax">bowling</td>
+                            </tr>
+                            <tr>
+                                <td class="tg-0lax">shopping</td>
+                                <td class="tg-0lax">using computer</td>
+                            </tr>
+                            <tr>
+                                <td class="tg-0lax">inspecting</td>
+                                <td class="tg-0lax">painting</td>
+                                <td class="tg-0lax" rowspan="4">Sports activities:</td>
+                            </tr>
+                            <tr>
+                                <td class="tg-0lax">typing</td>
+                                <td class="tg-0lax">driving</td>
+                            </tr>
+                            <tr>
+                                <td class="tg-0lax">art work</td>
+                                <td class="tg-0lax">tennis</td>
+                            </tr>
+                            <tr>
+                                <td class="tg-0lax">needle work</td>
+                                <td class="tg-0lax">badminton</td>
+                            </tr>
+                            <tr>
+                                <td class="tg-0lax" colspan="3">Others, please specify</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- <hr>
+ <p style="clear:both;">
+    <table class="tg">
+    <thead>
+        <tr>
+          <th class="tg-0lax">               OLD Rx               </th>
+          <th class="tg-0lax">&nbsp;&nbsp;&nbsp;&nbsp;DISTANCE VASC&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th class="tg-0lax">&nbsp;&nbsp;  DISTANCE VACC  &nbsp;&nbsp;</th>
+          <th class="tg-0lax">&nbsp;&nbsp;  NEAR VASC  &nbsp;&nbsp;</th>
+          <th class="tg-0lax">&nbsp;&nbsp;  NEAR VACC  &nbsp;&nbsp;</th>
+          <th class="tg-0lax">&nbsp;&nbsp;      PHV &nbsp;&nbsp;     </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tg-0lax">OD</td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+        </tr>
+        <tr>
+          <td class="tg-0lax">OS</td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+        </tr>
+        <tr>
+          <td class="tg-0lax">OU</td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+          <td class="tg-0lax"></td>
+        </tr>
+      </tbody>
+      </table>
+ </p>           -->
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            var str = $("#birthday").val();
+            const d = Date.parse(str)
+            const num = new Date(d);
+
+
+            var month_diff = Date.now() - num.getTime();
+            var age_dt = new Date(month_diff);
+            var year = age_dt.getUTCFullYear();
+            var age = Math.abs(year - 1970);
+
+
+            var x = document.querySelector('#age_');
+            x.value = age;
+
+        </script>
+</body>
+
+</html>
+<SCRIPT Language=VBScript>

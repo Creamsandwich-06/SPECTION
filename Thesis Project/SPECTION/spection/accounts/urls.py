@@ -80,6 +80,11 @@ urlpatterns = [
     path('View Order/<str:pk>', views.viewOrder, name="view_order"),
     path('update_order/<str:pk>', views.updateOrder, name="update_order"),
     path('delete_order/<str:pk>', views.deleteOrder, name="delete_order"),
+
+    # Print
+    path('patient_list/patient/<str:pk>/Case/<str:case_id>/Print',
+         views.printCase, name="print_case"),
+
     # Reset Passwords
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="accounts/pages/forgot_password.html"),
          name="reset_password"),

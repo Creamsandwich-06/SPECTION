@@ -16,6 +16,7 @@
                 aria-labelledby="dropdownMenuLink-{{order.id}}" style="z-index: 9999;">
                 <div class=" dropdown-header">Action Dropdown: </div>
                 <a href="{% url 'update_case' patient.id case.id %}" class="dropdown-item">Update</a>
+                <a href="{% url 'print_case' patient.id case.id %}" class="dropdown-item">Print Information</a>
                 <div class="dropdown-divider"></div>
 
             </div>

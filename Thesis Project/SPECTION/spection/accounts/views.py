@@ -1,6 +1,8 @@
-
-
+from datetime import datetime
+from multiprocessing import dummy
+from .send_message import send
 from datetime import date
+import webbrowser
 from .analytics import *
 import datetime
 import itertools
@@ -16,24 +18,43 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from .models import *
 
-from django.urls import reverse_lazy
 from bootstrap_modal_forms.generic import (
     BSModalCreateView,
 )
-from django.core.mail import send_mail
-from django.core.mail import mail_admins
+
 from django.core.mail import EmailMessage
 from django.conf import settings
-from django.template import RequestContext
 
 from .filters import *
 import json
 import sys
-import re
+
 # Create your views here.
 currentDate = datetime.date.today()
 currentMonth = currentDate.strftime("%B")
 currentYear = currentDate.strftime('%Y')
+
+
+def sendReminder():
+    appointments = Appointment.objects.all().filter(status="Approved")
+    for appointment in appointments:
+        date_string = str(appointment.date) + " " + str(appointment.time)
+        string_rem_date = str(appointment.date)
+        string_rem_time = str(appointment.time)
+        dummy_date = '2022-08-03 13:35:00'
+        date = datetime.datetime.strptime(dummy_date, '%Y-%m-%d %H:%M:%S')
+        before_date = date - datetime.timedelta(minutes=6)
+        while True:
+            if before_date == datetime.datetime.today():
+                phone = appointment.phone
+                if phone[0] == '0':
+                    phone = phone.replace("0", "+63", 1)
+                reminder_text = "Please be reminded that you have an appointment this " + \
+                    string_rem_date + "at "+string_rem_time + " in Compnay."
+                print('Send')
+            else:
+                print('waiting')
+                break
 
 
 def home(request):
@@ -229,8 +250,15 @@ def appointment(request):
     if request.method == 'POST':
         app_id = request.POST['approved']
         set_app = Appointment.objects.get(id=app_id)
+        phone = set_app.phone
+
+        if phone[0] == '0':
+            phone = phone.replace("0", "+63", 1)
+
         if set_app.status == "Not Approved":
             set_app.status = "Approved"
+            approve_str = "Your Appointment Has been Approve! We will remind you 20 mins before your appoinment to the Clinic! Thank You!"
+            #send(to=phone, text=approve_str)
         else:
             set_app.status = "Not Approved"
         set_app.save()
@@ -1149,3 +1177,29 @@ def deleteOrder(request, pk):
 
     context = {'item': order}
     return render(request, 'admin/forms/delete.html', context)
+
+
+def printCase(request, pk, case_id):
+    patient = Account.objects.get(id=pk)
+    case = Case.objects.get(id=case_id)
+    signs = Signs.objects.get(user=case)
+    refract = Refraction.objects.get(user=case)
+    cover_test = CoverTest.objects.get(user=case)
+    pupil_reflex = PupilReflex.objects.get(user=case)
+    pupil_measure = PupilMeasurement.objects.get(user=case)
+    history = History.objects.get(user=case)
+    form = SignsForm()
+
+    signs_list = signs.signs_details.split(":")
+    visual_task_list = signs.activity_details.split(":")
+    import urllib
+
+    context = {
+        'patient': patient,
+        'case': case,
+        'signs': signs, 'signs_list': signs_list, 'visual_task_list': visual_task_list,
+        'refract': refract, 'cover_test': cover_test, 'pupil_reflex': pupil_reflex, 'pupil_measure': pupil_measure, 'history': history,
+        'form': form,
+    }
+
+    return render(request, 'admin/prints/case.html', context)
