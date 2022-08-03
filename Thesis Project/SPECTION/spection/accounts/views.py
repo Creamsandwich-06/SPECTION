@@ -268,6 +268,31 @@ def appointment(request):
     return render(request, 'admin/pages/appointment.html', context)
 
 
+def appointment_approved(request):
+    order_by_list = ['-date', '-time']
+    appoint = Appointment.objects.all()
+    appointments = appoint.order_by(*order_by_list)
+    if request.method == 'POST':
+        app_id = request.POST['approved']
+        set_app = Appointment.objects.get(id=app_id)
+        phone = set_app.phone
+
+        if phone[0] == '0':
+            phone = phone.replace("0", "+63", 1)
+
+        if set_app.status == "Not Approved":
+            set_app.status = "Approved"
+            approve_str = "Your Appointment Has been Approve! We will remind you 20 mins before your appoinment to the Clinic! Thank You!"
+            #send(to=phone, text=approve_str)
+        else:
+            set_app.status = "Not Approved"
+        set_app.save()
+    context = {
+        'appointments': appointments,
+    }
+    return render(request, 'admin/pages/appointment.html', context)
+
+
 def create_appointment(request):
     form = AppointmentForm()
     if request.method == 'POST':
