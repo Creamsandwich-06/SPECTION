@@ -62,6 +62,8 @@ urlpatterns = [
     # Appointment
     path('Appointment/Create', views.create_appointment,
          name='create_appointment'),
+     path('Appointment/Approved/', views.appointment_approved,
+         name='appointment_approved'),
     path('Appointment/<str:pk>/Delete',
          views.delete_appointment, name='delete_appointment'),
     # Billing

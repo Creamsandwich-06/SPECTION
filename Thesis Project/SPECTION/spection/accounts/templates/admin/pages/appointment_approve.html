@@ -1,0 +1,97 @@
+{% extends 'admin/admin.html' %} {% block title %}Appointment{% endblock %}
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Appointment</h1>
+    <a class="btn btn-primary" href="{% url 'create_appointment' %}" type="button">Add Appointment</a>
+</div>
+<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+    For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+        DataTables documentation</a>.</p>
+
+<a class="btn btn-secondary disabled" href="{% url 'appointment_approved' %}" type="button">Approved</a>
+<a class="btn btn-primary" href="{% url 'appointment' %}" type="button">Not Approved</a>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+<div class="col-xl-12 mt-4">
+    <div class="card shadow mb-4">
+        <div class="card card-body border-0 shadow table-responsive ">
+            <table class="table table-bordered text-center align-middle">
+                <thead>
+                    <tr class="p-0 mb-2 h6 text-dark-100 bolder">
+                        <th scope="col">Lastname</th>
+                        <th scope="col">Firstname</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody class="p-5">
+                    {% for appointment in appointments %}
+                    <tr class="small text-center lh-1">
+                        <td>{{appointment.last_name}}</td>
+                        <td>{{appointment.first_name}}</td>
+                        <td>{{appointment.user}}</td>
+                        <td>{{appointment.phone}}</td>
+                        <td>{{appointment.email}}</td>
+                        <td>{{appointment.purpose}}</td>
+                        <td>{{appointment.date}}</td>
+                        <td>{{appointment.time}}</td>
+                        <td class="align-middle">
+                            {% if appointment.status == "Approved" %}
+                            <span class="badge p-2 bg-info align-middle">{{appointment.status}}</span>
+                            {% else %}
+                            <span class="badge p-2 bg-danger align-middle">{{appointment.status}}</span>
+                            {% endif %}
+
+                        </td>
+                        <td class="text-center">
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-{{order.id}}"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-h fa-lg fa-fw text-gray-400"></i>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink-{{order.id}}">
+                                    <div class="dropdown-header">Action Dropdown: </div>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <input type="text" name="approved" hidden value="{{appointment.id}}">
+                                        {% if appointment.status == 'Not Approved' %}
+                                        <button type="submit" class="dropdown-item">Approved</button>
+                                        {% else %}
+                                        <button type="submit" class="dropdown-item">Not Approved</button>
+                                        {% endif %}
+
+                                    </form>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="{% url 'delete_appointment' appointment.id %}"
+                                        class="dropdown-item">Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+    ;
+</script>
+
+{% endblock %}

@@ -66,9 +66,9 @@ class News(models.Model):
     type = models.CharField(max_length=200, null=True, blank=True)
     date_created = models.DateField(auto_now_add=True)
 
-    def __str__(self) -> str:
+    def __str__(self) -> str: 
         return self.title
-
+    
 class Contact(models.Model):
     email = models.EmailField(max_length=200, null=True, blank=True)
     subject = models.CharField(max_length=200, null=True, blank=True)

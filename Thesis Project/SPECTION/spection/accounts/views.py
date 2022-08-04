@@ -245,7 +245,7 @@ def logoutUser(request):
 
 def appointment(request):
     order_by_list = ['-date', '-time']
-    appoint = Appointment.objects.all()
+    appoint = Appointment.objects.all().filter(status='Not Approved')
     appointments = appoint.order_by(*order_by_list)
     if request.method == 'POST':
         app_id = request.POST['approved']
@@ -270,7 +270,7 @@ def appointment(request):
 
 def appointment_approved(request):
     order_by_list = ['-date', '-time']
-    appoint = Appointment.objects.all()
+    appoint = Appointment.objects.all().filter(status='Approved')
     appointments = appoint.order_by(*order_by_list)
     if request.method == 'POST':
         app_id = request.POST['approved']
@@ -290,7 +290,7 @@ def appointment_approved(request):
     context = {
         'appointments': appointments,
     }
-    return render(request, 'admin/pages/appointment.html', context)
+    return render(request, 'admin/pages/appointment_approve.html', context)
 
 
 def create_appointment(request):
