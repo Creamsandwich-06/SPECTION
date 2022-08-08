@@ -4,9 +4,7 @@
     <h1 class="h3 mb-0 text-gray-800">Patients List</h1>
     <a class="btn btn-primary" href="{% url 'register' %}" type="button">Register Patient</a>
 </div>
-<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-    For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
-        DataTables documentation</a>.</p>
+
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 
@@ -17,7 +15,7 @@
 <div class="card shadow mb-4 border">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered text-center align-middle">
+            <table class="table table-bordered text-center align-middle" id="dataTable">
                 <thead>
                     <tr>
                         <th>User</th>

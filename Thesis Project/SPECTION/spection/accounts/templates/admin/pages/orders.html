@@ -4,16 +4,29 @@
     <h1 class="h3 mb-0 text-gray-800">Orders</h1>
     <a class="btn btn-primary" href="{% url 'create_order' %}" type="button" name="button">Create Orders</a>
 </div>
-<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-    For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
-        DataTables documentation</a>.</p>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 <form action="" method="get">
     {% csrf_token %}
     <div class="card shadow mb-4">
         <div class="card-header">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#confirm_delete_all">Delete Selected Order</button>
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#confirm_delete_all">Delete Selected Order</button>
+
+                <div>
+                    <a class="btn btn-secondary" href="{% url 'orders' %}" type="button" name="button">Unsetlled
+                    </a>
+                    <a class="btn btn-info" href="{% url 'orders_fully_paid' %}" type="button" name="button">Fully
+                        Paid</a>
+                    <a class="btn btn-warning" href="{% url 'orders_negative' %}" type="button" name="button">Negative
+                        Balance</a>
+                </div>
+
+            </div>
+
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -24,7 +37,8 @@
                             <th class="text-center">Order #</th>
                             <th>Lastname</th>
                             <th>Firstname</th>
-                            <th>Quantitiy</th>
+                            <th>Payment Type</th>
+                            <th>Quantity</th>
                             <th>Price</th>
                             <th>Type</th>
                             <th>Date Created</th>
@@ -36,11 +50,12 @@
                     <tbody>
                         {% for order in orders%}
                         <tr class="small text-center lh-1">
-                            <td class="text-center"><input type="checkbox" id="checkbox-{{order.id}}"
+                            <td class="text-center"><input type="checkbox" id="checkbox_{{order.id}}"
                                     value="checkbox_{{order.id}}" name="checkbox_{{order.id}}"></td>
                             <td class="text-center">{{order.id}}</td>
                             <td>{{order.user.account.last_name}}</td>
                             <td>{{order.user.account.first_name}}</td>
+                            <td>{{order.payment_type}}</td>
                             <td>{{order.quantity}}</td>
                             <td>{{order.price}}</td>
                             <td>{{order.type}}</td>
@@ -177,6 +192,11 @@
     </div>
 </section>
 {% endfor %}
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+</script>
 <script type="text/javascript">
     $('#select-all').click(function (event) {
         if (this.checked) {

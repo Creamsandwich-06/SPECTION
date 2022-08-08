@@ -8,6 +8,8 @@
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
     For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
         DataTables documentation</a>.</p>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <div class="d-flex justify-content-center">
     <div id="calendar"></div>
@@ -19,15 +21,18 @@
 <div class="col-xl-12 mt-4">
     <div class=" card rounded-0  mb-4">
         <div class=" card card-body border-0  table-responsive ">
-            <table class="table table-bordered text-center align-middle">
-                <tr class="p-0 mb-2 h6 text-dark-100 bolder">
-                    <th scope="col">Title</th>
-                    <th scope="col ">Description</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">is Every Year</th>
-                    <th scope="col" class="text-center">Action</th>
-                </tr>
+            <table class="table table-bordered text-center align-middle" id="dataTable">
+                <thead>
+                    <tr class="p-0 mb-2 h6 text-dark-100 bolder">
+                        <th scope="col">Title</th>
+                        <th scope="col ">Description</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">is Every Year</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+
                 <tbody class="p-5 ">
                     {% for schedule in schedule%}
                     <tr class="small text-center lh-1">
@@ -73,6 +78,11 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>
 <script type="text/javascript" src="{% static '/js/admin.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+</script>
 <script>
     var item = JSON.parse(jsonstr)
 

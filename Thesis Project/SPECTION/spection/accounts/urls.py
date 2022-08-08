@@ -77,12 +77,14 @@ urlpatterns = [
     path('News/<str:pk>/update/', views.update_news, name="update_news"),
     path('News/<str:pk>/delete/', views.delete_news, name="delete_news"),
     # Order
-    path('orders/', views.orders, name='orders'),
+    path('orders/Unsettled', views.orders, name='orders'),
+     path('orders/Fully Paid', views.orders_fully_paid, name='orders_fully_paid'),
+       path('orders/Negative Balance', views.orders_negative, name='orders_negative'),
     path('create_order/', views.create_order, name='create_order'),
     path('View Order/<str:pk>', views.viewOrder, name="view_order"),
     path('update_order/<str:pk>', views.updateOrder, name="update_order"),
     path('delete_order/<str:pk>', views.deleteOrder, name="delete_order"),
-
+ 
     # Print
     path('patient_list/patient/<str:pk>/Case/<str:case_id>/Print',
          views.printCase, name="print_case"),

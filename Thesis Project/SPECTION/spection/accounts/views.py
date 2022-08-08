@@ -1,5 +1,5 @@
 from datetime import datetime
-from multiprocessing import dummy
+from dateutil.relativedelta import relativedelta
 from .send_message import send
 from datetime import date
 import webbrowser
@@ -964,7 +964,67 @@ def products(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def orders(request):
-    orders = Order.objects.all().order_by('-date_created')
+    orders = Order.objects.all().order_by('-date_created').filter(status='Unsettled')
+    myFilter = Orderfilter(request.GET, queryset=orders)
+    orders = myFilter.qs
+    form = OrderForm()
+
+    delete_list = []
+    checkboxes = request.GET
+    for checkbox in checkboxes:
+        x = checkbox.split("_")
+        delete_list.append(x)
+    for delete in delete_list[1:]:
+        order = Order.objects.get(id=delete[1])
+        order.delete()
+
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        id = request.POST['get_id']
+        order = Order.objects.get(id=id)
+        due = order.due
+        amount = request.POST['amount']
+      
+        due_price = float(due) - float(amount)
+
+        if due_price > 0:
+            status = "Unsettled"
+            description = "You have an unsettled balance!"
+        elif due_price == 0:
+            status = "Fully Paid"
+            description = "Thank you for purchasing our Product!"
+        else:
+            status = "Negative Balance"
+            description = "It looks like you have a negative balance. We will add this up for your next purchase!"
+
+        if form.is_valid():
+            order.due = due_price
+            order.status = status
+            order.save()
+
+            Billing.objects.create(
+                order=order,
+                remain_due=due_price,
+                amount=float(amount),
+                description=description,
+            )
+            messages.success(request, 'Order has been successfully Updated!')
+            return redirect('orders')
+        else:
+            messages.error(request, 'Input Fields Error!')
+
+    context = {
+        'orders': orders,
+        'myFilter': myFilter,
+        'form': form,
+    }
+    return render(request, 'admin/pages/orders.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def orders_fully_paid(request):
+    orders = Order.objects.all().order_by('-date_created').filter(status='Fully Paid')
     myFilter = Orderfilter(request.GET, queryset=orders)
     orders = myFilter.qs
     form = OrderForm()
@@ -1019,6 +1079,63 @@ def orders(request):
     }
     return render(request, 'admin/pages/orders.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def orders_negative(request):
+    orders = Order.objects.all().order_by('-date_created').filter(status='Negative Balance')
+    myFilter = Orderfilter(request.GET, queryset=orders)
+    orders = myFilter.qs
+    form = OrderForm()
+
+    delete_list = []
+    checkboxes = request.GET
+    for checkbox in checkboxes:
+        x = checkbox.split("_")
+        delete_list.append(x)
+    for delete in delete_list[1:]:
+        order = Order.objects.get(id=delete[1])
+        order.delete()
+
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        id = request.POST['get_id']
+        order = Order.objects.get(id=id)
+        due = order.due
+        amount = request.POST['amount']
+        due_price = float(due) - float(amount)
+
+        if due_price > 0:
+            status = "Unsettled"
+            description = "You have an unsettled balance!"
+        elif due_price == 0:
+            status = "Fully Paid"
+            description = "Thank you for purchasing our Product!"
+        else:
+            status = "Negative Balance"
+            description = "It looks like you have a negative balance. We will add this up for your next purchase!"
+
+        if form.is_valid():
+            order.due = due_price
+            order.status = status
+            order.save()
+
+            Billing.objects.create(
+                order=order,
+                remain_due=due_price,
+                amount=float(amount),
+                description=description,
+            )
+            messages.success(request, 'Order has been successfully Updated!')
+            return redirect('orders')
+        else:
+            messages.error(request, 'Input Fields Error!')
+
+    context = {
+        'orders': orders,
+        'myFilter': myFilter,
+        'form': form,
+    }
+    return render(request, 'admin/pages/orders.html', context)
 
 def create_order(request):
     patient = User.objects.filter(groups__name='patient')
@@ -1043,8 +1160,19 @@ def create_order(request):
         quantity = request.POST['quantity']
         price = request.POST['price']
         amount = request.POST['amount']
+        payment_type = request.POST['payment_type']
+        months = request.POST['months']
+        annual_rate = request.POST['annual_rate']
 
-        due = (float(price)*int(quantity)) - float(amount)
+        if payment_type == 'Full Pay':
+            due = (float(price)*int(quantity)) - float(amount)
+        else:
+            r = float(annual_rate) / (12 * 100)
+            emi = (float(price)*int(quantity)) * r * ((1 + r) ** int(months)) / ((1 + r) ** int(months) - 1)
+            due = emi - float(amount)
+            if due < 1 and due > 0:
+                due = 0
+
         if due > 0:
             status = "Unsettled"
             description = "You have an unsettled balance!"
@@ -1105,15 +1233,29 @@ def create_order(request):
             dispense_details = ":".join(dispense_details)
             order_details = ":".join(order_array)
             product_details = ":".join(product_array)
-
-            order = form.save(commit=False)
-            order.user = user
-            order.due = due
-            order.status = status
-            order.lab_details = order_details
-            order.dispense_details = dispense_details
-            order.product_details = product_details
-            order.save()
+            if payment_type == "Full Pay":
+                order = form.save(commit=False)
+                order.user = user
+                order.due = due
+                order.status = status
+                order.lab_details = order_details
+                order.dispense_details = dispense_details
+                order.product_details = product_details
+                order.payment_type = payment_type
+                order.save()
+            else:
+                for x in range(int(months)):
+                    paid_until = datetime.datetime.today() + relativedelta(months=x+1)
+                    order = form.save(commit=False)
+                    order.user = user
+                    order.due = due
+                    order.status = status
+                    order.lab_details = order_details
+                    order.dispense_details = dispense_details
+                    order.paid_until = paid_until
+                    order.product_details = product_details
+                    order.payment_type = payment_type
+                    order.save()
 
             Billing.objects.create(
                 order=order,

@@ -482,6 +482,22 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label>Payment Type</label>
+                                <div class="input-group">
+                                    <label class="input-group-text" for="inputGroupSelect01">Payment</label>
+                                    <select class="form-select" name="payment_type" id="payment_type"
+                                        aria-label="Default select example">
+
+                                        <option value="Full Pay" selected>Full Pay</option>
+                                        <option value="Installment Pay">Installment Pay</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
                             <div class="col-md-6">
                                 <label for="address">Total Price</label>
                                 <div class="input-group mb-3">
@@ -499,6 +515,35 @@
 
                             </div>
                         </div>
+                        <div id="interest">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="address">Annual Interest Rate</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"> % </span>
+                                        <input class="form-control" type="text" id="annual_rate" name="annual_rate">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label for="address">Number of Months</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"> Month</span>
+                                        <input class="form-control" type="text" id="months" name="months">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="address">Equated Monthly Installment</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"> &#8369;
+                                        </span>
+                                        <input class="form-control" type="text" id="equated" name="equated">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="address">Amount</label>
@@ -508,7 +553,6 @@
                                         placeholder="Enter Amount to Pay">
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="modal-footer ">
@@ -594,10 +638,51 @@
         console.log(utc);
         get_date.value = utc;
     }
-    getPrice()
-    getDue()
-    getToday()
+    function getInstallment() {
+        const annual_rate = document.getElementById("annual_rate");
+        const equated = document.getElementById("equated");
+        const months = document.getElementById("months");
+        const get_price = document.getElementById("get_price");
+        var r;
+        var emi;
+        const inputHandler = function (e) {
+            r = parseFloat(annual_rate.value) / (12 * 100);
+            emi = get_price.value * r * ((1 + r) ** months.value) / ((1 + r) ** months.value - 1);
 
+            equated.value = Math.round(emi * 100) / 100;
+        }
+
+        equated.addEventListener('input', inputHandler);
+        equated.addEventListener('propertychange', inputHandler);
+        annual_rate.addEventListener('input', inputHandler);
+        annual_rate.addEventListener('propertychange', inputHandler);
+        months.addEventListener('input', inputHandler);
+        months.addEventListener('propertychange', inputHandler);
+        get_price.addEventListener('input', inputHandler);
+        get_price.addEventListener('propertychange', inputHandler);
+    }
+    function getInstallmentDue() {
+        const due = document.getElementById("due");
+        const amount = document.getElementById("amount");
+        const equated = document.getElementById("equated");
+
+        var due_value;
+        const inputHandler = function (e) {
+            due_value = equated.value - amount.value
+            due.value = due_value;
+        }
+
+        amount.addEventListener('input', inputHandler);
+        amount.addEventListener('propertychange', inputHandler);
+        equated.addEventListener('input', inputHandler);
+        equated.addEventListener('propertychange', inputHandler);
+        due.addEventListener('input', inputHandler);
+        due.addEventListener('propertychange', inputHandler);
+    }
+    getInstallment();
+    getPrice();
+    getToday();
+    getDue();
     $("#glasses").css({ display: "none", visibility: "hidden" });
     $("#product").css({
         display: "none",
@@ -644,6 +729,27 @@
                 display: "none",
                 visibility: "hidden"
             });
+        }
+    });
+    $("#interest").css({
+        display: "none",
+        visibility: "hidden"
+    });
+    $("#payment_type").change(function () {
+        var selectedText = $("#payment_type option:selected").text()
+        if (selectedText == 'Installment Pay') {
+            $("#interest").css({
+                display: "inline",
+                visibility: "visible",
+                gridRow: "1 / span 2",
+            });
+            getInstallmentDue();
+        } else {
+            $("#interest").css({
+                display: "none",
+                visibility: "hidden"
+            });
+            getDue();
         }
     });
 

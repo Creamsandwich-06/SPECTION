@@ -248,12 +248,20 @@ class Order(models.Model):
         ('Glasses', 'Glasses'),
         ('Product', 'Product'),
     )
+    PAY_TYPE = (
+        ('Installment Pay', 'Installment Pay'),
+        ('Full Pay', 'Full Pay'),
+    )
 
     user = models.ForeignKey(User, null=True, blank=True,on_delete=models.CASCADE)
     price = models.FloatField(null=True,blank=True)
     quantity = models.IntegerField(null=True,blank=True)
     due = models.FloatField(null=True,blank=True)
     type = models.CharField(max_length=200, null=True,blank=True, choices=TYPE)
+    payment_type = models.CharField(max_length=200, null=True,blank=True, choices=PAY_TYPE)
+    months = models.CharField(default='0',max_length=200, null=True, blank=True)
+    paid_until =  models.DateTimeField(blank=True,null=True)
+    annual_rate = models.CharField(default='0',max_length=200, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     product_details = models.CharField(default='None:',max_length=200, null=True, blank=True)
     dispense_details = models.CharField(default='None:',max_length=200, null=True, blank=True)
