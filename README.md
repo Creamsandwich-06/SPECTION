@@ -1,10 +1,11 @@
 # Perspective Inspection Eye Care (SPECTION) - Clinical Health Care Website with Health Care Analytics and Clinical Reservation Appointment System
 ## Background
-Spection is an application that stores patient data and provides users accommodation and appointments in clinical operations. It is designed to collect data from individuals who provide patient care and have experience in managing clinical healthcare services. It's simply built on Model-View-Controller (MVC) architectural pattern and has a feature to analyze patients overview with the use of Healthcare Analytics that create graphical trend of data. It is simply a conversion storing hard copies of data into softcopy with a secure database. 
 
- Spection is a web based application. It carries out the function of maintaining patients’ medical details. The users can add patients, enter medical history about them, schedule appointment for medical checkups, enter diagnosis for all appointments, and generate reports. As it is a web based application it can be accessed from anywhere at any time from desktops and mobiles. So doctors need not waste their time by writing the details on papers and storing papers by maintaining proper order which may increase the probability of losing data and also it saves time on booking appointments for patients since we can book appointments online even during our free time instead of going to a particular place to book appointments for our loved ones in person. We have provided login facility to users and admin panel to maintain different user accounts like doctor, receptionist etc. The privacy of data is considered as utmost priority so that no one can misuse the data stored in our database.
- 
-The graphical trend will serve as an overview of the diagnosis and diseases experienced by the patients. Gives the doctor’s knowledge and awareness. With Spection, medical health practitioners can provide quick response to various health concerns as it provides efficient ways of accommodating patients alike.
+A healthcare website is an online application that connects people using the internet. This research paper focuses on the online healthcare website that aims to develop starter clinics. The website is almost the same with the various healthcare websites on the internet but has a different feature. Many companies invested in online websites like Roque eye clinic and American eye center Philippines because of its advantageous benefits not just connect people online without going physically to the clinic but also it has many sources you can read and understand the importance of your health. 
+
+Since many eye clinic websites that are broad and starter clinics are incapable of acquiring them. Spection provides them a customized website specifically for them. What makes Spection different are the targeted starter ophthalmologist clinics and has a feature that are designed for them locally to maximize its capabilities and it’s feature of helping many patients as possible. 
+
+In conclusion only big companies that has the advantage of providing online healthcare websites to cater many patients as possible. But that makes no difference of the starter clinics because in general many patients cannot regularly check their health because the lack of time and wealth to inquire at big clinics that has an online website to reduce their time of inquiring and attending appointments.
 
 ## Features
 
@@ -61,6 +62,10 @@ The graphical trend will serve as an overview of the diagnosis and diseases expe
  <tr>
     <td>Machine Learning<br>Framework</td>
     <td>PyTorch</td>
+ </tr>
+ <tr>
+    <td>Chatbot</td>
+    <td>Facebook Messenger</td>
  </tr>
 </table>
  
